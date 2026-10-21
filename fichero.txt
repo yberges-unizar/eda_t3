@@ -1,0 +1,32 @@
+
+espec Anuncios
+usa cadenas, fechas1
+género anuncio {Los valores del TAD anuncio representarán tuplas formadas como:
+ (identificador, título, descripción, categoría, publicación, finalización), siendo publicación y
+ finalización sendas fechas (válidas según el calendario gregoriano), y el resto sendas cadenas.}
+operaciones
+ crearAnuncio: cadena ID, cadena t, cadena descrip, cadena categ, fecha publi, fecha fi  anuncio
+{Devuelve un anuncio compuesto con identificador ID, título t, descripción descrip, categoría
+categ, y con fecha de publicación publi y fecha de finalización fi.}
+suIdentificador: anuncio e  cadena
+{Dado un anuncio e formado como (I,T,D,C,P,F) devuelve I, i.e. el identificador del anuncio e.}
+suTítulo: anuncio e  cadena
+{Dado un anuncio e formado como (I,T,D,C,P,F) devuelve T, i.e. el título del anuncio e.}
+cambiarTítulo: anuncio e, cadena n  anuncio
+{Dado un anuncio e formado como (I,T,D,C,P,F) y una cadena n, devuelve un anuncio igual al
+compuesto como (I,n,D,C,P,F).}
+suDescripción: anuncio e  cadena
+{Dado un anuncio e formado como (I,T,D,C,P,F) devuelve D, i.e. la descripción del anuncio e.}
+cambiarDescripción: anuncio e, cadena n  anuncio
+{Dado un anuncio e formado como (I,T,D,C,P,F) y una cadena n, devuelve un anuncio igual al
+compuesto como (I,T,n,C,P,F).}
+suCategoria: anuncio e  cadena
+{Dado un anuncio e formado como (I,T,D,C,P,F) devuelve C, i.e. la categoría del anuncio e.}
+cambiarCategoria: anuncio e, cadena n  anuncio
+{Dado un anuncio e formado como (I,T,D,C,P,F) y una cadena n, devuelve un anuncio igual al
+compuesto como (I,T,D,n,P,F).}
+suPublicación: anuncio e  fecha
+{Dado un anuncio e formado como (I,T,D,C,P,F) devuelve P, i.e. la fecha de publicación de e.}
+suFinalización: anuncio e  fecha
+{Dado un anuncio e formado como (I,T,D,C,P,F) devuelve F, i.e. la fecha de finalización de e.}
+fespec
