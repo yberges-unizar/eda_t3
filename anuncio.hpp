@@ -1,7 +1,6 @@
 /* Yaret Berges Calero; 838561
 */
 
-#include<iostream>
 #include<string>
 #include "fecha.hpp"
 
@@ -36,18 +35,18 @@ string suTitulo(Anuncio e);
 Dado un anuncio e formado como (I,T,D,C,P,F) y una cadena n, devuelve un anuncio igual al
 compuesto como (I,n,D,C,P,F)
  */
-Anuncio cambiarTítulo(Anuncio e, string n);
+Anuncio cambiarTitulo(Anuncio e, string n);
 
 /*
  * Dado un anuncio e formado como (I,T,D,C,P,F) devuelve D, i.e. la descripción del anuncio e
  */
-string suDescripción(Anuncio e);
+string suDescripcion(Anuncio e);
 
 /*
  Dado un anuncio e formado como (I,T,D,C,P,F) y una cadena n, devuelve un anuncio igual al
  compuesto como (I,T,n,C,P,F)
  */
-Anuncio cambiarDescripción(Anuncio e, string n);
+Anuncio cambiarDescripcion(Anuncio e, string n);
 
 /*
  * Dado un anuncio e formado como (I,T,D,C,P,F) devuelve C, i.e. la categoría del anuncio e
@@ -63,12 +62,12 @@ Anuncio cambiarCategoria(Anuncio e, string n);
 /*
  * Dado un anuncio e formado como (I,T,D,C,P,F) devuelve P, i.e. la fecha de publicación de e
  */
-Fecha suPublicación(Anuncio e);
+Fecha suPublicacion(Anuncio e);
 
 /*
  * Dado un anuncio e formado como (I,T,D,C,P,F) devuelve F, i.e. la fecha de finalización de e
  */
-Fecha suFinalización(Anuncio e);
+Fecha suFinalizacion(Anuncio e);
 
 // FIN de la PREDECLARACION DEL TAD anuncio (fin INTERFAZ)
 
@@ -76,7 +75,16 @@ Fecha suFinalización(Anuncio e);
 
 
 struct Anuncio {
-    friend void crearAnuncio(string id, string t, string descrip, string categ, Fecha publi, Fecha fi);
+    friend Anuncio crearAnuncio(string id, string t, string descrip, string categ, Fecha publi, Fecha fi);
+    friend string suIdentificador(Anuncio e);
+    friend string suTitulo(Anuncio e);
+    friend Anuncio cambiarTitulo(Anuncio e, string n);
+    friend string suDescripcion(Anuncio e);
+    friend Anuncio cambiarDescripcion(Anuncio e, string n);
+    friend string suCategoria(Anuncio e);
+    friend Anuncio cambiarCategoria(Anuncio e, string n);
+    friend Fecha suPublicacion(Anuncio e);
+    friend Fecha suFinalizacion(Anuncio e);
 
     private:
         string id;

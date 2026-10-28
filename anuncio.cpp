@@ -18,12 +18,12 @@ string suTitulo(Anuncio e) {
     return e.titulo;
 }
 
-Anuncio cambiarTítulo(Anuncio e, string n) {
+Anuncio cambiarTitulo(Anuncio e, string n) {
     e.titulo = n;
     return e;
 }
 
-string suDescripción(Anuncio e) {
+string suDescripcion(Anuncio e) {
     return e.descripcion;
 }
 
@@ -36,15 +36,15 @@ Anuncio cambiarCategoria(Anuncio e, string n) {
     return e;
 }
 
-Anuncio cambiarDescripción(Anuncio e, string n) {
+Anuncio cambiarDescripcion(Anuncio e, string n) {
     e.descripcion = n;
     return e;
 }
 
-Fecha suPublicación(Anuncio e) {
+Fecha suPublicacion(Anuncio e) {
     return e.publicacion;
 }
 
-Fecha suFinalización(Anuncio e) {
+Fecha suFinalizacion(Anuncio e) {
     return e.finalizacion;
 }
