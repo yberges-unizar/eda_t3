@@ -1,7 +1,7 @@
 #ifndef _FECHA_HPP
 #define _FECHA_HPP
 
-// Interfaz del TAD fecha. Pre-declaraciones:
+// Interfaz del TAD fecha. Pre-declaraciones del TAD Fecha y la funcion crear
 
 /* Los valores del TAD fecha representan fechas válidas
  * según las reglas del calendario gregoriano (adoptado en 1583) */
@@ -34,8 +34,7 @@ bool anterior(const Fecha& f1, const Fecha& f2);
  * posterior a la fecha f2 */
 bool posterior(const Fecha& f1, const Fecha& f2);
 
-// Declaración
-
+// Declaración de la estructura de datos que representa el TAD fecha.
 struct Fecha {
     friend void crear(int dia, int mes, int anyo, Fecha& f, bool& error) ;
     friend int dia(const Fecha& f);
