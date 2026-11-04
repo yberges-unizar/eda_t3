@@ -1,3 +1,6 @@
+#ifndef COLECCIONITF_HPP
+#define COLECCIONITF_HPP
+
 #include <string>
 #include "fecha.hpp"
 
@@ -9,7 +12,7 @@ template<typename ITF> struct coleccionITF;
 
 // Zona de decalracion de las operaciones de la colección de ITF
 
-// Crea una coleccion vacia, es decir sin ITF
+// Crea una coleccion vacia, es decir sin elementos
 template<typename ITF> void crear(coleccionITF<ITF>& c);
 
 
@@ -25,6 +28,7 @@ template<typename ITF> void añadir(coleccionITF<ITF>& c, const ITF& i);
  a la resultante de sustituir en c el ítem que tenía identificador igual al de i, por el ítem i.
 */
 template<typename ITF> void actualizar(coleccionITF<ITF>& c, const ITF& i);
+     
 
 
 /*Si en c hay algún ítem con identificador igual a ident,
@@ -108,7 +112,11 @@ template<typename ITF> ITF siguiente(coleccionITF<ITF>& c);
 */
 template<typename ITF> void avanza(coleccionITF<ITF>& c);
 
-
+template <typename ITF>
+struct nodo {
+    ITF dato;
+    nodo<ITF>* sig;
+};
 
 template <typename ITF>
 //ColeccionITF es una coleccion de n ITF ORDENADOS por su identificador, y sin repetidos.

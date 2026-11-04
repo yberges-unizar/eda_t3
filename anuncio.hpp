@@ -2,6 +2,7 @@
 */
 
 #include<string>
+#include <iostream>
 #include "fecha.hpp"
 
 using namespace std;
@@ -19,7 +20,7 @@ struct Anuncio;
  Devuelve un anuncio compuesto con identificador ID, título t, descripción descrip, categoría
  categ, y con fecha de publicación publi y fecha de finalización fi
  */
-Anuncio crearAnuncio(string id, string t, string descrip, string categ, Fecha publi, Fecha fi);
+void crearAnuncio(string id, string t, string descrip, string categ, Fecha publi, Fecha fi, Anuncio &anuncio);
 
 /*
  Dado un anuncio e formado como (I,T,D,C,P,F) devuelve I, i.e. el identificador del anuncio e
@@ -75,7 +76,7 @@ Fecha suFinalizacion(Anuncio e);
 
 
 struct Anuncio {
-    friend Anuncio crearAnuncio(string id, string t, string descrip, string categ, Fecha publi, Fecha fi);
+    friend void crearAnuncio(string id, string t, string descrip, string categ, Fecha publi, Fecha fi, Anuncio& anuncio);
     friend string suIdentificador(Anuncio e);
     friend string suTitulo(Anuncio e);
     friend Anuncio cambiarTitulo(Anuncio e, string n);

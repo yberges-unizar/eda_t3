@@ -1,0 +1,14 @@
+A
+ID40
+Maleta pequeña
+Maleta con ruedas, pequeña, buen estado.
+En venta
+2026-09-20
+2026-09-01
+A
+ID10
+Maleta cabina
+Compraria maleta cabina tamaño Ryanair
+Compra
+2026-09-10
+2026-11-20
