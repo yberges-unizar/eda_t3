@@ -1,6 +1,10 @@
-#include <string>
 #ifndef COLECCIONITF_HPP
 #define COLECCIONITF_HPP
+
+#include <string>
+#include "anuncio.hpp"
+
+using namespace std;
 
 
 
@@ -106,22 +110,36 @@ template<typename ITF> ITF siguiente(coleccionITF<ITF>& c); //falta definir el p
 */
 template<typename ITF> void avanza(coleccionITF<ITF>& c);
 
-
-/* 
- * Definición de los struct para el TAD genérico colecciónITF
- */
-
 template <typename ITF>
 struct nodo {
-    ITF dato;           // Elemento genérico almacenado
-    nodo<ITF>* sig;     // Puntero al siguiente nodo de la lista enlazada
+    ITF dato;
+    nodo<ITF>* sig;
 };
 
 template <typename ITF>
 struct coleccionITF {
-    nodo<ITF>* primero; // Puntero al primer nodo de la lista ordenada
-    int tamaño;         // Número total de elementos en la colección
-    nodo<ITF>* cursor;  // Cursor auxiliar para implementar el iterador
+    friend void crear<ITF>(coleccionITF<ITF>& c);
+    friend void añadir<ITF>(coleccionITF<ITF>& c, const ITF& i);
+    friend void actualizar<ITF>(coleccionITF<ITF>& c, const ITF& i);
+    friend void borrar<ITF>(coleccionITF<ITF>& c, const ITF& ident);
+    friend bool esta<ITF>(coleccionITF<ITF>& c, const std::string& ident);
+    friend ITF obtenerITF<ITF>(coleccionITF<ITF>& c, const std::string& ident);
+    friend std::string obsoletos<ITF>(coleccionITF<ITF>& c, const std::string& separador, const int& f);
+    friend void purgar<ITF>(coleccionITF<ITF>& c, const int& f);
+    friend bool existeTema<ITF>(coleccionITF<ITF>& c, const std::string& t);
+    friend std::string delTema<ITF>(coleccionITF<ITF>& c, const std::string& t, const std::string& separador);
+    friend void zanjarTema<ITF>(coleccionITF<ITF>& c, const std::string& t);
+    friend bool esVacía<ITF>(coleccionITF<ITF>& c);
+    friend int tamaño<ITF>(coleccionITF<ITF>& c);
+    friend void iniciarIterador<ITF>(coleccionITF<ITF>& c);
+    friend bool existeSiguiente<ITF>(coleccionITF<ITF>& c);
+    friend ITF siguiente<ITF>(coleccionITF<ITF>& c);
+    friend void avanza<ITF>(coleccionITF<ITF>& c);
+
+private:
+    nodo<ITF>* primero;
+    int tamaño;
+    nodo<ITF>* cursor;
 };
 
 // -----------------------------------------------------------------------------
@@ -129,11 +147,11 @@ struct coleccionITF {
 // Post: Devuelve verdad si y sólo si en c hay algún item con tema igual a t.
 // -----------------------------------------------------------------------------
 template <typename ITF>
-bool existeTema(const std::string& t, const coleccionITF<ITF>& c) {
+bool existeTema(coleccionITF<ITF>& c, const std::string& t) {
     bool encontrado = false;
     nodo<ITF>* aux = c.primero;
     while (aux != nullptr && !encontrado) {
-        if (tema(aux->dato) == t) {
+        if (suCategoria(aux->dato) == t) {
             encontrado = true;
         }
         aux = aux->sig;
@@ -147,17 +165,17 @@ bool existeTema(const std::string& t, const coleccionITF<ITF>& c) {
 //       los items que hay en c con tema igual a t, separados por separador.
 // -----------------------------------------------------------------------------
 template <typename ITF>
-std::string delTema(const std::string& t, const std::string& separador, const coleccionITF<ITF>& c) {
+std::string delTema(coleccionITF<ITF>& c, const std::string& t, const std::string& separador) {
     std::string resultado = "";
     nodo<ITF>* aux = c.primero;
     bool primero = true;
     
     while (aux != nullptr) {
-        if (tema(aux->dato) == t) {
+        if (suCategoria(aux->dato) == t) {
             if (!primero) {
                 resultado += separador;
             }
-            resultado += identificador(aux->dato);
+            resultado += suIdentificador(aux->dato);
             primero = false;
         }
         aux = aux->sig;
@@ -165,7 +183,4 @@ std::string delTema(const std::string& t, const std::string& separador, const co
     return resultado;
 }
 
-
-
-
-#endif 
+#endif
