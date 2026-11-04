@@ -4,6 +4,10 @@
 #include <string>   //importante para manejar 
 #include <fstream> //para abrir archivos
 
+using namespace std;
+
+void procesarEntrada(const std::string entrada, std::ifstream& archivo);
+
 int main()
 {
     std::cout << "Hello, World!" << std::endl;
