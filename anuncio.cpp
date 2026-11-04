@@ -5,16 +5,13 @@
 #include "anuncio.hpp"
 
 
-Anuncio crearAnuncio(string id, string t, string descrip, string categ, Fecha publi, Fecha fi) {
-    Anuncio anuncio;
+void crearAnuncio(string id, string t, string descrip, string categ, Fecha publi, Fecha fi, Anuncio& anuncio) {
     anuncio.id = id;
     anuncio.titulo = t;
     anuncio.descripcion = descrip;
     anuncio.categoria = categ;
     anuncio.publicacion = publi;
     anuncio.finalizacion = fi;
-
-    return anuncio;
 }
 
 string suIdentificador(Anuncio e) {
