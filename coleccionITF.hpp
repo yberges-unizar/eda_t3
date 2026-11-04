@@ -27,6 +27,7 @@ template<typename ITF> void añadir(coleccionITF<ITF>& c, const ITF& i);
  a la resultante de sustituir en c el ítem que tenía identificador igual al de i, por el ítem i.
 */
 template<typename ITF> void actualizar(coleccionITF<ITF>& c, const ITF& i);
+     
 
 
 /*Si en c hay algún ítem con identificador igual a ident,
@@ -181,6 +182,27 @@ std::string delTema(coleccionITF<ITF>& c, const std::string& t, const std::strin
         aux = aux->sig;
     }
     return resultado;
+}
+
+//  Si en c no hay ningún item con identificador igual al de i, devuelve una 
+//  colección igual a c. En caso contrario, devuelve una colección igual a la 
+//  resultante de sustituir en c el ítem que tenía ese identificador por el ítem i.
+template <typename ITF>
+coleccionITF<ITF> actualizar(const coleccionITF<ITF>& c, const ITF& i) {
+
+    nodo<ITF>* aux = c.primero;
+    bool encontrado = id_coincidente(aux, i); 
+    
+    nodo<ITF>* actual = c.primero;
+    while (actual != nullptr && identificador(actual->dato) != identificador(i)) {
+        actual = actual->sig;
+    }
+    
+    if (actual != nullptr) {
+        actual->dato = i;
+    }
+    
+    return c;
 }
 
 #endif
