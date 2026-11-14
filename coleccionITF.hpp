@@ -13,7 +13,7 @@ template<typename ITF> struct coleccionITF;
 // Zona de decalracion de las operaciones de la colección de ITF
 
 // Crea una coleccion vacia, es decir sin elementos
-template<typename ITF> void crear(coleccionITF<ITF>& c);
+template<typename ITF> void crear();
 
 
 /*Si en c no hay ningún ítem con identificador igual al de i,
@@ -112,17 +112,12 @@ template<typename ITF> ITF siguiente(coleccionITF<ITF>& c);
 */
 template<typename ITF> void avanza(coleccionITF<ITF>& c);
 
-template <typename ITF>
-struct nodo {
-    ITF dato;
-    nodo<ITF>* sig;
-};
 
-template <typename ITF>
+
 //ColeccionITF es una coleccion de n ITF ORDENADOS por su identificador, y sin repetidos.
 //Estan unidos entre si mediante punteros.
-struct coleccionITF {
-friend void crear<ITF>(coleccionITF<ITF>& c);
+template<typename ITF> struct coleccionITF {
+friend void crear<ITF>();
 friend void añadir<ITF>(coleccionITF<ITF>& c, const ITF& i);
 friend void actualizar<ITF>(coleccionITF<ITF>& c, const ITF& i);
 friend void borrar<ITF>(coleccionITF<ITF>& c, const ITF& ident);
@@ -140,17 +135,28 @@ friend bool existeSiguiente<ITF>(coleccionITF<ITF>& c);
 friend ITF siguiente<ITF>(coleccionITF<ITF>& c); //Siguiente y avanza nos han dicho que se pueden combinar
 friend void avanza<ITF>(coleccionITF<ITF>& c);
 private:
-     struct ITF{
-          std::string id;     //Esta implementacion de TAD esta mal.
-          std::string titulo; //creo que esto esta mal, lo pienso revisar e eliminar este comentario
-          Fecha fecha;
+
+     //estos seran los datos del diccionario 
+     struct unITF{
+          ITF dato; //El dato de la colección
+          unITF* siguiente; //Puntero al siguiente elemento de la lista, o nullptr si es el último          
      };
+     
+     int cardinal; //Número de elementos de la colección
+     unITF* inicial; //Puntero al primer elemento de la lista
+
+     /* El tipo ITF debera tener estas operaciones:
+     std::string id;     
+     std::string titulo; 
+     Fecha fecha;
+     */
  
 };
 
 // Crea una coleccion vacia, es decir sin ITF O(1)
 template<typename ITF> void crear(coleccionITF<ITF>& c){
-     coleccionITF coleccion;
+     c.cardinal = 0;
+     c.inicial = nullptr;
 }
 
 // Zona de implementación de las operaciones de la colección de ITF
@@ -223,7 +229,7 @@ template<typename ITF> void zanjarTema(coleccionITF<ITF>& c, const std::string& 
      O(1)
 */
 template<typename ITF> bool esVacía(const coleccionITF<ITF>& c){
-     return c.siguiente == nullptr; //La funcion tamaño es MUCHO menos eficiente
+     return c.cardinal == 0; 
 }
 
 
@@ -231,11 +237,7 @@ template<typename ITF> bool esVacía(const coleccionITF<ITF>& c){
      O(n)
 */ 
 template<typename ITF> int tamaño(const coleccionITF<ITF>& c){
-     if(c.siguiente == nullptr){
-          return 0;
-     }else{
-          return tamaño(c.siguiente) +1;
-     }
+     return cardinal; 
 }
 
 
@@ -263,3 +265,4 @@ template<typename ITF> ITF siguiente(coleccionITF<ITF>& c){}
 */
 template<typename ITF> void avanza(coleccionITF<ITF>& c){}
 
+#endif
