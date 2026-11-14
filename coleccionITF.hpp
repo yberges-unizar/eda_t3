@@ -20,14 +20,14 @@ template<typename ITF> void crear();
  devuelve una colección igual a la resultante de añadir el ítem i a la colección c.
  En caso contrario, devuelve una colección igual a c.
 */
-template<typename ITF> void añadir(coleccionITF<ITF>& c, const ITF& i);
+template<typename ITF> coleccionITF<ITF> añadir(coleccionITF<ITF>& c, const ITF& i);
 
 
 /*Si en c no hay ningún ítem con identificador igual al de i,
  devuelve una colección igual a c. En caso contrario, devuelve una colección igual
  a la resultante de sustituir en c el ítem que tenía identificador igual al de i, por el ítem i.
 */
-template<typename ITF> void actualizar(coleccionITF<ITF>& c, const ITF& i);
+template<typename ITF> coleccionITF<ITF> actualizar(coleccionITF<ITF>& c, const ITF& i);
      
 
 
@@ -35,7 +35,7 @@ template<typename ITF> void actualizar(coleccionITF<ITF>& c, const ITF& i);
  devuelve una colección igual a la resultante de borrar ese el ítem de la colección c.
   En caso contrario, devuelve una colección igual a c.
 */
-template<typename ITF> void borrar(coleccionITF<ITF>& c, const ITF& ident);
+template<typename ITF> coleccionITF<ITF> borrar(coleccionITF<ITF>& c, const ITF& ident);
 
 
 /* Devuelve verdad si y sólo si en c hay algún ítem con identificador igual a ident
@@ -118,9 +118,9 @@ template<typename ITF> void avanza(coleccionITF<ITF>& c);
 //Estan unidos entre si mediante punteros.
 template<typename ITF> struct coleccionITF {
 friend void crear<ITF>();
-friend void añadir<ITF>(coleccionITF<ITF>& c, const ITF& i);
-friend void actualizar<ITF>(coleccionITF<ITF>& c, const ITF& i);
-friend void borrar<ITF>(coleccionITF<ITF>& c, const ITF& ident);
+friend coleccionITF<ITF> añadir<ITF>(coleccionITF<ITF>& c, const ITF& i);
+friend coleccionITF<ITF> actualizar<ITF>(coleccionITF<ITF>& c, const ITF& i);
+friend coleccionITF<ITF> borrar<ITF>(coleccionITF<ITF>& c, const ITF& ident);
 friend bool esta<ITF>(coleccionITF<ITF>& c, const std::string& ident);
 friend ITF obtenerITF<ITF>(coleccionITF<ITF>& c, const std::string& ident);
 friend std::string obsoletos<ITF>(coleccionITF<ITF>& c, const std::string& separador, const Fecha& f);
@@ -165,8 +165,48 @@ template<typename ITF> void crear(coleccionITF<ITF>& c){
  devuelve una colección igual a la resultante de añadir el ítem i a la colección c.
  En caso contrario, devuelve una colección igual a c.
 */
-template<typename ITF> void añadir(coleccionITF<ITF>& c, const ITF& i){
+template<typename ITF> coleccionITF<ITF> añadir(coleccionITF<ITF>& c, const ITF& i){
+     if(!esta(c, i.id)){ 
+          if(esVacía(c)){
+               c.inicial = new typename coleccionITF<ITF>::unITF; //creamos un ITF
+               c.inicial->dato = i; //escribimos los datos 
+               c.inicial->siguiente = nullptr; //ponemos el puntero a null
+               
+               return c;
 
+          }else{
+               if(cardinal == 1 || i.id < c.inicial){ //En caso de que solo exista un elemento y sea mayor que i
+                    typename coleccion<ITF>::unITF aux = c.inicial;
+                    c.inicial = new typename coleccionITF<ITF>::unITF; //creamos un ITF
+                    c.inicial->dato = i; //escribimos los datos 
+                    c.inicial->siguiente = aux; //ponemos el puntero a null
+
+                    c.cardinal++;
+                    
+               }else{ //Si no es menor, i sera mayor, podemos seguir hasta encontrar un id mayor o el final
+                    
+                    typename coleccion<ITF>::unITF iter = c.inicial;
+                    while(iter->siguiente != nullptr || iter->siguiente->dato.id < i.id){
+                         iter = iter->siguiente;
+
+                    }
+                    //Si llegamos a este punto es que o se ha acabado la lista, o estamos en el hueco
+
+                    typename coleccion<ITF>::unITF nuevo;
+                    typename coleccion<ITF>::unITF aux = iter;
+                    iter->siguiente = nuevo;
+                    nuevo->siguiente = aux->siguiente; 
+
+                    nuevo->dato = i;
+                    c.cardinal++;
+               }
+
+               return c;
+          }
+
+     }else{
+          return c; //Devolveremos la estructura original al no haber tenido exito
+     }
 }
 
 
@@ -174,14 +214,14 @@ template<typename ITF> void añadir(coleccionITF<ITF>& c, const ITF& i){
  devuelve una colección igual a c. En caso contrario, devuelve una colección igual
  a la resultante de sustituir en c el ítem que tenía identificador igual al de i, por el ítem i.
 */
-template<typename ITF> void actualizar(coleccionITF<ITF>& c, const ITF& i){}
+template<typename ITF> coleccionITF<ITF> actualizar(coleccionITF<ITF>& c, const ITF& i){}
 
 
 /*Si en c hay algún ítem con identificador igual a ident,
  devuelve una colección igual a la resultante de borrar ese el ítem de la colección c.
   En caso contrario, devuelve una colección igual a c.
 */
-template<typename ITF> void borrar(coleccionITF<ITF>& c, const ITF& ident){}
+template<typename ITF> coleccionITF<ITF> borrar(coleccionITF<ITF>& c, const ITF& ident){}
 
 
 /* Devuelve verdad si y sólo si en c hay algún ítem con identificador igual a ident
