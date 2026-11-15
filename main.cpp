@@ -2,13 +2,13 @@
 #include "fecha.hpp"
 #include "anuncio.hpp"
 #include "coleccionITF.hpp"
-#include <string>   //importante para manejar cadenas de caracteres
-#include <fstream> //para abrir archivos
+#include <string>
+#include <fstream>
 
 using namespace std;
 
-string RUTA_FICHERO_SALIDA = "./output.txt";
-string RUTA_FICHERO_ENTRADA = "../entrada.txt";
+string RUTA_FICHERO_SALIDA = "./salida.txt";
+string RUTA_FICHERO_ENTRADA = "./entrada.txt";
 
 string identificador(Anuncio a){
     return suIdentificador(a);
@@ -22,7 +22,7 @@ Fecha fecha(Anuncio a){
     return suPublicacion(a);;
 }
 
-void procesarEntrada(const std::string entrada, std::ifstream& archivo);
+void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio>& coleccionAnuncios);
 void obtener_datos_anuncio(string &id, string &titulo, string &descripcion,
     string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo);
 string anyadir_anuncio(ifstream& archivo);
@@ -30,29 +30,26 @@ string anyadir_anuncio(ifstream& archivo);
 int main() {
     ifstream archivo(RUTA_FICHERO_ENTRADA);
     string linea;
-    coleccionITF<Anuncio> coleccionAnuncios; //Concretamos el TAD generico
-    crear(coleccionAnuncios);//Inicializamos la coleccion
+    coleccionITF<Anuncio> coleccionAnuncios;
+    crear(coleccionAnuncios);
 
-    // Abrimos el archivo de entrada para leer la entrada
     if (archivo.is_open()) {
-        while(getline(archivo, linea)){ //leemos linea a linea, se consumira el delimitador (\n)
+        while(getline(archivo, linea)){
             procesarEntrada(linea, archivo, coleccionAnuncios);
         }
         archivo.close();
     }else {
         cout << "No se pudo abrir el archivo." << endl;
+        exit(1);
     }
+
 }
 
 
 // Función para procesar la entrada del archivo
-void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio> coleccionAnuncios) {
+void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio>& coleccionAnuncios) {
     if(entrada == "A"){
-        //las siguientes 6 líneas del fichero contendrán los datos para la información de un anuncio,
-        //en el orden: id, título, descripción, categoría, fecha de publicación y fecha de finalización
-
         anyadir_anuncio(archivo);
-
     }else if(entrada == "C"){
         //las siguientes 6 líneas del fichero contendrán los datos para la información de un anuncio,
         //en el orden: id, título, descripción, categoría, fecha de publicación y fecha de finalización
@@ -111,7 +108,7 @@ string anyadir_anuncio(ifstream& archivo) {
     crearAnuncio(id, titulo, descripcion, categoria, fecha_publicacion, fecha_finalizacion, anun);
 }
 
-void obtener_datos_anuncio(string &id, string &titulo, string &descripcion, string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo) {
+void obtener_datos_anuncio(string &id, string &titulo, string &descripcion, string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo){
     string fecha_publicacion_dia;
     string fecha_publicacion_mes;
     string fecha_publicacion_anyo;
@@ -134,9 +131,8 @@ void obtener_datos_anuncio(string &id, string &titulo, string &descripcion, stri
     crear(stoi(fecha_publicacion_dia), stoi(fecha_publicacion_mes),
         stoi(fecha_publicacion_anyo), fecha_publicacion, error);
 
+    if (error) {return;}
+
     crear(stoi(fecha_finalizacion_dia), stoi(fecha_finalizacion_mes),
         stoi(fecha_finalizacion_anyo), fecha_finalizacion, error);
-
-    cout << "Fecha de publicación: " << dia(fecha_publicacion) << "/" << mes(fecha_publicacion) << "/" << anyo(fecha_publicacion) << endl;
-    cout << "Fecha de finalización: " << dia(fecha_finalizacion) << "/" << mes(fecha_finalizacion) << "/" << anyo(fecha_finalizacion) << endl;
 }
