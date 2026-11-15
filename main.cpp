@@ -1,7 +1,7 @@
 #include <iostream>
 #include "fecha.hpp"
 #include "anuncio.hpp"
-//#include "coleccionITF.hpp"
+#include "coleccionITF.hpp"
 #include <string>   //importante para manejar cadenas de caracteres
 #include <fstream> //para abrir archivos
 
@@ -30,11 +30,13 @@ string anyadir_anuncio(ifstream& archivo);
 int main() {
     ifstream archivo(RUTA_FICHERO_ENTRADA);
     string linea;
+    coleccionITF<Anuncio> coleccionAnuncios; //Concretamos el TAD generico
+    crear(coleccionAnuncios);//Inicializamos la coleccion
 
     // Abrimos el archivo de entrada para leer la entrada
     if (archivo.is_open()) {
         while(getline(archivo, linea)){ //leemos linea a linea, se consumira el delimitador (\n)
-            procesarEntrada(linea, archivo);
+            procesarEntrada(linea, archivo, coleccionAnuncios);
         }
         archivo.close();
     }else {
@@ -44,7 +46,7 @@ int main() {
 
 
 // Función para procesar la entrada del archivo
-void procesarEntrada(const string entrada, ifstream& archivo) {
+void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio> coleccionAnuncios) {
     if(entrada == "A"){
         //las siguientes 6 líneas del fichero contendrán los datos para la información de un anuncio,
         //en el orden: id, título, descripción, categoría, fecha de publicación y fecha de finalización
@@ -59,7 +61,16 @@ void procesarEntrada(const string entrada, ifstream& archivo) {
         //la siguiente línea del fichero contendrá el identificador de anuncio 
 
     }else if(entrada == "E"){
-        //la siguiente línea del fichero contendrá el identificador de anuncio
+        //la siguiente línea del fichero contendrá el identificador de anunci
+        bool encontrado = false;
+        string existe_ident;
+        getline(archivo, existe_ident);
+        while(existeSiguiente() || !encontrado){
+            encontrado = (suIdentificador()  == stoi(existe_ident));
+            siguiente();
+        }
+        //EXISTENTE: IDXXX
+        //NO EXISTENTE: IDXXX
 
     }else if(entrada == "B"){
         //la siguiente línea del fichero contendrá el identificador de anuncio 

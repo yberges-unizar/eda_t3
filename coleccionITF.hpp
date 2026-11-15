@@ -13,7 +13,7 @@ template<typename ITF> struct coleccionITF;
 // Zona de decalracion de las operaciones de la colección de ITF
 
 // Crea una coleccion vacia, es decir sin elementos
-template<typename ITF> void crear();
+template<typename ITF> coleccionITF<ITF> crear(coleccionITF<ITF>& c);
 
 
 /*Si en c no hay ningún ítem con identificador igual al de i,
@@ -117,7 +117,7 @@ template<typename ITF> void avanza(coleccionITF<ITF>& c);
 //ColeccionITF es una coleccion de n ITF ORDENADOS por su identificador, y sin repetidos.
 //Estan unidos entre si mediante punteros.
 template<typename ITF> struct coleccionITF {
-friend void crear<ITF>();
+friend coleccionITF<ITF> crear<ITF>(coleccionITF<ITF>& c);
 friend coleccionITF<ITF> añadir<ITF>(coleccionITF<ITF>& c, const ITF& i);
 friend coleccionITF<ITF> actualizar<ITF>(coleccionITF<ITF>& c, const ITF& i);
 friend coleccionITF<ITF> borrar<ITF>(coleccionITF<ITF>& c, const ITF& ident);
@@ -154,7 +154,7 @@ private:
 };
 
 // Crea una coleccion vacia, es decir sin ITF O(1)
-template<typename ITF> void crear(coleccionITF<ITF>& c){
+template<typename ITF> coleccionITF<ITF> crear(coleccionITF<ITF>& c){
      c.cardinal = 0;
      c.inicial = nullptr;
 }
