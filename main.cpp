@@ -18,7 +18,9 @@ void procesar_entrada(const string entrada, ifstream& archivo, coleccionITF<Anun
 void obtener_datos_anuncio(string &id, string &titulo, string &descripcion,
     string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo);
 void anyadir_anuncio(ifstream& archivo);
-void salida_anuncio(int& error);
+void salida_anuncio(const string id, const string titulo, const string categoria,
+    const string descripcion, const Fecha fecha_publicacion, const Fecha fecha_finalizacion, bool& error);
+void obtener_anuncio(ifstream& archivo);
 string fecha_string(const Fecha& f);
 
 int main() {
@@ -50,7 +52,7 @@ void procesar_entrada(const string entrada, ifstream& archivo, coleccionITF<Anun
         //en el orden: id, título, descripción, categoría, fecha de publicación y fecha de finalización
 
     }else if(entrada == "O"){
-        //la siguiente línea del fichero contendrá el identificador de anuncio 
+        obtener_anuncio(archivo);
 
     }else if(entrada == "E"){
         //la siguiente línea del fichero contendrá el identificador de anunci
@@ -133,7 +135,7 @@ void obtener_datos_anuncio(string &id, string &titulo, string &descripcion, stri
 }
 
 void salida_anuncio(const string id, const string titulo, const string categoria,
-    const string descripcion, const Fecha fecha_publicacion, const Fecha fecha_finalizacion, int& error) {
+    const string descripcion, const Fecha fecha_publicacion, const Fecha fecha_finalizacion, bool& error) {
     ofstream archivo_salida(RUTA_FICHERO_ENTRADA);
 
     archivo_salida.open(RUTA_FICHERO_ENTRADA);
@@ -143,7 +145,7 @@ void salida_anuncio(const string id, const string titulo, const string categoria
         << SEPARADOR_SALIDA << descripcion << SEPARADOR_SALIDA << fecha_string(fecha_publicacion)
         << SEPARADOR_SALIDA << fecha_string(fecha_finalizacion) << endl;
     } else {
-        error = 1;
+        error = true;
     }
 }
 
@@ -162,6 +164,14 @@ string fecha_string(const Fecha& f) {
 
     fecha_string += to_string(dia(f));
     return fecha_string;
+}
+
+void obtener_anuncio(ifstream& archivo) {
+    string id;
+
+    getline(archivo, id);
+
+
 }
 
 string identificador(Anuncio a){
