@@ -214,7 +214,18 @@ template<typename ITF> coleccionITF<ITF> añadir(coleccionITF<ITF>& c, const ITF
  devuelve una colección igual a c. En caso contrario, devuelve una colección igual
  a la resultante de sustituir en c el ítem que tenía identificador igual al de i, por el ítem i.
 */
-template<typename ITF> coleccionITF<ITF> actualizar(coleccionITF<ITF>& c, const ITF& i){}
+template<typename ITF> coleccionITF<ITF> actualizar(coleccionITF<ITF>& c, const ITF& i){
+    typename coleccionITF<ITF>::unITF* actual = c.inicial;
+    while (actual != nullptr && identificador(actual->dato) != identificador(i)) {
+        actual = actual->siguiente;
+    }
+
+    if (actual != nullptr) {
+        actual->dato = i;
+    }
+
+    return c;
+}
 
 
 /*Si en c hay algún ítem con identificador igual a ident,
@@ -245,18 +256,65 @@ template<typename ITF> std::string obsoletos(coleccionITF<ITF>& c, const std::st
 /* Devuelve una colección igual a la resultante de eliminar de c
  todos los ítems con fecha estrictamente anterior a f
 */
-template<typename ITF> void purgar(coleccionITF<ITF>& c, const Fecha& f){}
+template<typename ITF> void purgar(coleccionITF<ITF>& c, const Fecha& f){
+     typename coleccionITF<ITF>::unITF* actual = c.inicial;
+     typename coleccionITF<ITF>::unITF* previo = nullptr;
+
+     while (actual != nullptr) {
+          if (anterior(fecha(actual->dato), f)) {
+               typename coleccionITF<ITF>::unITF* eliminado = actual;
+               actual = actual->siguiente;
+
+               if (previo == nullptr) {
+                    c.inicial = actual;
+               } else {
+                    previo->siguiente = actual;
+               }
+
+               delete eliminado;
+               --c.cardinal;
+          } else {
+               previo = actual;
+               actual = actual->siguiente;
+          }
+     }
+}
 
 
 /* Devuelve verdad si y sólo si en c hay algún ítem i con tema igual a t
 */
-template<typename ITF> bool existeTema(coleccionITF<ITF>& c, const std::string& t){}
-
+template<typename ITF> bool existeTema(coleccionITF<ITF>& c, const std::string& t){
+    typename coleccionITF<ITF>::unITF* actual = c.inicial;
+    while (actual != nullptr) {
+        if (tema(actual->dato) == t) {
+            return true;
+        }
+        actual = actual->siguiente;
+    }
+    return false;
+}
 
 /* Devuelve la cadena resultante de concatenar los identificadores de todos los ítems que hay en c
    con tema igual a t, y separados entre sí por la cadena separador
 */
-template<typename ITF> std::string delTema(coleccionITF<ITF>& c, const std::string& t, const std::string& separador){}
+template<typename ITF> std::string delTema(coleccionITF<ITF>& c, const std::string& t, const std::string& separador){
+     std::string resultado;
+     typename coleccionITF<ITF>::unITF* actual = c.inicial;
+     bool primero = true;
+
+     while (actual != nullptr) {
+          if (tema(actual->dato) == t) {
+               if (!primero) {
+                    resultado += separador;
+               }
+               resultado += identificador(actual->dato);
+               primero = false;
+          }
+          actual = actual->siguiente;
+     }
+
+     return resultado;
+}
 
 
 /* Devuelve una colección igual a la resultante de eliminar de c todos los ítems i cuyo tema es igual a t

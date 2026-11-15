@@ -1,0 +1,18 @@
+
+
+
+
+
+
+INTRODUCIDO: ID01:::Pantalla PC:::Informatica:::Monitor curvo 24 pulgadas:::2026-10-01:::2026-12-31
+INTRODUCIDO: ID02:::Teclado mecanico:::Informatica:::Teclado RGB switch blue:::2026-10-05:::2026-12-31
+INTRODUCIDO: ID03:::Bicicleta paseo:::Deportes:::Bicicleta vintage de ciudad:::2026-09-15:::2026-11-30
+CATEGORIA CONOCIDA: Informatica
+CATEGORIA DESCONOCIDA: Moda
+DE CATEGORIA: Informatica --- ID01:::ID02 ---
+CAMBIADO: ID01:::Pantalla PC Gaming:::Informatica:::Monitor curvo 24 pulgadas 144Hz:::2026-10-02:::2026-12-31
+NO CAMBIADO: ID99
+PURGADOS: 2026-09-20
+----LISTADO: 2
+[ ID01 -de-> Informatica ;;; Pantalla PC Gaming (2026-10-02) --- Monitor curvo 24 pulgadas 144Hz (2026-12-31)
+[ ID02 -de-> Informatica ;;; Teclado mecanico (2026-10-05) --- Teclado RGB switch blue (2026-12-31)

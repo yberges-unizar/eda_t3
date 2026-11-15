@@ -22,10 +22,11 @@ Fecha fecha(Anuncio a){
     return suPublicacion(a);;
 }
 
-void procesarEntrada(const std::string entrada, std::ifstream& archivo);
+void procesarEntrada(const std::string entrada, std::ifstream& archivo,
+    coleccionITF<Anuncio>& coleccionAnuncios);
 void obtener_datos_anuncio(string &id, string &titulo, string &descripcion,
     string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo);
-string anyadir_anuncio(ifstream& archivo);
+void anyadir_anuncio(ifstream& archivo);
 
 int main() {
     ifstream archivo(RUTA_FICHERO_ENTRADA);
@@ -46,7 +47,7 @@ int main() {
 
 
 // Función para procesar la entrada del archivo
-void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio> coleccionAnuncios) {
+void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio>& coleccionAnuncios) {
     if(entrada == "A"){
         //las siguientes 6 líneas del fichero contendrán los datos para la información de un anuncio,
         //en el orden: id, título, descripción, categoría, fecha de publicación y fecha de finalización
@@ -56,6 +57,22 @@ void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anunc
     }else if(entrada == "C"){
         //las siguientes 6 líneas del fichero contendrán los datos para la información de un anuncio,
         //en el orden: id, título, descripción, categoría, fecha de publicación y fecha de finalización
+        // --- Instrucción C: Cambiar / Actualizar Anuncio --
+        string id, titulo, descripcion, categoria;
+        Fecha fecha_publicacion, fecha_finalizacion;
+        obtener_datos_anuncio(id, titulo, descripcion, categoria,
+            fecha_publicacion, fecha_finalizacion, archivo);
+
+        Anuncio anuncio;
+        crearAnuncio(id, titulo, descripcion, categoria,
+            fecha_publicacion, fecha_finalizacion, anuncio);
+
+        if (esta(coleccionAnuncios, id)) {
+            actualizar(coleccionAnuncios, anuncio);
+            cout << "CAMBIADO: " << id << endl;
+        } else {
+            cout << "NO CAMBIADO: " << id << endl;
+        }
 
     }else if(entrada == "O"){
         //la siguiente línea del fichero contendrá el identificador de anuncio 
@@ -77,15 +94,43 @@ void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anunc
 
     }else if(entrada == "EC"){
         //la siguiente línea del fichero contendrá la categoría de los anuncios
+        // --- Instrucción EC: Existe Categoría ---
+        string categoria;
+        getline(archivo, categoria);
+    
+        // Se comprueba en la colección usando existeTema
+        if (existeTema(coleccionAnuncios, categoria)) {
+        cout << "CATEGORIA CONOCIDA: " << categoria << endl;
+        } else {
+        cout << "CATEGORIA DESCONOCIDA: " << categoria << endl;
+        }
 
     }else if(entrada == "BC"){
         //la siguiente línea del fichero contendrá la categoría de los anuncios
 
     }else if(entrada == "LC"){
         //la siguiente línea del fichero contendrá la categoría de los anuncios
-
+        // --- Instrucción LC: Listar Categoría ---
+        string categoria;
+        getline(archivo, categoria);
+    
+        // Se listan los identificadores separados por ":::" usando delTema
+        cout << "DE CATEGORIA: " << categoria << " --- " 
+         << delTema(coleccionAnuncios, categoria, ":::") << " ---" << endl;
     }else if(entrada == "P"){
         //la siguiente línea del fichero contendrá el valor de la fecha a utilizar
+        // --- Instrucción P: Purgar por fecha ---
+        string fecha_anyo, fecha_mes, fecha_dia;
+        getline(archivo, fecha_anyo, '-');
+        getline(archivo, fecha_mes, '-');
+        getline(archivo, fecha_dia);
+
+        Fecha limite;
+        bool error;
+        crear(stoi(fecha_dia), stoi(fecha_mes), stoi(fecha_anyo), limite, error);
+        if (!error) {
+            purgar(coleccionAnuncios, limite);
+        }
 
     }else if(entrada == "LO"){
         //la siguiente línea del fichero contendrá el valor de la fecha a utilizar
@@ -98,7 +143,7 @@ void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anunc
 }
 
 
-string anyadir_anuncio(ifstream& archivo) {
+void anyadir_anuncio(ifstream& archivo) {
     string id;
     string titulo;
     string descripcion;
