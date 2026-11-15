@@ -9,35 +9,30 @@ using namespace std;
 
 string RUTA_FICHERO_SALIDA = "./salida.txt";
 string RUTA_FICHERO_ENTRADA = "./entrada.txt";
+string SEPARADOR_SALIDA = ":::";
 
-string identificador(Anuncio a){
-    return suIdentificador(a);
-}
-
-string tema(Anuncio a){
-    return suCategoria(a);
-}
-
-Fecha fecha(Anuncio a){
-    return suPublicacion(a);;
-}
-
-void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio>& coleccionAnuncios);
+string identificador(Anuncio a);
+string tema(Anuncio a);
+Fecha fecha(Anuncio a);
+void procesar_entrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio>& coleccionAnuncios);
 void obtener_datos_anuncio(string &id, string &titulo, string &descripcion,
     string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo);
-string anyadir_anuncio(ifstream& archivo);
+void anyadir_anuncio(ifstream& archivo);
+void salida_anuncio(int& error);
+string fecha_string(const Fecha& f);
 
 int main() {
-    ifstream archivo(RUTA_FICHERO_ENTRADA);
+    ifstream archivo_entrada(RUTA_FICHERO_ENTRADA);
     string linea;
     coleccionITF<Anuncio> coleccionAnuncios;
+
     crear(coleccionAnuncios);
 
-    if (archivo.is_open()) {
-        while(getline(archivo, linea)){
-            procesarEntrada(linea, archivo, coleccionAnuncios);
+    if (archivo_entrada.is_open()) {
+        while(getline(archivo_entrada, linea)){
+            procesar_entrada(linea, archivo_entrada, coleccionAnuncios);
         }
-        archivo.close();
+        archivo_entrada.close();
     }else {
         cout << "No se pudo abrir el archivo." << endl;
         exit(1);
@@ -47,7 +42,7 @@ int main() {
 
 
 // Función para procesar la entrada del archivo
-void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio>& coleccionAnuncios) {
+void procesar_entrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio>& coleccionAnuncios) {
     if(entrada == "A"){
         anyadir_anuncio(archivo);
     }else if(entrada == "C"){
@@ -95,7 +90,7 @@ void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anunc
 }
 
 
-string anyadir_anuncio(ifstream& archivo) {
+void anyadir_anuncio(ifstream& archivo) {
     string id;
     string titulo;
     string descripcion;
@@ -135,4 +130,48 @@ void obtener_datos_anuncio(string &id, string &titulo, string &descripcion, stri
 
     crear(stoi(fecha_finalizacion_dia), stoi(fecha_finalizacion_mes),
         stoi(fecha_finalizacion_anyo), fecha_finalizacion, error);
+}
+
+void salida_anuncio(const string id, const string titulo, const string categoria,
+    const string descripcion, const Fecha fecha_publicacion, const Fecha fecha_finalizacion, int& error) {
+    ofstream archivo_salida(RUTA_FICHERO_ENTRADA);
+
+    archivo_salida.open(RUTA_FICHERO_ENTRADA);
+
+    if (archivo_salida.is_open()) {
+        archivo_salida << id << SEPARADOR_SALIDA << titulo << SEPARADOR_SALIDA << categoria
+        << SEPARADOR_SALIDA << descripcion << SEPARADOR_SALIDA << fecha_string(fecha_publicacion)
+        << SEPARADOR_SALIDA << fecha_string(fecha_finalizacion) << endl;
+    } else {
+        error = 1;
+    }
+}
+
+string fecha_string(const Fecha& f) {
+    string fecha_string;
+
+    fecha_string = to_string(anyo(f)) + "-";
+
+    if (mes(f) < 10) {
+        fecha_string += "0";            // relleno para meses de un dígito
+    }
+    fecha_string += to_string(mes(f)) + "-";
+    if (dia(f) < 10) {
+        fecha_string += "0";            // relleno para días de un dígito
+    }
+
+    fecha_string += to_string(dia(f));
+    return fecha_string;
+}
+
+string identificador(Anuncio a){
+    return suIdentificador(a);
+}
+
+string tema(Anuncio a){
+    return suCategoria(a);
+}
+
+Fecha fecha(Anuncio a){
+    return suPublicacion(a);;
 }

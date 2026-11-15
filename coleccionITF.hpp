@@ -45,9 +45,10 @@ template<typename ITF> bool esta(const coleccionITF<ITF>& c, const std::string& 
 
 
 /* Si en c hay algún item con identificador igual a ident, devuelve dicho item.
-     Parcial: operación no definida si en c no hay ningún item con identificador igual a ident
+   Parcial: operación no definida si en c no hay ningún item con identificador igual a ident. Devuelve error TRUE.
+            En ese caso no modifica el item pasado por referencia.
 */
-template<typename ITF> ITF obtenerITF(coleccionITF<ITF>& c, const std::string& ident);
+template<typename ITF> void obtenerITF(const coleccionITF<ITF>& c, const string& ident, ITF& itf, bool& error);
 
 
 /* Devuelve la cadena resultante de concatenar los identificadores de todos los items que hay en c
@@ -135,22 +136,18 @@ friend bool existeSiguiente<ITF>(coleccionITF<ITF>& c);
 friend ITF siguiente<ITF>(coleccionITF<ITF>& c); //Siguiente y avanza nos han dicho que se pueden combinar
 friend void avanza<ITF>(coleccionITF<ITF>& c);
 private:
-
-     //estos seran los datos del diccionario 
      struct unITF{
-          ITF dato; //El dato de la colección
-          unITF* siguiente; //Puntero al siguiente elemento de la lista, o nullptr si es el último          
+          ITF dato;
+          unITF* siguiente;
      };
      
-     int cardinal; //Número de elementos de la colección
-     unITF* inicial; //Puntero al primer elemento de la lista
+     int cardinal;
+     unITF* inicial;
 
-     /* El tipo ITF debera tener estas operaciones:
-     identificador(ITF i) = std::string id;     
-     tema(ITF i) = std::string titulo; 
-     fecha(ITF i) = Fecha fecha;
-     */
- 
+     // Parametros iterador
+
+     unITF* iter_ptr;
+
 };
 
 // Crea una coleccion vacia, es decir sin ITF O(1)
@@ -227,27 +224,35 @@ template<typename ITF> coleccionITF<ITF> borrar(coleccionITF<ITF>& c, const ITF&
 /* Devuelve verdad si y sólo si en c hay algún item con identificador igual a ident
 */
 template<typename ITF> bool esta(const coleccionITF<ITF>& c, const string& ident) {
-     typename coleccionITF<ITF>::unITF* ptr;
+     typename coleccionITF<ITF>::unITF* aux_ptr;
 
-     if(esVacia(c)){
-          return false;
-     }
-
-     ptr = c.inicial;
-     while (ptr != nullptr) {
-          if (identificador(ptr->dato) == ident) {
+     aux_ptr = c.inicial;
+     while (aux_ptr != nullptr) {
+          if (identificador(aux_ptr->dato) == ident) {
                return true;
           }
-          ptr = ptr->siguiente;
+          aux_ptr = aux_ptr->siguiente;
      }
      return false;
 }
 
 
 /* Si en c hay algún item con identificador igual a ident, devuelve dicho item.
-     Parcial: operación no definida si en c no hay ningún item con identificador igual a ident
+   Parcial: operación no definida si en c no hay ningún item con identificador igual a ident. Devuelve error TRUE.
+            En ese caso no modifica el item pasado por referencia.
 */
-template<typename ITF> ITF obtenerITF(coleccionITF<ITF>& c, const std::string& ident){} 
+template<typename ITF> void obtenerITF(const coleccionITF<ITF>& c, const string& ident, ITF& itf, bool& error) {
+     typename coleccionITF<ITF>::unITF* aux_ptr;
+
+     while (aux_ptr != nullptr) {
+          if (identificador(aux_ptr->dato) == ident) {
+               itf = aux_ptr->dato;
+               error = false;
+               return;
+          }
+     }
+     error = true;
+}
 
 
 /* Devuelve la cadena resultante de concatenar los identificadores de todos los items que hay en c
@@ -277,7 +282,7 @@ template<typename ITF> std::string delTema(coleccionITF<ITF>& c, const std::stri
 */
 template<typename ITF> void zanjarTema(coleccionITF<ITF>& c, const std::string& t){
      if(!esVacia(c)){
-          new typename coleccionITF<ITF>::unITF aux = c.inicial; 
+          new typename coleccionITF<ITF>::unITF aux = c.inicial;
           if(tema(aux->dato) == t){
                c.inicial = c.inicial->siguiente
                delete aux;   //Borramos donde apuntaba originalemnte el puntero inicial
@@ -323,25 +328,33 @@ template<typename ITF> int tamanyo(const coleccionITF<ITF>& c){
 /* Inicializa el iterador para recorrer los items de la colección c, de forma que el siguiente item 
  a visitar sea el que tiene el identificador (lexicográficamente) menor (situación de no haber visitado ningún item).
 */
-template<typename ITF> void iniciarIterador(coleccionITF<ITF>& c){}
+template<typename ITF> void iniciarIterador(coleccionITF<ITF>& c){
+     c.iter_ptr = c.inicial;
+}
 
 
 /* Devuelve verdad si queda algún item por visitar con el iterador de la colección c,
  devuelve falso si ya se ha visitado el último item
 */
-template<typename ITF> bool existeSiguiente(coleccionITF<ITF>& c){}
+template<typename ITF> bool existeSiguiente(coleccionITF<ITF>& c) {
+     return c.iter_ptr != nullptr;
+}
 
 
 /* Devuelve el siguiente item a visitar con el iterador de la colección c.
      Parcial: la operación no está definida si no quedan items por visitar (no existeSiguiente?(c))
 */
-template<typename ITF> ITF siguiente(coleccionITF<ITF>& c){}
+template<typename ITF> ITF siguiente(coleccionITF<ITF>& c) {
+     return c.iter_ptr->dato;
+}
 
 
 /* Prepara el iterador de la colección c para que se pueda visitar el siguiente item,
  entendiendo por siguiente aquel item con (lexicográficamente) menor identificador de los todavia no visitados.
       Parcial: la operación no está definida si no quedan items por visitar (no existeSiguiente?(c))
 */
-template<typename ITF> void avanza(coleccionITF<ITF>& c){}
+template<typename ITF> void avanza(coleccionITF<ITF>& c) {
+     c.iter_ptr = c.iter_ptr->siguiente;
+}
 
 #endif
