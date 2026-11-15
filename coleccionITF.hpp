@@ -146,9 +146,9 @@ private:
      unITF* inicial; //Puntero al primer elemento de la lista
 
      /* El tipo ITF debera tener estas operaciones:
-     std::string id;     
-     std::string titulo; 
-     Fecha fecha;
+     identificador(ITF i) = std::string id;     
+     tema(ITF i) = std::string titulo; 
+     fecha(ITF i) = Fecha fecha;
      */
  
 };
@@ -166,7 +166,7 @@ template<typename ITF> void crear(coleccionITF<ITF>& c){
  En caso contrario, devuelve una colección igual a c.
 */
 template<typename ITF> coleccionITF<ITF> añadir(coleccionITF<ITF>& c, const ITF& i){
-     if(!esta(c, i.id)){ 
+     if(!esta(c, identificador(i))){ 
           if(esVacía(c)){
                c.inicial = new typename coleccionITF<ITF>::unITF; //creamos un ITF
                c.inicial->dato = i; //escribimos los datos 
@@ -175,7 +175,7 @@ template<typename ITF> coleccionITF<ITF> añadir(coleccionITF<ITF>& c, const ITF
                return c;
 
           }else{
-               if(cardinal == 1 || i.id < c.inicial){ //En caso de que solo exista un elemento y sea mayor que i
+               if(cardinal == 1 || identificador(i) < c.inicial){ //En caso de que solo exista un elemento y sea mayor que i
                     typename coleccion<ITF>::unITF aux = c.inicial;
                     c.inicial = new typename coleccionITF<ITF>::unITF; //creamos un ITF
                     c.inicial->dato = i; //escribimos los datos 
@@ -186,7 +186,7 @@ template<typename ITF> coleccionITF<ITF> añadir(coleccionITF<ITF>& c, const ITF
                }else{ //Si no es menor, i sera mayor, podemos seguir hasta encontrar un id mayor o el final
                     
                     typename coleccion<ITF>::unITF iter = c.inicial;
-                    while(iter->siguiente != nullptr || iter->siguiente->dato.id < i.id){
+                    while(iter->siguiente != nullptr || identificador(iter->siguiente->dato) < identificador(i)){
                          iter = iter->siguiente;
 
                     }
@@ -261,7 +261,32 @@ template<typename ITF> std::string delTema(coleccionITF<ITF>& c, const std::stri
 
 /* Devuelve una colección igual a la resultante de eliminar de c todos los ítems i cuyo tema es igual a t
 */
-template<typename ITF> void zanjarTema(coleccionITF<ITF>& c, const std::string& t){}
+template<typename ITF> void zanjarTema(coleccionITF<ITF>& c, const std::string& t){
+     if(!esVacía(c)){
+          new typename coleccionITF<ITF>::unITF aux = c.inicial; 
+          if(tema(aux->dato) == t){
+               c.inicial = c.inicial->siguiente
+               delete aux;   //Borramos donde apuntaba originalemnte el puntero inicial
+               cardinal--;
+          }
+
+          while(aux->siguiente != nullptr){ //hasta que no alcancemos el final de la coleccion no pararemos
+               if(tema(axu->dato) == t){
+                    new typename coleccionITF<ITF>::unITF borrador = aux; 
+                    aux = aux->siguiente;
+                    delete borrador; //Borramos donde apuntaba el puntero original
+                    cardinal--;
+
+               }else{
+                    aux= aux->siguiente;
+               }
+          }
+
+          return c;
+     }else{
+          return c; //la coleccion estaba vacia
+     }
+}
 
 
 
