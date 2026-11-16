@@ -274,13 +274,20 @@ template<typename ITF> void obtenerITF(const coleccionITF<ITF>& c, const string&
 */
 template<typename ITF> string obsoletos(coleccionITF<ITF>& c, const string& separador, const Fecha& f) {
      typename coleccionITF<ITF>::unITF* aux_ptr;
+     bool primero = true;
      string resultado;
 
      aux_ptr = c.inicial;
 
      while (aux_ptr != nullptr) {
           if (anterior(fecha(aux_ptr->dato), f)) {
-               resultado += identificador(aux_ptr->dato) + separador;
+               if (primero) {
+                    resultado += identificador(aux_ptr->dato);
+                    primero = false;
+               } else {
+                    resultado += separador + identificador(aux_ptr->dato);
+               }
+
           }
           aux_ptr = aux_ptr->siguiente;
      }
