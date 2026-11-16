@@ -80,7 +80,32 @@ void procesar_entrada(const string entrada, ifstream& archivoEntrada, ofstream& 
         //la siguiente línea del fichero contendrá la categoría de los anuncios
 
     }else if(entrada == "BC"){
-        //la siguiente línea del fichero contendrá la categoría de los anuncios
+        int aux = tamanyo(coleccionAnuncios);
+        string tema;
+        getline(archivoEntrada, tema);
+        zanjarTema(coleccionAnuncios, tema);
+        if(aux != tamanyo(coleccionAnuncios)){ //Para saber si se ha anyadido con exito compararemos la cantidad de anuncios
+            if(archivoSalida.is_open()){
+                archivoSalida << "BORRADO: ";
+            }else{
+                cout << "Error tipo BC";
+            }
+
+        }else{
+        if(archivoSalida.is_open()){
+                archivoSalida << "NO BORRADO: ";
+            }else{
+                cout << "Error tipo BC";
+        }
+
+        if(archivoEntrada.is_open()){
+            archivoSalida << tema << endl;
+        }else{
+            cout << "Error tipo BC";
+        }
+        
+
+    }
 
     }else if(entrada == "LC"){
         //la siguiente línea del fichero contendrá la categoría de los anuncios
