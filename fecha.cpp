@@ -1,3 +1,12 @@
+/*
+ * Fichero: fecha.cpp
+ * Descripción: implementación de las operaciones del TAD fecha.
+ * Autores:
+ *   Yaret Berges Calero, NIP 838561
+ *   <Nombre Apellidos Persona 1>, NIP <NIP>
+ *   <Nombre Apellidos Persona 3>, NIP <NIP>
+ */
+
 #include "fecha.hpp"
 
 // Implementacion de las operaciones del TAD fecha.

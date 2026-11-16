@@ -1,6 +1,11 @@
-//
-// Created by yaret on 21/10/26.
-//
+/*
+ * Fichero: anuncio.cpp
+ * Descripción: implementación de las operaciones del TAD no genérico anuncio.
+ * Autores:
+ *   Yaret Berges Calero, NIP 838561
+ *   <Nombre Apellidos Persona 1>, NIP <NIP>
+ *   <Nombre Apellidos Persona 3>, NIP <NIP>
+ */
 
 #include "anuncio.hpp"
 

@@ -1,3 +1,8 @@
+LT
+B
+ID40
+LO
+2026-01-01
 A
 ID40
 Maleta pequeña
@@ -12,7 +17,6 @@ Compraria maleta cabina tamaño Ryanair
 Compra
 2026-09-10
 2026-11-20
-
 A
 ID01
 Pantalla PC
@@ -56,4 +60,59 @@ Informatica
 2026-10-01
 P
 2026-09-20
+LT
+A
+ID05
+Lampara escritorio
+Lampara LED regulable
+Hogar
+2026-09-25
+2026-10-25
+A
+ID50
+Sofa dos plazas
+Sofa gris desenfundable
+Hogar
+2026-11-01
+2027-01-15
+LT
+LO
+2026-09-20
+LO
+2026-09-21
+LO
+2026-10-05
+LO
+2027-01-01
+B
+ID01
+B
+id02
+B
+ID50
+B
+ID05
+B
+ID05
+B
+ID99
+LT
+LO
+2026-10-05
+B
+ID02
+B
+ID40
+LT
+LO
+2026-12-31
+B
+ID40
+A
+ID40
+Maleta pequeña
+Maleta con ruedas, pequeña, buen estado.
+En venta
+2026-09-20
+2026-09-01
 LT

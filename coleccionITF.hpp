@@ -272,7 +272,20 @@ template<typename ITF> void obtenerITF(const coleccionITF<ITF>& c, const string&
 /* Devuelve la cadena resultante de concatenar los identificadores de todos los items que hay en c
  con fecha estrictamente anterior a f, y separados entre si por la cadena separador
 */
-template<typename ITF> string obsoletos(coleccionITF<ITF>& c, const string& separador, const Fecha& f){}
+template<typename ITF> string obsoletos(coleccionITF<ITF>& c, const string& separador, const Fecha& f) {
+     ITF* aux_ptr;
+     string resultado;
+
+     aux_ptr = c.inicial;
+
+     while (aux_ptr != nullptr) {
+          if (anterior(fecha(aux_ptr->dato), f)) {
+               resultado += identificador(aux_ptr->dato) + separador;
+          }
+          aux_ptr = aux_ptr->siguiente;
+     }
+     return resultado;
+}
 
 
 /* Devuelve una colección igual a la resultante de eliminar de c

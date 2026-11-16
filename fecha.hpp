@@ -1,3 +1,12 @@
+/*
+ * Fichero: fecha.hpp
+ * Descripción: interfaz y representación del TAD fecha.
+ * Autores:
+ *   Yaret Berges Calero, NIP 838561
+ *   <Nombre Apellidos Persona 1>, NIP <NIP>
+ *   <Nombre Apellidos Persona 3>, NIP <NIP>
+ */
+
 #ifndef _FECHA_HPP
 #define _FECHA_HPP
 

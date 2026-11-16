@@ -1,3 +1,13 @@
+/*
+ * Fichero: main.cpp
+ * Descripción: programa de prueba que gestiona una colección de anuncios.
+ *   Lee las instrucciones de "entrada.txt" y escribe los resultados en "salida.txt".
+ * Autores:
+ *   Yaret Berges Calero, NIP 838561
+ *   <Nombre Apellidos Persona 1>, NIP <NIP>
+ *   <Nombre Apellidos Persona 3>, NIP <NIP>
+ */
+
 #include <iostream>
 #include "fecha.hpp"
 #include "anuncio.hpp"

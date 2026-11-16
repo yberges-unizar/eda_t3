@@ -1,5 +1,16 @@
-/* Yaret Berges Calero; 838561
-*/
+/*
+ * Fichero: anuncio.hpp
+ * Descripción: interfaz y representación del TAD no genérico anuncio.
+ * Autores:
+ *   Yaret Berges Calero, NIP 838561
+ *   <Nombre Apellidos Persona 1>, NIP <NIP>
+ *   <Nombre Apellidos Persona 3>, NIP <NIP>
+ */
+
+// Guarda de inclusión: evita que el contenido se procese dos veces
+// si el fichero se incluye más de una vez en la misma unidad de compilación.
+#ifndef ANUNCIO_HPP
+#define ANUNCIO_HPP
 
 #include<string>
 #include <iostream>
@@ -96,3 +107,5 @@ struct Anuncio {
         Fecha finalizacion;
 
 };
+
+#endif // ANUNCIO_HPP
