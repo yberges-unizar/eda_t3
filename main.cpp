@@ -9,7 +9,7 @@ using namespace std;
 
 const string RUTA_FICHERO_SALIDA = "./salida.txt";
 const string RUTA_FICHERO_ENTRADA = "./entrada.txt";
-string SEPARADOR_SALIDA = ":::";
+const string SEPARADOR_SALIDA = ":::";
 
 string identificador(const Anuncio& a);
 string tema(const Anuncio& a);
@@ -19,9 +19,8 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
 void obtener_datos_anuncio(string &id, string &titulo, string &descripcion,
     string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo);
 void anyadir_anuncio(coleccionITF<Anuncio>& coleccionAnuncios, ifstream& archivoEntrada, ofstream& archivoSalida);
-void salida_anuncio(ofstream& archivo_salida ,const string id, const string titulo, const string categoria,
-    const string descripcion, const Fecha fecha_publicacion, const Fecha fecha_finalizacion, bool& error);
-void obtener_anuncio(ifstream& archivo);
+void escribir_datos_anuncio(ofstream& archivo_salida , const Anuncio& anuncio);
+void obtener_anuncio(ifstream& archivo_entrada, ofstream& archivo_salida, const coleccionITF<Anuncio>& coleccionAnuncios);
 string fecha_string(const Fecha& f);
 
 int main() {
@@ -72,7 +71,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         }
 
     }else if(entrada == "O"){
-        obtener_anuncio(archivo_entrada);
+        obtener_anuncio(archivo_entrada, archivo_salida, coleccionAnuncios);
 
     }else if(entrada == "E"){
         //la siguiente línea del fichero contendrá el identificador de anunci
@@ -158,6 +157,17 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         if (!error) {
             purgar(coleccionAnuncios, limite);
             archivo_salida << "PURGADOS: " << fecha_string(limite) << endl;
+
+            string no_purgados;
+            iniciarIterador(coleccionAnuncios);
+            while (existeSiguiente(coleccionAnuncios)) {
+                if (!no_purgados.empty()) {
+                    no_purgados += SEPARADOR_SALIDA;
+                }
+                no_purgados += identificador(siguiente(coleccionAnuncios));
+                avanza(coleccionAnuncios);
+            }
+            archivo_salida << "NO PURGADOS: " << no_purgados << endl;
         }
 
     }else if(entrada == "LO"){
@@ -201,13 +211,10 @@ void anyadir_anuncio(coleccionITF<Anuncio>& coleccionAnuncios, ifstream& archivo
         }else{
             cerr << "No se pudo escribir en el archivo de salida";
         }
-        
-
     }
 
     bool error = false;
-    salida_anuncio(archivoSalida, id, titulo, categoria, descripcion, fecha_publicacion,
-        fecha_finalizacion, error);
+    escribir_datos_anuncio(archivoSalida, anun);
     if(error){ cerr << "Error al escribir el anuncio en el archivo de salida" << endl;}
     
 }
@@ -242,18 +249,10 @@ void obtener_datos_anuncio(string &id, string &titulo, string &descripcion, stri
         stoi(fecha_finalizacion_anyo), fecha_finalizacion, error);
 }
 
-void salida_anuncio(ofstream& archivo_salida, const string id, const string titulo, const string categoria,
-    const string descripcion, const Fecha fecha_publicacion, const Fecha fecha_finalizacion, bool& error) {
-    
-
-
-    if (archivo_salida.is_open()) {
-        archivo_salida << id << SEPARADOR_SALIDA << titulo << SEPARADOR_SALIDA << categoria
-        << SEPARADOR_SALIDA << descripcion << SEPARADOR_SALIDA << fecha_string(fecha_publicacion)
-        << SEPARADOR_SALIDA << fecha_string(fecha_finalizacion) << endl;
-    } else {
-        error = true;
-    }
+void escribir_datos_anuncio(ofstream& archivo_salida, const Anuncio& anuncio) {
+    archivo_salida << suIdentificador(anuncio) << SEPARADOR_SALIDA << suTitulo(anuncio) << SEPARADOR_SALIDA
+    << suCategoria(anuncio) << SEPARADOR_SALIDA << suDescripcion(anuncio) << SEPARADOR_SALIDA
+    << fecha_string(suPublicacion(anuncio)) << SEPARADOR_SALIDA << fecha_string(suFinalizacion(anuncio)) << endl;
 }
 
 string fecha_string(const Fecha& f) {
@@ -273,10 +272,20 @@ string fecha_string(const Fecha& f) {
     return fecha_string;
 }
 
-void obtener_anuncio(ifstream& archivo) {
-    string id;
+void obtener_anuncio(ifstream& archivo_entrada, ofstream& archivo_salida, const coleccionITF<Anuncio>& coleccionAnuncios) {
+    Anuncio anuncio;
+    string ident;
+    bool error;
 
-    getline(archivo, id);
+    getline(archivo_entrada, ident);
+    obtenerITF(coleccionAnuncios, ident, anuncio, error);
+
+    if (!error) {
+        archivo_salida << "LOCALIZADO: ";
+        escribir_datos_anuncio(archivo_salida, anuncio);
+    } else {
+        archivo_salida << "NO LOCALIZADO: " << ident << endl;
+    }
 }
 
 string identificador(const Anuncio& a){

@@ -255,12 +255,15 @@ template<typename ITF> bool esta(const coleccionITF<ITF>& c, const string& ident
 template<typename ITF> void obtenerITF(const coleccionITF<ITF>& c, const string& ident, ITF& itf, bool& error) {
      typename coleccionITF<ITF>::unITF* aux_ptr;
 
+     aux_ptr = c.inicial;
+
      while (aux_ptr != nullptr) {
           if (identificador(aux_ptr->dato) == ident) {
                itf = aux_ptr->dato;
                error = false;
                return;
           }
+          aux_ptr = aux_ptr->siguiente;
      }
      error = true;
 }
