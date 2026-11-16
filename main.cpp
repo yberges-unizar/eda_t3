@@ -157,6 +157,17 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         if (!error) {
             purgar(coleccionAnuncios, limite);
             archivo_salida << "PURGADOS: " << fecha_string(limite) << endl;
+
+            string no_purgados;
+            iniciarIterador(coleccionAnuncios);
+            while (existeSiguiente(coleccionAnuncios)) {
+                if (!no_purgados.empty()) {
+                    no_purgados += SEPARADOR_SALIDA;
+                }
+                no_purgados += identificador(siguiente(coleccionAnuncios));
+                avanza(coleccionAnuncios);
+            }
+            archivo_salida << "NO PURGADOS: " << no_purgados << endl;
         }
 
     }else if(entrada == "LO"){
