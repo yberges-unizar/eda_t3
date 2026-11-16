@@ -154,6 +154,7 @@ private:
 template<typename ITF> coleccionITF<ITF> crear(coleccionITF<ITF>& c){
      c.cardinal = 0;
      c.inicial = nullptr;
+     return c;
 }
 
 // Zona de implementación de las operaciones de la colección de ITF
@@ -163,7 +164,7 @@ template<typename ITF> coleccionITF<ITF> crear(coleccionITF<ITF>& c){
  En caso contrario, devuelve una colección igual a c.
 */
 template<typename ITF> coleccionITF<ITF> anyadir(coleccionITF<ITF>& c, const ITF& i){
-     if(!esta(c, identificador(i->dato))){ 
+     if(!esta(c, identificador(i))){ 
           if(esVacia(c)){
                c.inicial = new typename coleccionITF<ITF>::unITF; //creamos un ITF
                c.inicial->dato = i; //escribimos los datos 
@@ -172,9 +173,9 @@ template<typename ITF> coleccionITF<ITF> anyadir(coleccionITF<ITF>& c, const ITF
                return c;
 
           }else{
-               if(c.cardinal == 1 || identificador(i->dato) < c.inicial){ //En caso de que solo exista un elemento y sea mayor que i
+               if(c.cardinal == 1 || stoi(identificador(i)) < stoi(identificador(c.inicial->dato))){ //En caso de que solo exista un elemento y sea mayor que i
                     typename coleccionITF<ITF>::unITF* aux = c.inicial;
-                    c.inicial = new typename coleccionITF<ITF>::unITF*; //creamos un ITF
+                    c.inicial = new typename coleccionITF<ITF>::unITF; //creamos un ITF
                     c.inicial->dato = i; //escribimos los datos 
                     c.inicial->siguiente = aux; //ponemos el puntero a null
 
@@ -183,7 +184,7 @@ template<typename ITF> coleccionITF<ITF> anyadir(coleccionITF<ITF>& c, const ITF
                }else{ //Si no es menor, i sera mayor, podemos seguir hasta encontrar un id mayor o el final
                     
                     typename coleccionITF<ITF>::unITF* iter = c.inicial;
-                    while(iter->siguiente != nullptr || identificador(iter->dato) < identificador(i->dato)){
+                    while(iter->siguiente != nullptr || identificador(iter->dato) < identificador(i)){
                          iter = iter->siguiente;
 
                     }
