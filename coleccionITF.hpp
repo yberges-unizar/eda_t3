@@ -350,7 +350,7 @@ template<typename ITF> coleccionITF<ITF> zanjarTema(coleccionITF<ITF>& c, const 
           }
 
           while(aux->siguiente != nullptr){ //hasta que no alcancemos el final de la coleccion no pararemos
-               if(tema(axu->dato) == t){
+               if(tema(aux->dato) == t){
                     typename coleccionITF<ITF>::unITF* borrador = aux; 
                     aux = aux->siguiente;
                     c.cardinal--;
