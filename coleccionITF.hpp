@@ -76,7 +76,7 @@ template<typename ITF> string delTema(coleccionITF<ITF>& c, const string& t, con
 
 /* Devuelve una colección igual a la resultante de eliminar de c todos los items i cuyo tema es igual a t
 */
-template<typename ITF> void zanjarTema(coleccionITF<ITF>& c, const string& t);
+template<typename ITF> coleccionITF<ITF> zanjarTema(coleccionITF<ITF>& c, const string& t);
 
 
 /* Devuelve verdad si y sólo si c no contiene ningún item
@@ -128,7 +128,7 @@ friend string obsoletos<ITF>(coleccionITF<ITF>& c, const string& separador, cons
 friend void purgar<ITF>(coleccionITF<ITF>& c, const Fecha& f);
 friend bool existeTema<ITF>(coleccionITF<ITF>& c, const string& t);
 friend string delTema<ITF>(coleccionITF<ITF>& c, const string& t, const string& separador);
-friend void zanjarTema<ITF>(coleccionITF<ITF>& c, const string& t);
+friend coleccionITF<ITF> zanjarTema<ITF>(coleccionITF<ITF>& c, const string& t);
 friend bool esVacia<ITF>(const coleccionITF<ITF>& c);
 friend int tamanyo<ITF>(const coleccionITF<ITF>& c);
 friend void iniciarIterador<ITF>(coleccionITF<ITF>& c);
@@ -172,9 +172,9 @@ template<typename ITF> coleccionITF<ITF> anyadir(coleccionITF<ITF>& c, const ITF
                return c;
 
           }else{
-               if(cardinal == 1 || identificador(i) < c.inicial){ //En caso de que solo exista un elemento y sea mayor que i
-                    typename coleccion<ITF>::unITF aux = c.inicial;
-                    c.inicial = new typename coleccionITF<ITF>::unITF; //creamos un ITF
+               if(c.cardinal == 1 || identificador(i) < c.inicial){ //En caso de que solo exista un elemento y sea mayor que i
+                    typename coleccion<ITF>::unITF* aux = c.inicial;
+                    c.inicial = new typename coleccionITF<ITF>::unITF*; //creamos un ITF
                     c.inicial->dato = i; //escribimos los datos 
                     c.inicial->siguiente = aux; //ponemos el puntero a null
 
@@ -182,15 +182,15 @@ template<typename ITF> coleccionITF<ITF> anyadir(coleccionITF<ITF>& c, const ITF
                     
                }else{ //Si no es menor, i sera mayor, podemos seguir hasta encontrar un id mayor o el final
                     
-                    typename coleccion<ITF>::unITF iter = c.inicial;
+                    typename coleccion<ITF>::unITF* iter = c.inicial;
                     while(iter->siguiente != nullptr || identificador(iter->siguiente->dato) < identificador(i)){
                          iter = iter->siguiente;
 
                     }
                     //Si llegamos a este punto es que o se ha acabado la lista, o estamos en el hueco
 
-                    typename coleccion<ITF>::unITF nuevo;
-                    typename coleccion<ITF>::unITF aux = iter;
+                    typename coleccion<ITF>::unITF* nuevo;
+                    typename coleccion<ITF>::unITF* aux = iter;
                     iter->siguiente = nuevo;
                     nuevo->siguiente = aux->siguiente; 
 
@@ -338,21 +338,21 @@ template<typename ITF> std::string delTema(coleccionITF<ITF>& c, const std::stri
 
 /* Devuelve una colección igual a la resultante de eliminar de c todos los items i cuyo tema es igual a t
 */
-template<typename ITF> void zanjarTema(coleccionITF<ITF>& c, const string& t){
+template<typename ITF> coleccionITF<ITF> zanjarTema(coleccionITF<ITF>& c, const string& t){
      if(!esVacia(c)){
-          new typename coleccionITF<ITF>::unITF aux = c.inicial;
+          new typename coleccionITF<ITF>::unITF* aux = c.inicial;
           if(tema(aux->dato) == t){
                c.inicial = c.inicial->siguiente
                delete aux;   //Borramos donde apuntaba originalemnte el puntero inicial
-               cardinal--;
+               c.cardinal--;
           }
 
           while(aux->siguiente != nullptr){ //hasta que no alcancemos el final de la coleccion no pararemos
                if(tema(axu->dato) == t){
-                    new typename coleccionITF<ITF>::unITF borrador = aux; 
+                    new typename coleccionITF<ITF>::unITF* borrador = aux; 
                     aux = aux->siguiente;
                     delete borrador; //Borramos donde apuntaba el puntero original
-                    cardinal--;
+                    c.cardinal--;
 
                }else{
                     aux= aux->siguiente;
