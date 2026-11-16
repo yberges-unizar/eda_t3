@@ -380,7 +380,7 @@ template<typename ITF> bool esVacia(const coleccionITF<ITF>& c){
      O(n)
 */ 
 template<typename ITF> int tamanyo(const coleccionITF<ITF>& c){
-     return cardinal; 
+     return c.cardinal; 
 }
 
 
