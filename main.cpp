@@ -7,8 +7,8 @@
 
 using namespace std;
 
-string RUTA_FICHERO_SALIDA = "./salida.txt";
-string RUTA_FICHERO_ENTRADA = "./entrada.txt";
+const string RUTA_FICHERO_SALIDA = "./salida.txt";
+const string RUTA_FICHERO_ENTRADA = "./entrada.txt";
 string SEPARADOR_SALIDA = ":::";
 
 string identificador(Anuncio a);
@@ -18,13 +18,14 @@ void procesar_entrada(const string entrada, ifstream& archivo, coleccionITF<Anun
 void obtener_datos_anuncio(string &id, string &titulo, string &descripcion,
     string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo);
 void anyadir_anuncio(ifstream& archivo);
-void salida_anuncio(const string id, const string titulo, const string categoria,
+void salida_anuncio(ofstream& archivo_salida ,const string id, const string titulo, const string categoria,
     const string descripcion, const Fecha fecha_publicacion, const Fecha fecha_finalizacion, bool& error);
 void obtener_anuncio(ifstream& archivo);
 string fecha_string(const Fecha& f);
 
 int main() {
     ifstream archivo_entrada(RUTA_FICHERO_ENTRADA);
+    ofstream archivo_salida(RUTA_FICHERO_SALIDA);
     string linea;
     coleccionITF<Anuncio> coleccionAnuncios;
 
@@ -32,39 +33,45 @@ int main() {
 
     if (archivo_entrada.is_open()) {
         while(getline(archivo_entrada, linea)){
-            procesar_entrada(linea, archivo_entrada, coleccionAnuncios);
+            procesar_entrada(linea, archivo_entrada, archivo_salida, coleccionAnuncios);
         }
         archivo_entrada.close();
     }else {
-        cout << "No se pudo abrir el archivo." << endl;
+        cout << "No se pudo abrir el archivo de entrada" << endl;
         exit(1);
     }
+    archivo_salida.close();
 
 }
 
 
 // Función para procesar la entrada del archivo
-void procesar_entrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio>& coleccionAnuncios) {
+void procesar_entrada(const string entrada, ifstream& archivoEntrada, ofstream& archivoSalida, coleccionITF<Anuncio>& coleccionAnuncios) {
     if(entrada == "A"){
-        anyadir_anuncio(archivo);
+        anyadir_anuncio(coleccionAnuncios, archivoEntrada, archivoSalida);
     }else if(entrada == "C"){
         //las siguientes 6 líneas del fichero contendrán los datos para la información de un anuncio,
         //en el orden: id, título, descripción, categoría, fecha de publicación y fecha de finalización
 
     }else if(entrada == "O"){
-        obtener_anuncio(archivo);
+        obtener_anuncio(archivoEntrada);
 
     }else if(entrada == "E"){
         //la siguiente línea del fichero contendrá el identificador de anunci
-        bool encontrado = false;
+        
         string existe_ident;
-        getline(archivo, existe_ident);
-        while(existeSiguiente() || !encontrado){
-            encontrado = (suIdentificador()  == stoi(existe_ident));
-            siguiente();
+        getline(archivoEntrada, existe_ident);
+        bool encontrado = esta(coleccionAnuncios, existe_ident);
+        if(archivoSalida.is_open()){
+            if(encontrado){
+                archivoSalida << "EXISTENTE " << existe_ident << endl;
+            }else{
+                archivoSalida << "DESCONOCIDO " << existe_ident << endl;
+            }
+        }else{
+            cout << "No se pudo abrir el archivo de salida" << endl;
         }
-        //EXISTENTE: IDXXX
-        //NO EXISTENTE: IDXXX
+
 
     }else if(entrada == "B"){
         //la siguiente línea del fichero contendrá el identificador de anuncio 
@@ -92,7 +99,7 @@ void procesar_entrada(const string entrada, ifstream& archivo, coleccionITF<Anun
 }
 
 
-void anyadir_anuncio(ifstream& archivo) {
+void anyadir_anuncio(coleccionITF<Anuncio>& coleccionAnuncios, ifstream& archivoEntrada, ofstream& archivoSalida) {
     string id;
     string titulo;
     string descripcion;
@@ -101,8 +108,33 @@ void anyadir_anuncio(ifstream& archivo) {
     Fecha fecha_finalizacion;
     Anuncio anun;
 
-    obtener_datos_anuncio(id, titulo, descripcion, categoria, fecha_publicacion, fecha_finalizacion, archivo);
+    obtener_datos_anuncio(id, titulo, descripcion, categoria, fecha_publicacion, fecha_finalizacion, archivoEntrada);
     crearAnuncio(id, titulo, descripcion, categoria, fecha_publicacion, fecha_finalizacion, anun);
+
+    int aux = tamanyo(coleccionAnuncios);
+    anyadir(coleccionAnuncios, anun);
+    if(aux != tamanyo(coleccionAnuncios)){ //Para saber si se ha anyadido con exito compararemos la cantidad de anuncios
+        if(archivoSalida.is_open()){
+            archivoSalida << "INTRODUCIDO: ";
+        }else{
+            cout << "Error tipo 1";
+        }
+        
+
+    }else{
+        if(archivoSalida.is_open()){
+            archivoSalida << "NO INTRODUCIDO: ";
+        }else{
+            cout << "Error tipo 1";
+        }
+        
+
+    }
+
+    bool error = false;
+    salida_anuncio(archivoSalida, id, titulo, categoria, descripcion, fecha_publicacion, fecha_finalizacion, error);
+    if(error){ cout << "Error en fun salida_anuncio" << endl;}
+    
 }
 
 void obtener_datos_anuncio(string &id, string &titulo, string &descripcion, string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo){
@@ -134,11 +166,10 @@ void obtener_datos_anuncio(string &id, string &titulo, string &descripcion, stri
         stoi(fecha_finalizacion_anyo), fecha_finalizacion, error);
 }
 
-void salida_anuncio(const string id, const string titulo, const string categoria,
+void salida_anuncio(ofstream& archivo_salida, const string id, const string titulo, const string categoria,
     const string descripcion, const Fecha fecha_publicacion, const Fecha fecha_finalizacion, bool& error) {
-    ofstream archivo_salida(RUTA_FICHERO_ENTRADA);
+    
 
-    archivo_salida.open(RUTA_FICHERO_ENTRADA);
 
     if (archivo_salida.is_open()) {
         archivo_salida << id << SEPARADOR_SALIDA << titulo << SEPARADOR_SALIDA << categoria
