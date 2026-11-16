@@ -273,7 +273,7 @@ template<typename ITF> void obtenerITF(const coleccionITF<ITF>& c, const string&
  con fecha estrictamente anterior a f, y separados entre si por la cadena separador
 */
 template<typename ITF> string obsoletos(coleccionITF<ITF>& c, const string& separador, const Fecha& f) {
-     ITF* aux_ptr;
+     typename coleccionITF<ITF>::unITF* aux_ptr;
      string resultado;
 
      aux_ptr = c.inicial;
