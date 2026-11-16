@@ -274,14 +274,21 @@ template<typename ITF> void obtenerITF(const coleccionITF<ITF>& c, const string&
  con fecha estrictamente anterior a f, y separados entre si por la cadena separador
 */
 template<typename ITF> string obsoletos(coleccionITF<ITF>& c, const string& separador, const Fecha& f) {
-     ITF* aux_ptr;
+     typename coleccionITF<ITF>::unITF* aux_ptr;
+     bool primero = true;
      string resultado;
 
      aux_ptr = c.inicial;
 
      while (aux_ptr != nullptr) {
           if (anterior(fecha(aux_ptr->dato), f)) {
-               resultado += identificador(aux_ptr->dato) + separador;
+               if (primero) {
+                    resultado += identificador(aux_ptr->dato);
+                    primero = false;
+               } else {
+                    resultado += separador + identificador(aux_ptr->dato);
+               }
+
           }
           aux_ptr = aux_ptr->siguiente;
      }
@@ -398,7 +405,7 @@ template<typename ITF> int tamanyo(const coleccionITF<ITF>& c){
 }
 
 
-/* Inicializa el iterador para recorrer los items de la colección c, de forma que el sigutamanyoiente item
+/* Inicializa el iterador para recorrer los items de la colección c, de forma que el siguiente item
  a visitar sea el que tiene el identificador (lexicográficamente) menor (situación de no haber visitado ningún item).
 */
 template<typename ITF> void iniciarIterador(coleccionITF<ITF>& c){
