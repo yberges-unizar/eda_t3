@@ -9,35 +9,37 @@ using namespace std;
 
 const string RUTA_FICHERO_SALIDA = "./salida.txt";
 const string RUTA_FICHERO_ENTRADA = "./entrada.txt";
-const string SEPARADOR_SALIDA = ":::";
+const string SEPARADOR_DATOS = ":::";
 
 string identificador(const Anuncio& a);
 string tema(const Anuncio& a);
 Fecha fecha(const Anuncio& a);
 void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, ofstream& archivo_salida,
-    coleccionITF<Anuncio>& coleccionAnuncios);
+    coleccionITF<Anuncio>& coleccion_anuncios);
 void obtener_datos_anuncio(string &id, string &titulo, string &descripcion,
     string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo);
-void anyadir_anuncio(coleccionITF<Anuncio>& coleccionAnuncios, ifstream& archivoEntrada, ofstream& archivoSalida);
+void anyadir_anuncio(coleccionITF<Anuncio>& coleccion_anuncios, ifstream& archivoEntrada, ofstream& archivoSalida);
 void escribir_datos_anuncio(ofstream& archivo_salida , const Anuncio& anuncio);
-void obtener_anuncio(ifstream& archivo_entrada, ofstream& archivo_salida, const coleccionITF<Anuncio>& coleccionAnuncios);
+void listar_anuncios(ofstream& archivo_salida, coleccionITF<Anuncio>& coleccion);
+void obtener_anuncio(ifstream& archivo_entrada, ofstream& archivo_salida, const coleccionITF<Anuncio>& coleccion_anuncios);
 string fecha_string(const Fecha& f);
 
 int main() {
     ifstream archivo_entrada(RUTA_FICHERO_ENTRADA);
     ofstream archivo_salida(RUTA_FICHERO_SALIDA);
-    string linea;
-    coleccionITF<Anuncio> coleccionAnuncios;
+    string instruccion;
+    coleccionITF<Anuncio> coleccion_anuncios;
 
-    crear(coleccionAnuncios);
+    crear(coleccion_anuncios);
 
     if (archivo_entrada.is_open()) {
-        while(getline(archivo_entrada, linea)){
-            gestionar_entrada_salida(linea, archivo_entrada, archivo_salida, coleccionAnuncios);
+        while(archivo_entrada >> instruccion){
+            archivo_entrada.ignore(1000, '\n'); // Ignora el resto de la linea. Solo nos interesa la instruccion
+            gestionar_entrada_salida(instruccion, archivo_entrada, archivo_salida, coleccion_anuncios);
         }
         archivo_entrada.close();
     }else {
-        cout << "No se pudo abrir el archivo de entrada" << endl;
+        cerr << "No se pudo abrir el archivo de entrada" << endl;
         exit(1);
     }
     archivo_salida.close();
@@ -47,9 +49,9 @@ int main() {
 
 // Función para procesar la entrada del archivo
 void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, ofstream& archivo_salida,
-    coleccionITF<Anuncio>& coleccionAnuncios) {
+    coleccionITF<Anuncio>& coleccion_anuncios) {
     if(entrada == "A"){
-        anyadir_anuncio(coleccionAnuncios, archivo_entrada, archivo_salida);
+        anyadir_anuncio(coleccion_anuncios, archivo_entrada, archivo_salida);
     }else if(entrada == "C"){
         //las siguientes 6 líneas del fichero contendrán los datos para la información de un anuncio,
         //en el orden: id, título, descripción, categoría, fecha de publicación y fecha de finalización
@@ -63,22 +65,22 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         crearAnuncio(id, titulo, descripcion, categoria,
             fecha_publicacion, fecha_finalizacion, anuncio);
 
-        if (esta(coleccionAnuncios, id)) {
-            actualizar(coleccionAnuncios, anuncio);
+        if (esta(coleccion_anuncios, id)) {
+            actualizar(coleccion_anuncios, anuncio);
             cout << "CAMBIADO: " << id << endl;
         } else {
             archivo_salida << "NO CAMBIADO: " << id << endl;
         }
 
     }else if(entrada == "O"){
-        obtener_anuncio(archivo_entrada, archivo_salida, coleccionAnuncios);
+        obtener_anuncio(archivo_entrada, archivo_salida, coleccion_anuncios);
 
     }else if(entrada == "E"){
         //la siguiente línea del fichero contendrá el identificador de anunci
         
         string existe_ident;
         getline(archivo_entrada, existe_ident);
-        bool encontrado = esta(coleccionAnuncios, existe_ident);
+        bool encontrado = esta(coleccion_anuncios, existe_ident);
         if(archivo_salida.is_open()){
             if(encontrado){
                 archivo_salida << "EXISTENTE " << existe_ident << endl;
@@ -100,29 +102,29 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         getline(archivo_entrada, categoria);
     
         // Se comprueba en la colección usando existeTema
-        if (existeTema(coleccionAnuncios, categoria)) {
+        if (existeTema(coleccion_anuncios, categoria)) {
             archivo_salida << "CATEGORIA CONOCIDA: " << categoria << endl;
         } else {
             archivo_salida << "CATEGORIA DESCONOCIDA: " << categoria << endl;
         }
 
     }else if(entrada == "BC"){
-        int aux = tamanyo(coleccionAnuncios);
+        int aux = tamanyo(coleccion_anuncios);
         string tema;
         getline(archivo_entrada, tema);
-        zanjarTema(coleccionAnuncios, tema);
-        if(aux != tamanyo(coleccionAnuncios)){ //Para saber si se ha anyadido con exito compararemos la cantidad de anuncios
+        zanjarTema(coleccion_anuncios, tema);
+        if(aux != tamanyo(coleccion_anuncios)){ //Para saber si se ha anyadido con exito compararemos la cantidad de anuncios
             if(archivo_salida.is_open()){
                 archivo_salida << "BORRADO: ";
             }else{
-                cout << "Error tipo BC";
+                cerr << "Error tipo BC";
             }
 
         }else{
         if(archivo_salida.is_open()){
                 archivo_salida << "NO BORRADO: ";
             }else{
-                cout << "Error tipo BC";
+                cerr << "Error tipo BC";
         }
 
         if(archivo_entrada.is_open()){
@@ -142,7 +144,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
     
         // Se listan los identificadores separados por ":::" usando delTema
         archivo_salida << "DE CATEGORIA: " << categoria << " --- "
-            << delTema(coleccionAnuncios, categoria, ":::") << " ---" << endl;
+            << delTema(coleccion_anuncios, categoria, SEPARADOR_DATOS) << " ---" << endl;
     }else if(entrada == "P"){
         //la siguiente línea del fichero contendrá el valor de la fecha a utilizar
         // --- Instrucción P: Purgar por fecha ---
@@ -155,17 +157,17 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         bool error;
         crear(stoi(fecha_dia), stoi(fecha_mes), stoi(fecha_anyo), limite, error);
         if (!error) {
-            purgar(coleccionAnuncios, limite);
+            purgar(coleccion_anuncios, limite);
             archivo_salida << "PURGADOS: " << fecha_string(limite) << endl;
 
             string no_purgados;
-            iniciarIterador(coleccionAnuncios);
-            while (existeSiguiente(coleccionAnuncios)) {
+            iniciarIterador(coleccion_anuncios);
+            while (existeSiguiente(coleccion_anuncios)) {
                 if (!no_purgados.empty()) {
-                    no_purgados += SEPARADOR_SALIDA;
+                    no_purgados += SEPARADOR_DATOS;
                 }
-                no_purgados += identificador(siguiente(coleccionAnuncios));
-                avanza(coleccionAnuncios);
+                no_purgados += identificador(siguiente(coleccion_anuncios));
+                avanza(coleccion_anuncios);
             }
             archivo_salida << "NO PURGADOS: " << no_purgados << endl;
         }
@@ -174,14 +176,13 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         //la siguiente línea del fichero contendrá el valor de la fecha a utilizar
 
     }else if(entrada == "LT"){
-        //no requiere que le sigan otras líneas con más datos para su ejecución, así que la siguiente 
-        //línea sería la de la siguiente instrucción, o el final del fichero
+        listar_anuncios(archivo_salida, coleccion_anuncios);
 
     }
 }
 
 
-void anyadir_anuncio(coleccionITF<Anuncio>& coleccionAnuncios, ifstream& archivoEntrada, ofstream& archivoSalida) {
+void anyadir_anuncio(coleccionITF<Anuncio>& coleccion_anuncios, ifstream& archivoEntrada, ofstream& archivoSalida) {
     string id;
     string titulo;
     string descripcion;
@@ -195,9 +196,9 @@ void anyadir_anuncio(coleccionITF<Anuncio>& coleccionAnuncios, ifstream& archivo
     crearAnuncio(id, titulo, descripcion, categoria,
         fecha_publicacion, fecha_finalizacion, anun);
 
-    int aux = tamanyo(coleccionAnuncios);
-    anyadir(coleccionAnuncios, anun);
-    if(aux != tamanyo(coleccionAnuncios)){ //Para saber si se ha anyadido con exito compararemos la cantidad de anuncios
+    int aux = tamanyo(coleccion_anuncios);
+    anyadir(coleccion_anuncios, anun);
+    if(aux != tamanyo(coleccion_anuncios)){ //Para saber si se ha anyadido con exito compararemos la cantidad de anuncios
         if(archivoSalida.is_open()){
             archivoSalida << "INTRODUCIDO: ";
         }else{
@@ -250,9 +251,9 @@ void obtener_datos_anuncio(string &id, string &titulo, string &descripcion, stri
 }
 
 void escribir_datos_anuncio(ofstream& archivo_salida, const Anuncio& anuncio) {
-    archivo_salida << suIdentificador(anuncio) << SEPARADOR_SALIDA << suTitulo(anuncio) << SEPARADOR_SALIDA
-    << suCategoria(anuncio) << SEPARADOR_SALIDA << suDescripcion(anuncio) << SEPARADOR_SALIDA
-    << fecha_string(suPublicacion(anuncio)) << SEPARADOR_SALIDA << fecha_string(suFinalizacion(anuncio)) << endl;
+    archivo_salida << suIdentificador(anuncio) << SEPARADOR_DATOS << suTitulo(anuncio) << SEPARADOR_DATOS
+    << suCategoria(anuncio) << SEPARADOR_DATOS << suDescripcion(anuncio) << SEPARADOR_DATOS
+    << fecha_string(suPublicacion(anuncio)) << SEPARADOR_DATOS << fecha_string(suFinalizacion(anuncio)) << endl;
 }
 
 string fecha_string(const Fecha& f) {
@@ -272,13 +273,13 @@ string fecha_string(const Fecha& f) {
     return fecha_string;
 }
 
-void obtener_anuncio(ifstream& archivo_entrada, ofstream& archivo_salida, const coleccionITF<Anuncio>& coleccionAnuncios) {
+void obtener_anuncio(ifstream& archivo_entrada, ofstream& archivo_salida, const coleccionITF<Anuncio>& coleccion_anuncios) {
     Anuncio anuncio;
     string ident;
     bool error;
 
     getline(archivo_entrada, ident);
-    obtenerITF(coleccionAnuncios, ident, anuncio, error);
+    obtenerITF(coleccion_anuncios, ident, anuncio, error);
 
     if (!error) {
         archivo_salida << "LOCALIZADO: ";
@@ -286,6 +287,24 @@ void obtener_anuncio(ifstream& archivo_entrada, ofstream& archivo_salida, const 
     } else {
         archivo_salida << "NO LOCALIZADO: " << ident << endl;
     }
+}
+
+void listar_anuncios(ofstream& archivo_salida, coleccionITF<Anuncio>& coleccion) {
+    Anuncio anuncio;
+
+    archivo_salida << "-----LISTADO: " << tamanyo(coleccion) << endl;
+
+    iniciarIterador(coleccion);
+    
+    while (existeSiguiente(coleccion)) {
+        anuncio = siguiente(coleccion);
+        archivo_salida << "[ " << suIdentificador(anuncio) << " -de-> " << suCategoria(anuncio) << " ;;; "
+        << suTitulo(anuncio) << " ] (" << fecha_string(suPublicacion(anuncio)) << ") --- "
+        << suDescripcion(anuncio) << " --- (" << fecha_string(suFinalizacion(anuncio)) << ")" << endl;
+        avanza(coleccion);
+    }
+
+    archivo_salida << "-----" << endl;
 }
 
 string identificador(const Anuncio& a){

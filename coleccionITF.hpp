@@ -384,7 +384,7 @@ template<typename ITF> int tamanyo(const coleccionITF<ITF>& c){
 }
 
 
-/* Inicializa el iterador para recorrer los items de la colección c, de forma que el siguiente item 
+/* Inicializa el iterador para recorrer los items de la colección c, de forma que el sigutamanyoiente item
  a visitar sea el que tiene el identificador (lexicográficamente) menor (situación de no haber visitado ningún item).
 */
 template<typename ITF> void iniciarIterador(coleccionITF<ITF>& c){
