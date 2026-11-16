@@ -68,7 +68,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
             actualizar(coleccionAnuncios, anuncio);
             cout << "CAMBIADO: " << id << endl;
         } else {
-            cout << "NO CAMBIADO: " << id << endl;
+            archivo_salida << "NO CAMBIADO: " << id << endl;
         }
 
     }else if(entrada == "O"){
@@ -87,7 +87,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
                 archivo_salida << "DESCONOCIDO " << existe_ident << endl;
             }
         }else{
-            cout << "No se pudo abrir el archivo de salida" << endl;
+            cerr << "No se pudo abrir el archivo de salida" << endl;
         }
 
 
@@ -102,9 +102,9 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
     
         // Se comprueba en la colección usando existeTema
         if (existeTema(coleccionAnuncios, categoria)) {
-        cout << "CATEGORIA CONOCIDA: " << categoria << endl;
+            archivo_salida << "CATEGORIA CONOCIDA: " << categoria << endl;
         } else {
-        cout << "CATEGORIA DESCONOCIDA: " << categoria << endl;
+            archivo_salida << "CATEGORIA DESCONOCIDA: " << categoria << endl;
         }
 
     }else if(entrada == "BC"){
@@ -142,8 +142,8 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         getline(archivo_entrada, categoria);
     
         // Se listan los identificadores separados por ":::" usando delTema
-        cout << "DE CATEGORIA: " << categoria << " --- " 
-         << delTema(coleccionAnuncios, categoria, ":::") << " ---" << endl;
+        archivo_salida << "DE CATEGORIA: " << categoria << " --- "
+            << delTema(coleccionAnuncios, categoria, ":::") << " ---" << endl;
     }else if(entrada == "P"){
         //la siguiente línea del fichero contendrá el valor de la fecha a utilizar
         // --- Instrucción P: Purgar por fecha ---
@@ -157,6 +157,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         crear(stoi(fecha_dia), stoi(fecha_mes), stoi(fecha_anyo), limite, error);
         if (!error) {
             purgar(coleccionAnuncios, limite);
+            archivo_salida << "PURGADOS: " << fecha_string(limite) << endl;
         }
 
     }else if(entrada == "LO"){
@@ -190,7 +191,7 @@ void anyadir_anuncio(coleccionITF<Anuncio>& coleccionAnuncios, ifstream& archivo
         if(archivoSalida.is_open()){
             archivoSalida << "INTRODUCIDO: ";
         }else{
-            cout << "Error tipo 1";
+            cerr << "No se pudo escribir en el archivo de salida";
         }
         
 
@@ -198,7 +199,7 @@ void anyadir_anuncio(coleccionITF<Anuncio>& coleccionAnuncios, ifstream& archivo
         if(archivoSalida.is_open()){
             archivoSalida << "NO INTRODUCIDO: ";
         }else{
-            cout << "Error tipo 1";
+            cerr << "No se pudo escribir en el archivo de salida";
         }
         
 
@@ -207,7 +208,7 @@ void anyadir_anuncio(coleccionITF<Anuncio>& coleccionAnuncios, ifstream& archivo
     bool error = false;
     salida_anuncio(archivoSalida, id, titulo, categoria, descripcion, fecha_publicacion,
         fecha_finalizacion, error);
-    if(error){ cout << "Error en fun salida_anuncio" << endl;}
+    if(error){ cerr << "Error al escribir el anuncio en el archivo de salida" << endl;}
     
 }
 
