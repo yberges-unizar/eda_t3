@@ -12,6 +12,16 @@
           </excludedPaths>
         </serverdata>
       </paths>
+      <paths name="Unizar Lab000 (974de564-642f-4ff7-aba9-ba4094d3f3ca)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/a838561/comp_sci/second/eda/eda_t3" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-unizar-lab000" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
     </serverData>
   </component>
 </project>
