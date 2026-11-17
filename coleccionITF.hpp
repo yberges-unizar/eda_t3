@@ -182,7 +182,7 @@ template<typename ITF> coleccionITF<ITF> anyadir(coleccionITF<ITF>& c, const ITF
                return c;
 
           }else{
-               if(c.cardinal == 1 || stoi(identificador(i)) < stoi(identificador(c.inicial->dato))){ //En caso de que solo exista un elemento y sea mayor que i
+               if(c.cardinal == 1 || identificador(i) < identificador(c.inicial->dato)){ //En caso de que solo exista un elemento y sea mayor que i
                     typename coleccionITF<ITF>::unITF* aux = c.inicial;
                     c.inicial = new typename coleccionITF<ITF>::unITF; //creamos un ITF
                     c.inicial->dato = i; //escribimos los datos 
@@ -193,7 +193,7 @@ template<typename ITF> coleccionITF<ITF> anyadir(coleccionITF<ITF>& c, const ITF
                }else{ //Si no es menor, i sera mayor, podemos seguir hasta encontrar un id mayor o el final
                     
                     typename coleccionITF<ITF>::unITF* iter = c.inicial;
-                    while(iter->siguiente != nullptr || identificador(iter->dato) < identificador(i)){
+                    while(iter->siguiente != nullptr && identificador(iter->dato) < identificador(i)){
                          iter = iter->siguiente;
 
                     }
