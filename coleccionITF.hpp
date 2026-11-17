@@ -178,6 +178,7 @@ template<typename ITF> coleccionITF<ITF> anyadir(coleccionITF<ITF>& c, const ITF
                c.inicial->dato = i; //escribimos los datos 
                c.inicial->siguiente = nullptr; //ponemos el puntero a null
                
+               c.cardinal++;
                return c;
 
           }else{

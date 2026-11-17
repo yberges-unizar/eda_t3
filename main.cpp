@@ -40,7 +40,7 @@ int main() {
     string instruccion;
     coleccionITF<Anuncio> coleccion_anuncios;
 
-    crear(coleccion_anuncios);
+    crear(coleccion_anuncios);//Inicializamos la coleccion de anuncios
 
     if (archivo_entrada.is_open()) {
         while(archivo_entrada >> instruccion){
