@@ -4,7 +4,7 @@
  * Autores:
  *   Yaret Berges Calero, NIP 838561
  *   <Nombre Apellidos Persona 1>, NIP <NIP>
- *   <Nombre Apellidos Persona 3>, NIP <NIP>
+ *   Sergio Iso Blasco, NIP 927177
  */
 
 #include "fecha.hpp"
