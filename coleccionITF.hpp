@@ -39,30 +39,34 @@ template<typename ITF> coleccionITF<ITF> actualizar(coleccionITF<ITF>& c, const 
      
 
 
-/*Si en c hay algún item con identificador igual a ident,
- devuelve una colección igual a la resultante de borrar ese el item de la colección c.
-  En caso contrario, devuelve una colección igual a c.
+/* borrar: cadena ident, colecciónITF c -> colecciónITF
+ Si en c hay algún ítem con identificador igual a ident, devuelve una colección igual a la
+ resultante de borrar ese ítem de la colección c. En caso contrario, devuelve una colección igual a c.
+ (Implementación: c se modifica directamente y se libera la memoria del ítem borrado.)
 */
-template<typename ITF> void borrar(coleccionITF<ITF>& c, const string& ident);
+template<typename ITF> void borrar(const string& ident, coleccionITF<ITF>& c);
 
 
-/* Devuelve verdad si y sólo si en c hay algún item con identificador igual a ident
- Parcial: operación no definida si en c no hay ningún item con identificador igual a ident
+/* está?: cadena ident, colecciónITF c -> booleano
+ Devuelve verdad si y sólo si en c hay algún ítem con identificador igual a ident.
 */
-template<typename ITF> bool esta(const coleccionITF<ITF>& c, const string& ident);
+template<typename ITF> bool esta(const string& ident, const coleccionITF<ITF>& c);
 
 
-/* Si en c hay algún item con identificador igual a ident, devuelve dicho item.
-   Parcial: operación no definida si en c no hay ningún item con identificador igual a ident. Devuelve error TRUE.
-            En ese caso no modifica el item pasado por referencia.
+/* parcial obtenerITF: cadena ident, colecciónITF c -> ITF
+ Si en c hay algún ítem con identificador igual a ident, devuelve dicho ítem.
+ Parcial: operación no definida si en c no hay ningún ítem con identificador igual a ident.
+ (Implementación: el ítem se devuelve en itf y error toma el valor falso. Si la operación no está
+ definida, error toma el valor verdad e itf no se modifica.)
 */
-template<typename ITF> void obtenerITF(const coleccionITF<ITF>& c, const string& ident, ITF& itf, bool& error);
+template<typename ITF> void obtenerITF(const string& ident, const coleccionITF<ITF>& c, ITF& itf, bool& error);
 
 
-/* Devuelve la cadena resultante de concatenar los identificadores de todos los items que hay en c
- con fecha estrictamente anterior a f, y separados entre si por la cadena separador
+/* obsoletos: fecha f, cadena separador, colecciónITF c -> cadena
+ Devuelve la cadena resultante de concatenar los identificadores de todos los ítems que hay en c
+ con fecha estrictamente anterior a f, y separados entre sí por la cadena separador.
 */
-template<typename ITF> string obsoletos(coleccionITF<ITF>& c, const string& separador, const Fecha& f);
+template<typename ITF> string obsoletos(const Fecha& f, const string& separador, const coleccionITF<ITF>& c);
 
 
 /* Devuelve una colección igual a la resultante de eliminar de c
@@ -97,27 +101,33 @@ template<typename ITF> bool esVacia(const coleccionITF<ITF>& c);
 template<typename ITF> int tamanyo(const coleccionITF<ITF>& c);
 
 
-/* Inicializa el iterador para recorrer los items de la colección c, de forma que el siguiente item 
- a visitar sea el que tiene el identificador (lexicográficamente) menor (situación de no haber visitado ningún item).
+/* iniciarIterador: colecciónITF c -> colecciónITF
+ Inicializa el iterador para recorrer los ítems de la colección c, de forma que el siguiente ítem
+ a visitar sea el que tiene el identificador (lexicográficamente) menor (situación de no haber visitado ningún ítem).
+ (Implementación: c se modifica directamente.)
 */
 template<typename ITF> void iniciarIterador(coleccionITF<ITF>& c);
 
 
-/* Devuelve verdad si queda algún item por visitar con el iterador de la colección c,
- devuelve falso si ya se ha visitado el último item
+/* existeSiguiente?: colecciónITF c -> booleano
+ Devuelve verdad si queda algún ítem por visitar con el iterador de la colección c,
+ devuelve falso si ya se ha visitado el último ítem.
 */
-template<typename ITF> bool existeSiguiente(coleccionITF<ITF>& c);
+template<typename ITF> bool existeSiguiente(const coleccionITF<ITF>& c);
 
 
-/* Devuelve el siguiente item a visitar con el iterador de la colección c.
-     Parcial: la operación no está definida si no quedan items por visitar (no existeSiguiente?(c))
+/* parcial siguiente: colecciónITF c -> ITF
+ Devuelve el siguiente ítem a visitar con el iterador de la colección c.
+ Parcial: la operación no está definida si no quedan ítems por visitar (no existeSiguiente?(c)).
 */
-template<typename ITF> ITF siguiente(coleccionITF<ITF>& c); 
+template<typename ITF> ITF siguiente(const coleccionITF<ITF>& c);
 
 
-/* Prepara el iterador de la colección c para que se pueda visitar el siguiente item,
- entendiendo por siguiente aquel item con (lexicográficamente) menor identificador de los todavia no visitados.
-      Parcial: la operación no está definida si no quedan items por visitar (no existeSiguiente?(c))
+/* parcial avanza: colecciónITF c -> colecciónITF
+ Prepara el iterador de la colección c para que se pueda visitar el siguiente ítem, entendiendo por
+ siguiente aquel ítem con (lexicográficamente) menor identificador de los todavía no visitados.
+ Parcial: la operación no está definida si no quedan ítems por visitar (no existeSiguiente?(c)).
+ (Implementación: c se modifica directamente.)
 */
 template<typename ITF> void avanza(coleccionITF<ITF>& c);
 
@@ -129,10 +139,10 @@ template<typename ITF> struct coleccionITF {
 friend coleccionITF<ITF> crear<ITF>(coleccionITF<ITF>& c);
 friend coleccionITF<ITF> anyadir<ITF>(coleccionITF<ITF>& c, const ITF& i);
 friend coleccionITF<ITF> actualizar<ITF>(coleccionITF<ITF>& c, const ITF& i);
-friend void borrar<ITF>(coleccionITF<ITF>& c, const string& ident);
-friend bool esta<ITF>(const coleccionITF<ITF>& c, const string& ident);
-friend void obtenerITF<ITF>(const coleccionITF<ITF>& c, const string& ident, ITF& itf, bool& error);
-friend string obsoletos<ITF>(coleccionITF<ITF>& c, const string& separador, const Fecha& f);
+friend void borrar<ITF>(const string& ident, coleccionITF<ITF>& c);
+friend bool esta<ITF>(const string& ident, const coleccionITF<ITF>& c);
+friend void obtenerITF<ITF>(const string& ident, const coleccionITF<ITF>& c, ITF& itf, bool& error);
+friend string obsoletos<ITF>(const Fecha& f, const string& separador, const coleccionITF<ITF>& c);
 friend void purgar<ITF>(coleccionITF<ITF>& c, const Fecha& f);
 friend bool existeTema<ITF>(coleccionITF<ITF>& c, const string& t);
 friend string delTema<ITF>(coleccionITF<ITF>& c, const string& t, const string& separador);
@@ -140,8 +150,8 @@ friend coleccionITF<ITF> zanjarTema<ITF>(coleccionITF<ITF>& c, const string& t);
 friend bool esVacia<ITF>(const coleccionITF<ITF>& c);
 friend int tamanyo<ITF>(const coleccionITF<ITF>& c);
 friend void iniciarIterador<ITF>(coleccionITF<ITF>& c);
-friend bool existeSiguiente<ITF>(coleccionITF<ITF>& c);
-friend ITF siguiente<ITF>(coleccionITF<ITF>& c); //Siguiente y avanza nos han dicho que se pueden combinar
+friend bool existeSiguiente<ITF>(const coleccionITF<ITF>& c);
+friend ITF siguiente<ITF>(const coleccionITF<ITF>& c);
 friend void avanza<ITF>(coleccionITF<ITF>& c);
 private:
      struct unITF{
@@ -172,7 +182,7 @@ template<typename ITF> coleccionITF<ITF> crear(coleccionITF<ITF>& c){
  En caso contrario, devuelve una colección igual a c.
 */
 template<typename ITF> coleccionITF<ITF> anyadir(coleccionITF<ITF>& c, const ITF& i){
-     if(!esta(c, identificador(i))){ 
+     if(!esta(identificador(i), c)){ 
           if(esVacia(c)){
                c.inicial = new typename coleccionITF<ITF>::unITF; //creamos un ITF
                c.inicial->dato = i; //escribimos los datos 
@@ -235,11 +245,12 @@ template<typename ITF> coleccionITF<ITF> actualizar(coleccionITF<ITF>& c, const 
 }
 
 
-/*Si en c hay algún item con identificador igual a ident,
- devuelve una colección igual a la resultante de borrar ese el item de la colección c.
-  En caso contrario, devuelve una colección igual a c.
+/* borrar: cadena ident, colecciónITF c -> colecciónITF
+ Si en c hay algún ítem con identificador igual a ident, devuelve una colección igual a la
+ resultante de borrar ese ítem de la colección c. En caso contrario, devuelve una colección igual a c.
+ (Implementación: c se modifica directamente y se libera la memoria del ítem borrado.)
 */
-template<typename ITF> void borrar(coleccionITF<ITF>& c, const string& ident) {
+template<typename ITF> void borrar(const string& ident, coleccionITF<ITF>& c) {
      typename coleccionITF<ITF>::unITF* aux_ptr;
      typename coleccionITF<ITF>::unITF* prev_aux_ptr;
 
@@ -265,9 +276,10 @@ template<typename ITF> void borrar(coleccionITF<ITF>& c, const string& ident) {
 }
 
 
-/* Devuelve verdad si y sólo si en c hay algún item con identificador igual a ident
+/* está?: cadena ident, colecciónITF c -> booleano
+ Devuelve verdad si y sólo si en c hay algún ítem con identificador igual a ident.
 */
-template<typename ITF> bool esta(const coleccionITF<ITF>& c, const string& ident) {
+template<typename ITF> bool esta(const string& ident, const coleccionITF<ITF>& c) {
      typename coleccionITF<ITF>::unITF* aux_ptr;
 
      aux_ptr = c.inicial;
@@ -281,11 +293,13 @@ template<typename ITF> bool esta(const coleccionITF<ITF>& c, const string& ident
 }
 
 
-/* Si en c hay algún item con identificador igual a ident, devuelve dicho item.
-   Parcial: operación no definida si en c no hay ningún item con identificador igual a ident. Devuelve error TRUE.
-            En ese caso no modifica el item pasado por referencia.
+/* parcial obtenerITF: cadena ident, colecciónITF c -> ITF
+ Si en c hay algún ítem con identificador igual a ident, devuelve dicho ítem.
+ Parcial: operación no definida si en c no hay ningún ítem con identificador igual a ident.
+ (Implementación: el ítem se devuelve en itf y error toma el valor falso. Si la operación no está
+ definida, error toma el valor verdad e itf no se modifica.)
 */
-template<typename ITF> void obtenerITF(const coleccionITF<ITF>& c, const string& ident, ITF& itf, bool& error) {
+template<typename ITF> void obtenerITF(const string& ident, const coleccionITF<ITF>& c, ITF& itf, bool& error) {
      typename coleccionITF<ITF>::unITF* aux_ptr;
 
      aux_ptr = c.inicial;
@@ -302,10 +316,11 @@ template<typename ITF> void obtenerITF(const coleccionITF<ITF>& c, const string&
 }
 
 
-/* Devuelve la cadena resultante de concatenar los identificadores de todos los items que hay en c
- con fecha estrictamente anterior a f, y separados entre si por la cadena separador
+/* obsoletos: fecha f, cadena separador, colecciónITF c -> cadena
+ Devuelve la cadena resultante de concatenar los identificadores de todos los ítems que hay en c
+ con fecha estrictamente anterior a f, y separados entre sí por la cadena separador.
 */
-template<typename ITF> string obsoletos(coleccionITF<ITF>& c, const string& separador, const Fecha& f) {
+template<typename ITF> string obsoletos(const Fecha& f, const string& separador, const coleccionITF<ITF>& c) {
      typename coleccionITF<ITF>::unITF* aux_ptr;
      bool primero = true;
      string resultado;
@@ -437,33 +452,39 @@ template<typename ITF> int tamanyo(const coleccionITF<ITF>& c){
 }
 
 
-/* Inicializa el iterador para recorrer los items de la colección c, de forma que el siguiente item
- a visitar sea el que tiene el identificador (lexicográficamente) menor (situación de no haber visitado ningún item).
+/* iniciarIterador: colecciónITF c -> colecciónITF
+ Inicializa el iterador para recorrer los ítems de la colección c, de forma que el siguiente ítem
+ a visitar sea el que tiene el identificador (lexicográficamente) menor (situación de no haber visitado ningún ítem).
+ (Implementación: c se modifica directamente.)
 */
 template<typename ITF> void iniciarIterador(coleccionITF<ITF>& c){
      c.iter_ptr = c.inicial;
 }
 
 
-/* Devuelve verdad si queda algún item por visitar con el iterador de la colección c,
- devuelve falso si ya se ha visitado el último item
+/* existeSiguiente?: colecciónITF c -> booleano
+ Devuelve verdad si queda algún ítem por visitar con el iterador de la colección c,
+ devuelve falso si ya se ha visitado el último ítem.
 */
-template<typename ITF> bool existeSiguiente(coleccionITF<ITF>& c) {
+template<typename ITF> bool existeSiguiente(const coleccionITF<ITF>& c) {
      return c.iter_ptr != nullptr;
 }
 
 
-/* Devuelve el siguiente item a visitar con el iterador de la colección c.
-     Parcial: la operación no está definida si no quedan items por visitar (no existeSiguiente?(c))
+/* parcial siguiente: colecciónITF c -> ITF
+ Devuelve el siguiente ítem a visitar con el iterador de la colección c.
+ Parcial: la operación no está definida si no quedan ítems por visitar (no existeSiguiente?(c)).
 */
-template<typename ITF> ITF siguiente(coleccionITF<ITF>& c) {
+template<typename ITF> ITF siguiente(const coleccionITF<ITF>& c) {
      return c.iter_ptr->dato;
 }
 
 
-/* Prepara el iterador de la colección c para que se pueda visitar el siguiente item,
- entendiendo por siguiente aquel item con (lexicográficamente) menor identificador de los todavia no visitados.
-      Parcial: la operación no está definida si no quedan items por visitar (no existeSiguiente?(c))
+/* parcial avanza: colecciónITF c -> colecciónITF
+ Prepara el iterador de la colección c para que se pueda visitar el siguiente ítem, entendiendo por
+ siguiente aquel ítem con (lexicográficamente) menor identificador de los todavía no visitados.
+ Parcial: la operación no está definida si no quedan ítems por visitar (no existeSiguiente?(c)).
+ (Implementación: c se modifica directamente.)
 */
 template<typename ITF> void avanza(coleccionITF<ITF>& c) {
      c.iter_ptr = c.iter_ptr->siguiente;
