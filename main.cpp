@@ -208,7 +208,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
             archivo_salida << " ";
         }
 
-        archivo_salida << "---" << endl;;
+        archivo_salida << "---" << endl;
 
     }else if(entrada == "LT"){
         listar_anuncios(archivo_salida, coleccion_anuncios);
