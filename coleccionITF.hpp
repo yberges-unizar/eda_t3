@@ -247,12 +247,20 @@ template<typename ITF> void borrar(coleccionITF<ITF>& c, const string& ident) {
      aux_ptr = c.inicial;
 
      while (aux_ptr != nullptr) {
+          if (identificador(aux_ptr->dato) == ident) {
+               if (prev_aux_ptr == nullptr) {
+                    c.inicial = aux_ptr->siguiente;
+               } else {
+                    prev_aux_ptr->siguiente = aux_ptr->siguiente;
+               }
+
+               delete aux_ptr;
+               --c.cardinal;
+               return;
+          }
+
           prev_aux_ptr = aux_ptr;
           aux_ptr = aux_ptr->siguiente;
-          if (identificador(aux_ptr->dato) == ident) {
-               prev_aux_ptr->siguiente = aux_ptr->siguiente;
-               delete aux_ptr;
-          }
      }
 }
 
