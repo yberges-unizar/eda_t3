@@ -32,6 +32,7 @@ void anyadir_anuncio(coleccionITF<Anuncio>& coleccion_anuncios, ifstream& archiv
 void escribir_datos_anuncio(ofstream& archivo_salida , const Anuncio& anuncio);
 void listar_anuncios(ofstream& archivo_salida, coleccionITF<Anuncio>& coleccion);
 void obtener_anuncio(ifstream& archivo_entrada, ofstream& archivo_salida, const coleccionITF<Anuncio>& coleccion_anuncios);
+void leer_fecha(ifstream& f, Fecha& fecha, bool& error);
 string fecha_string(const Fecha& f);
 
 int main() {
@@ -103,7 +104,17 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
 
 
     }else if(entrada == "B"){
-        //la siguiente línea del fichero contendrá el identificador de anuncio 
+        string ident;
+        int tamanyo_previo_coleccion;
+
+        getline(archivo_entrada, ident);
+        tamanyo_previo_coleccion = tamanyo(coleccion_anuncios);
+        borrar(coleccion_anuncios, ident);
+        if (tamanyo(coleccion_anuncios) < tamanyo_previo_coleccion) {
+            archivo_salida << "BORRADO: " << ident << endl;
+        } else {
+            archivo_salida << "NO BORRADO: " << ident << endl;
+        }
 
     }else if(entrada == "EC"){
         //la siguiente línea del fichero contendrá la categoría de los anuncios
@@ -183,7 +194,13 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         }
 
     }else if(entrada == "LO"){
-        //la siguiente línea del fichero contendrá el valor de la fecha a utilizar
+        Fecha fecha_limite;
+        bool error;
+
+        leer_fecha(archivo_entrada, fecha_limite, error);
+
+        archivo_salida << "ANTERIORES A: " << fecha_string(fecha_limite) << " --- "
+            << obsoletos(coleccion_anuncios, SEPARADOR_DATOS, fecha_limite) << " ---" << endl;
 
     }else if(entrada == "LT"){
         listar_anuncios(archivo_salida, coleccion_anuncios);
@@ -315,6 +332,15 @@ void listar_anuncios(ofstream& archivo_salida, coleccionITF<Anuncio>& coleccion)
     }
 
     archivo_salida << "-----" << endl;
+}
+
+
+void leer_fecha(ifstream& f, Fecha& fecha, bool& error) {
+    string anyo_str, mes_str, dia_str;
+    getline(f, anyo_str, '-');
+    getline(f, mes_str, '-');
+    getline(f, dia_str);
+    crear(stoi(dia_str), stoi(mes_str), stoi(anyo_str), fecha, error);
 }
 
 string identificador(const Anuncio& a){

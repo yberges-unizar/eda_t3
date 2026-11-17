@@ -43,7 +43,7 @@ template<typename ITF> coleccionITF<ITF> actualizar(coleccionITF<ITF>& c, const 
  devuelve una colección igual a la resultante de borrar ese el item de la colección c.
   En caso contrario, devuelve una colección igual a c.
 */
-template<typename ITF> coleccionITF<ITF> borrar(coleccionITF<ITF>& c, const ITF& ident);
+template<typename ITF> void borrar(coleccionITF<ITF>& c, const string& ident);
 
 
 /* Devuelve verdad si y sólo si en c hay algún item con identificador igual a ident
@@ -129,7 +129,7 @@ template<typename ITF> struct coleccionITF {
 friend coleccionITF<ITF> crear<ITF>(coleccionITF<ITF>& c);
 friend coleccionITF<ITF> anyadir<ITF>(coleccionITF<ITF>& c, const ITF& i);
 friend coleccionITF<ITF> actualizar<ITF>(coleccionITF<ITF>& c, const ITF& i);
-friend coleccionITF<ITF> borrar<ITF>(coleccionITF<ITF>& c, const ITF& ident);
+friend void borrar<ITF>(coleccionITF<ITF>& c, const string& ident);
 friend bool esta<ITF>(const coleccionITF<ITF>& c, const string& ident);
 friend void obtenerITF<ITF>(const coleccionITF<ITF>& c, const string& ident, ITF& itf, bool& error);
 friend string obsoletos<ITF>(coleccionITF<ITF>& c, const string& separador, const Fecha& f);
@@ -239,7 +239,22 @@ template<typename ITF> coleccionITF<ITF> actualizar(coleccionITF<ITF>& c, const 
  devuelve una colección igual a la resultante de borrar ese el item de la colección c.
   En caso contrario, devuelve una colección igual a c.
 */
-template<typename ITF> coleccionITF<ITF> borrar(coleccionITF<ITF>& c, const ITF& ident){}
+template<typename ITF> void borrar(coleccionITF<ITF>& c, const string& ident) {
+     typename coleccionITF<ITF>::unITF* aux_ptr;
+     typename coleccionITF<ITF>::unITF* prev_aux_ptr;
+
+     prev_aux_ptr = nullptr;
+     aux_ptr = c.inicial;
+
+     while (aux_ptr != nullptr) {
+          prev_aux_ptr = aux_ptr;
+          aux_ptr = aux_ptr->siguiente;
+          if (identificador(aux_ptr->dato) == ident) {
+               prev_aux_ptr->siguiente = aux_ptr->siguiente;
+               delete aux_ptr;
+          }
+     }
+}
 
 
 /* Devuelve verdad si y sólo si en c hay algún item con identificador igual a ident
