@@ -196,11 +196,19 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
     }else if(entrada == "LO"){
         Fecha fecha_limite;
         bool error;
+        string ident_obsoletos;
 
         leer_fecha(archivo_entrada, fecha_limite, error);
+        ident_obsoletos = obsoletos(coleccion_anuncios, SEPARADOR_DATOS, fecha_limite);
 
         archivo_salida << "ANTERIORES A: " << fecha_string(fecha_limite) << " --- "
-            << obsoletos(coleccion_anuncios, SEPARADOR_DATOS, fecha_limite) << " ---" << endl;
+            << ident_obsoletos;
+
+        if (! ident_obsoletos.empty()) {
+            archivo_salida << " ";
+        }
+
+        archivo_salida << "---" << endl;;
 
     }else if(entrada == "LT"){
         listar_anuncios(archivo_salida, coleccion_anuncios);
