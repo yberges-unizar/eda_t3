@@ -158,32 +158,18 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         }
 
     }else if(entrada == "BC"){
-        int aux = tamanyo(coleccion_anuncios);
+        int tamanyo_previo = tamanyo(coleccion_anuncios);
         string tema;
         getline(archivo_entrada, tema);
         zanjarTema(coleccion_anuncios, tema);
-        if(aux != tamanyo(coleccion_anuncios)){ //Para saber si se ha anyadido con exito compararemos la cantidad de anuncios
-            if(archivo_salida.is_open()){
-                archivo_salida << "BORRADO: ";
-            }else{
-                cerr << "Error tipo BC";
-            }
 
-        }else{
-        if(archivo_salida.is_open()){
-                archivo_salida << "NO BORRADO: ";
-            }else{
-                cerr << "Error tipo BC";
+        if(tamanyo_previo < tamanyo(coleccion_anuncios)){ //Para saber si se ha anyadido con exito compararemos la cantidad de anuncios
+            archivo_salida << "ELIMINADOS: " << tema << endl;
+        } else {
+            archivo_salida << "NO ELIMINADOS: " << tema << endl;
         }
 
-        if(archivo_entrada.is_open()){
-            archivo_salida << tema << endl;
-        }else{
-            cout << "Error tipo BC";
-        }
-        
-
-    }
+    
 
     }else if(entrada == "LC"){
         //la siguiente línea del fichero contendrá la categoría de los anuncios
