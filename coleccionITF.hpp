@@ -18,7 +18,7 @@ using namespace std;
 
 template<typename ITF> struct coleccionITF;
 
-// Zona de decalracion de las operaciones de la colección de ITF
+// Zona de declaración de las operaciones de la colección de ITF
 
 // Crea una coleccion vacia, es decir sin elementos
 template<typename ITF> coleccionITF<ITF> crear(coleccionITF<ITF>& c);
@@ -77,13 +77,13 @@ template<typename ITF> void purgar(coleccionITF<ITF>& c, const Fecha& f);
 
 /* Devuelve verdad si y sólo si en c hay algún item i con tema igual a t
 */
-template<typename ITF> bool existeTema(coleccionITF<ITF>& c, const string& t);
+template<typename ITF> bool existeTema(const coleccionITF<ITF>& c, const string& t);
 
 
 /* Devuelve la cadena resultante de concatenar los identificadores de todos los items que hay en c
    con tema igual a t, y separados entre si por la cadena separador
 */
-template<typename ITF> string delTema(coleccionITF<ITF>& c, const string& t, const string& separador);
+template<typename ITF> string delTema(const coleccionITF<ITF>& c, const string& t, const string& separador);
 
 
 /* Devuelve una colección igual a la resultante de eliminar de c todos los items i cuyo tema es igual a t
@@ -144,8 +144,8 @@ friend bool esta<ITF>(const string& ident, const coleccionITF<ITF>& c);
 friend void obtenerITF<ITF>(const string& ident, const coleccionITF<ITF>& c, ITF& itf, bool& error);
 friend string obsoletos<ITF>(const Fecha& f, const string& separador, const coleccionITF<ITF>& c);
 friend void purgar<ITF>(coleccionITF<ITF>& c, const Fecha& f);
-friend bool existeTema<ITF>(coleccionITF<ITF>& c, const string& t);
-friend string delTema<ITF>(coleccionITF<ITF>& c, const string& t, const string& separador);
+friend bool existeTema<ITF>(const coleccionITF<ITF>& c, const string& t);
+friend string delTema<ITF>(const coleccionITF<ITF>& c, const string& t, const string& separador);
 friend coleccionITF<ITF> zanjarTema<ITF>(coleccionITF<ITF>& c, const string& t);
 friend bool esVacia<ITF>(const coleccionITF<ITF>& c);
 friend int tamanyo<ITF>(const coleccionITF<ITF>& c);
@@ -377,7 +377,7 @@ template<typename ITF> void purgar(coleccionITF<ITF>& c, const Fecha& f){
 
 /* Devuelve verdad si y sólo si en c hay algún item i con tema igual a t
 */
-template<typename ITF> bool existeTema(coleccionITF<ITF>& c, const std::string& t){
+template<typename ITF> bool existeTema(const coleccionITF<ITF>& c, const std::string& t){
     typename coleccionITF<ITF>::unITF* actual = c.inicial;
     while (actual != nullptr) {
         if (tema(actual->dato) == t) {
@@ -391,7 +391,7 @@ template<typename ITF> bool existeTema(coleccionITF<ITF>& c, const std::string& 
 /* Devuelve la cadena resultante de concatenar los identificadores de todos los items que hay en c
    con tema igual a t, y separados entre si por la cadena separador
 */
-template<typename ITF> std::string delTema(coleccionITF<ITF>& c, const std::string& t, const std::string& separador){
+template<typename ITF> std::string delTema(const coleccionITF<ITF>& c, const std::string& t, const std::string& separador){
      std::string resultado;
      typename coleccionITF<ITF>::unITF* actual = c.inicial;
      bool primero = true;

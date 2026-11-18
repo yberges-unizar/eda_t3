@@ -177,11 +177,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         string categoria;
         getline(archivo_entrada, categoria);
         string ids = delTema(coleccion_anuncios, categoria, SEPARADOR_DATOS);
-        archivo_salida << "DE CATEGORIA: " << categoria << " ---";
-        if (!ids.empty()) {
-            archivo_salida << " " << ids;
-        }
-        archivo_salida << " ---" << endl;
+        archivo_salida << "DE CATEGORIA: " << categoria << " --- " << ids << " --- " << endl;
     }else if(entrada == "P"){
         Fecha limite;
         bool error;

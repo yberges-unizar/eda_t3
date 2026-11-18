@@ -198,3 +198,31 @@ E
 iD10
 EC
 ID10
+LC
+Categoria inexistente
+P
+1900-01-01
+EC
+informatica
+LC
+informatica
+A
+ID01
+Pantalla de prueba
+Anuncio de prueba
+Informatica
+2026-09-01
+2026-12-31
+C
+ID01
+Pantalla de prueba cambiada
+Anuncio de prueba cambiado
+Deportes
+2026-09-01
+2026-12-31
+EC
+Deportes
+LC
+Deportes
+P
+2026-10-01
