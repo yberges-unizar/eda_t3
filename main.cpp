@@ -106,7 +106,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
 
         if (esta(id, coleccion_anuncios)) {
             actualizar(coleccion_anuncios, anuncio);
-            cout << "CAMBIADO: " << id << endl;
+            archivo_salida << "CAMBIADO: " << id << endl;
         } else {
             archivo_salida << "NO CAMBIADO: " << id << endl;
         }

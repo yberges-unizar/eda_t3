@@ -192,35 +192,27 @@ template<typename ITF> coleccionITF<ITF> anyadir(coleccionITF<ITF>& c, const ITF
                return c;
 
           }else{
-               if(c.cardinal == 1 || identificador(i) < identificador(c.inicial->dato)){ //En caso de que solo exista un elemento y sea mayor que i
+               if(identificador(i) < identificador(c.inicial->dato)){ //Coloca el nuevo elemento en la primera posicion
                     typename coleccionITF<ITF>::unITF* aux = c.inicial;
-                    c.inicial = new typename coleccionITF<ITF>::unITF; //creamos un ITF
-                    c.inicial->dato = i; //escribimos los datos 
-                    c.inicial->siguiente = aux; //ponemos el puntero a null
-
+                    c.inicial = new typename coleccionITF<ITF>::unITF;
+                    c.inicial->dato = i;
+                    c.inicial->siguiente = aux;
                     c.cardinal++;
-                    
-               }else{ //Si no es menor, i sera mayor, podemos seguir hasta encontrar un id mayor o el final
-                    
+
+               }else{
                     typename coleccionITF<ITF>::unITF* iter = c.inicial;
-                    while(iter->siguiente != nullptr && identificador(iter->dato) < identificador(i)){
-                         iter = iter->siguiente;
-
+                    while(iter->siguiente != nullptr && identificador(iter->siguiente->dato) < identificador(i)){
+                         iter = iter->siguiente; //Avanzamos por la coleccion
                     }
-                    //Si llegamos a este punto es que o se ha acabado la lista, o estamos en el hueco
 
-                    typename coleccionITF<ITF>::unITF* nuevo;
-                    typename coleccionITF<ITF>::unITF* aux = iter;
-                    iter->siguiente = nuevo;
-                    nuevo->siguiente = aux->siguiente; 
-
+                    typename coleccionITF<ITF>::unITF* nuevo = new typename coleccionITF<ITF>::unITF;
                     nuevo->dato = i;
+                    nuevo->siguiente = iter->siguiente;
+                    iter->siguiente = nuevo;
                     c.cardinal++;
                }
-
-               return c;
           }
-
+          return c; //Devolveremos la estructura tras haber anyadido el elemento en su posicion correspondiente
      }else{
           return c; //Devolveremos la estructura original al no haber tenido exito
      }
