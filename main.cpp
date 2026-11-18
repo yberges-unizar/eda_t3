@@ -163,7 +163,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         getline(archivo_entrada, tema);
         zanjarTema(coleccion_anuncios, tema);
 
-        if(tamanyo_previo > tamanyo(coleccion_anuncios)){ //Para saber si se ha anyadido con exito compararemos la cantidad de anuncios
+        if(tamanyo_previo > tamanyo(coleccion_anuncios)){ //Para saber si se ha eliminado con exito compararemos la cantidad de anuncios
             archivo_salida << "ELIMINADOS: " << tema << endl;
         } else {
             archivo_salida << "NO ELIMINADOS: " << tema << endl;
