@@ -3,6 +3,8 @@ B
 ID40
 LO
 2026-01-01
+O
+ID40
 A
 ID40
 Maleta pequeña
@@ -38,6 +40,16 @@ Bicicleta vintage de ciudad
 Deportes
 2026-09-15
 2026-11-30
+O
+ID01
+O
+ID40
+O
+ID03
+O
+id01
+O
+ID1
 EC
 Informatica
 EC
@@ -58,8 +70,16 @@ Este anuncio no esta en la coleccion
 Informatica
 2026-10-01
 2026-10-01
+O
+ID01
+O
+ID99
 P
 2026-09-20
+O
+ID03
+O
+ID40
 LT
 A
 ID05
@@ -96,6 +116,12 @@ B
 ID05
 B
 ID99
+O
+ID01
+O
+ID02
+O
+ID05
 LT
 LO
 2026-10-05
@@ -104,6 +130,8 @@ ID02
 B
 ID40
 LT
+O
+ID40
 LO
 2026-12-31
 B
@@ -116,3 +144,37 @@ En venta
 2026-09-20
 2026-09-01
 LT
+O
+ID40
+A
+ID100
+Bicicleta montaña
+Bicicleta de montaña talla M
+Deportes
+2026-11-18
+2026-12-18
+A
+id40
+Silla oficina
+Silla ergonomica con ruedas
+Hogar
+2026-09-20
+2026-10-20
+LT
+O
+id40
+O
+ID40
+O
+ID100
+LO
+2026-11-18
+B
+id40
+B
+ID100
+LT
+O
+ID100
+O
+ID40

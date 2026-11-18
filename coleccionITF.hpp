@@ -250,6 +250,9 @@ template<typename ITF> void borrar(const string& ident, coleccionITF<ITF>& c) {
      aux_ptr = c.inicial;
 
      while (aux_ptr != nullptr) {
+          if (identificador(aux_ptr->dato) > ident) {
+               return;
+          }
           if (identificador(aux_ptr->dato) == ident) {
                if (prev_aux_ptr == nullptr) {
                     c.inicial = aux_ptr->siguiente;
@@ -276,6 +279,10 @@ template<typename ITF> bool esta(const string& ident, const coleccionITF<ITF>& c
 
      aux_ptr = c.inicial;
      while (aux_ptr != nullptr) {
+          if (identificador(aux_ptr->dato) > ident) {
+               return false;
+          }
+
           if (identificador(aux_ptr->dato) == ident) {
                return true;
           }
@@ -297,6 +304,10 @@ template<typename ITF> void obtenerITF(const string& ident, const coleccionITF<I
      aux_ptr = c.inicial;
 
      while (aux_ptr != nullptr) {
+          if (identificador(aux_ptr->dato) > ident) {
+               error = true;
+               return;
+          }
           if (identificador(aux_ptr->dato) == ident) {
                itf = aux_ptr->dato;
                error = false;

@@ -79,7 +79,6 @@ int main() {
         archivo_entrada.close();
     }else {
         cerr << "No se pudo abrir el archivo de entrada" << endl;
-        exit(1);
     }
     archivo_salida.close();
 
@@ -207,13 +206,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         ident_obsoletos = obsoletos(fecha_limite, SEPARADOR_DATOS, coleccion_anuncios);
 
         archivo_salida << "ANTERIORES A: " << fecha_string(fecha_limite) << " --- "
-            << ident_obsoletos;
-
-        if (! ident_obsoletos.empty()) {
-            archivo_salida << " ";
-        }
-
-        archivo_salida << "---" << endl;
+            << ident_obsoletos << " ---" << endl;
 
     }else if(entrada == "LT"){
         listar_anuncios(archivo_salida, coleccion_anuncios);
