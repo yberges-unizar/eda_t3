@@ -4,7 +4,7 @@
  *   Lee las instrucciones de "entrada.txt" y escribe los resultados en "salida.txt".
  * Autores:
  *   Yaret Berges Calero, NIP 838561
- *   <Nombre Apellidos Persona 3>, NIP <NIP> 
+ *   Diego Masip Sisa, NIP 959248 
  *   Sergio Iso Blasco, NIP 927177
  */
 
@@ -106,7 +106,8 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
 
         if (esta(id, coleccion_anuncios)) {
             actualizar(coleccion_anuncios, anuncio);
-            archivo_salida << "CAMBIADO: " << id << endl;
+            archivo_salida << "CAMBIADO: ";
+            escribir_datos_anuncio(archivo_salida, anuncio);
         } else {
             archivo_salida << "NO CAMBIADO: " << id << endl;
         }
@@ -176,35 +177,25 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         // --- Instrucción LC: Listar Categoría ---
         string categoria;
         getline(archivo_entrada, categoria);
-    
-        // Se listan los identificadores separados por ":::" usando delTema
-        archivo_salida << "DE CATEGORIA: " << categoria << " --- "
-            << delTema(coleccion_anuncios, categoria, SEPARADOR_DATOS) << " ---" << endl;
+        string ids = delTema(coleccion_anuncios, categoria, SEPARADOR_DATOS);
+        archivo_salida << "DE CATEGORIA: " << categoria << " ---";
+        if (!ids.empty()) {
+            archivo_salida << " " << ids;
+        }
+        archivo_salida << " ---" << endl;
     }else if(entrada == "P"){
-        //la siguiente línea del fichero contendrá el valor de la fecha a utilizar
-        // --- Instrucción P: Purgar por fecha ---
-        string fecha_anyo, fecha_mes, fecha_dia;
-        getline(archivo_entrada, fecha_anyo, '-');
-        getline(archivo_entrada, fecha_mes, '-');
-        getline(archivo_entrada, fecha_dia);
-
         Fecha limite;
         bool error;
-        crear(stoi(fecha_dia), stoi(fecha_mes), stoi(fecha_anyo), limite, error);
+        leer_fecha(archivo_entrada, limite, error);
         if (!error) {
+            int tamanyo_previo = tamanyo(coleccion_anuncios);
             purgar(coleccion_anuncios, limite);
-            archivo_salida << "PURGADOS: " << fecha_string(limite) << endl;
 
-            string no_purgados;
-            iniciarIterador(coleccion_anuncios);
-            while (existeSiguiente(coleccion_anuncios)) {
-                if (!no_purgados.empty()) {
-                    no_purgados += SEPARADOR_DATOS;
-                }
-                no_purgados += identificador(siguiente(coleccion_anuncios));
-                avanza(coleccion_anuncios);
+            if (tamanyo(coleccion_anuncios) < tamanyo_previo) {
+                archivo_salida << "PURGADOS: " << fecha_string(limite) << endl;
+            } else {
+                archivo_salida << "NO PURGADOS: " << fecha_string(limite) << endl;
             }
-            archivo_salida << "NO PURGADOS: " << no_purgados << endl;
         }
 
     }else if(entrada == "LO"){

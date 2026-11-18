@@ -3,7 +3,7 @@
  * Descripción: implementación de las operaciones del TAD no genérico anuncio.
  * Autores:
  *   Yaret Berges Calero, NIP 838561
- *   <Nombre Apellidos Persona 3>, NIP <NIP>
+ *   Diego Masip Sisa, NIP 959248 
  *   Sergio Iso Blasco, NIP 927177
  */
 

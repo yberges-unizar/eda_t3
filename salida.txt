@@ -1,9 +1,9 @@
-
-
-
-
-
-
+-----LISTADO: 0
+-----
+NO BORRADO: ID40
+ANTERIORES A: 2026-01-01 --- ---
+INTRODUCIDO: ID40:::Maleta pequeña:::En venta:::Maleta con ruedas, pequeña, buen estado.:::2026-09-20:::2026-09-01
+INTRODUCIDO: ID10:::Maleta cabina:::Compra:::Compraria maleta cabina tamaño Ryanair:::2026-09-10:::2026-11-20
 INTRODUCIDO: ID01:::Pantalla PC:::Informatica:::Monitor curvo 24 pulgadas:::2026-10-01:::2026-12-31
 INTRODUCIDO: ID02:::Teclado mecanico:::Informatica:::Teclado RGB switch blue:::2026-10-05:::2026-12-31
 INTRODUCIDO: ID03:::Bicicleta paseo:::Deportes:::Bicicleta vintage de ciudad:::2026-09-15:::2026-11-30
@@ -13,6 +13,42 @@ DE CATEGORIA: Informatica --- ID01:::ID02 ---
 CAMBIADO: ID01:::Pantalla PC Gaming:::Informatica:::Monitor curvo 24 pulgadas 144Hz:::2026-10-02:::2026-12-31
 NO CAMBIADO: ID99
 PURGADOS: 2026-09-20
-----LISTADO: 2
-[ ID01 -de-> Informatica ;;; Pantalla PC Gaming (2026-10-02) --- Monitor curvo 24 pulgadas 144Hz (2026-12-31)
-[ ID02 -de-> Informatica ;;; Teclado mecanico (2026-10-05) --- Teclado RGB switch blue (2026-12-31)
+-----LISTADO: 3
+[ ID01 -de-> Informatica ;;; Pantalla PC Gaming ] (2026-10-02) --- Monitor curvo 24 pulgadas 144Hz --- (2026-12-31)
+[ ID02 -de-> Informatica ;;; Teclado mecanico ] (2026-10-05) --- Teclado RGB switch blue --- (2026-12-31)
+[ ID40 -de-> En venta ;;; Maleta pequeña ] (2026-09-20) --- Maleta con ruedas, pequeña, buen estado. --- (2026-09-01)
+-----
+INTRODUCIDO: ID05:::Lampara escritorio:::Hogar:::Lampara LED regulable:::2026-09-25:::2026-10-25
+INTRODUCIDO: ID50:::Sofa dos plazas:::Hogar:::Sofa gris desenfundable:::2026-11-01:::2027-01-15
+-----LISTADO: 5
+[ ID01 -de-> Informatica ;;; Pantalla PC Gaming ] (2026-10-02) --- Monitor curvo 24 pulgadas 144Hz --- (2026-12-31)
+[ ID02 -de-> Informatica ;;; Teclado mecanico ] (2026-10-05) --- Teclado RGB switch blue --- (2026-12-31)
+[ ID05 -de-> Hogar ;;; Lampara escritorio ] (2026-09-25) --- Lampara LED regulable --- (2026-10-25)
+[ ID40 -de-> En venta ;;; Maleta pequeña ] (2026-09-20) --- Maleta con ruedas, pequeña, buen estado. --- (2026-09-01)
+[ ID50 -de-> Hogar ;;; Sofa dos plazas ] (2026-11-01) --- Sofa gris desenfundable --- (2027-01-15)
+-----
+ANTERIORES A: 2026-09-20 --- ---
+ANTERIORES A: 2026-09-21 --- ID40 ---
+ANTERIORES A: 2026-10-05 --- ID01:::ID05:::ID40 ---
+ANTERIORES A: 2027-01-01 --- ID01:::ID02:::ID05:::ID40:::ID50 ---
+BORRADO: ID01
+NO BORRADO: id02
+BORRADO: ID50
+BORRADO: ID05
+NO BORRADO: ID05
+NO BORRADO: ID99
+-----LISTADO: 2
+[ ID02 -de-> Informatica ;;; Teclado mecanico ] (2026-10-05) --- Teclado RGB switch blue --- (2026-12-31)
+[ ID40 -de-> En venta ;;; Maleta pequeña ] (2026-09-20) --- Maleta con ruedas, pequeña, buen estado. --- (2026-09-01)
+-----
+ANTERIORES A: 2026-10-05 --- ID40 ---
+BORRADO: ID02
+BORRADO: ID40
+-----LISTADO: 0
+-----
+ANTERIORES A: 2026-12-31 --- ---
+NO BORRADO: ID40
+INTRODUCIDO: ID40:::Maleta pequeña:::En venta:::Maleta con ruedas, pequeña, buen estado.:::2026-09-20:::2026-09-01
+-----LISTADO: 1
+[ ID40 -de-> En venta ;;; Maleta pequeña ] (2026-09-20) --- Maleta con ruedas, pequeña, buen estado. --- (2026-09-01)
+-----
