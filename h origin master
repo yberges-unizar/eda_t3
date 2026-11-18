@@ -1,0 +1,518 @@
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mnew file mode 100644[m
+[1mindex 0000000..025b5a6[m
+[1m--- /dev/null[m
+[1m+++ b/.gitignore[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32m.context[m
+\ No newline at end of file[m
+[1mdiff --git a/.idea/deployment.xml b/.idea/deployment.xml[m
+[1mindex 06c7471..e5c998e 100644[m
+[1m--- a/.idea/deployment.xml[m
+[1m+++ b/.idea/deployment.xml[m
+[36m@@ -12,6 +12,16 @@[m
+           </excludedPaths>[m
+         </serverdata>[m
+       </paths>[m
+[32m+[m[32m      <paths name="Unizar Lab000 (974de564-642f-4ff7-aba9-ba4094d3f3ca)">[m
+[32m+[m[32m        <serverdata>[m
+[32m+[m[32m          <mappings>[m
+[32m+[m[32m            <mapping deploy="/home/a838561/comp_sci/second/eda/eda_t3" local="$PROJECT_DIR$" />[m
+[32m+[m[32m          </mappings>[m
+[32m+[m[32m          <excludedPaths>[m
+[32m+[m[32m            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-unizar-lab000" />[m
+[32m+[m[32m          </excludedPaths>[m
+[32m+[m[32m        </serverdata>[m
+[32m+[m[32m      </paths>[m
+     </serverData>[m
+   </component>[m
+ </project>[m
+\ No newline at end of file[m
+[1mdiff --git a/.idea/editor.xml b/.idea/editor.xml[m
+[1mindex 6aa4d89..f581144 100644[m
+[1m--- a/.idea/editor.xml[m
+[1m+++ b/.idea/editor.xml[m
+[36m@@ -8,6 +8,7 @@[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppAbstractFinalClass/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppAbstractVirtualFunctionCallInCtor/@EntryIndexedValue" value="ERROR" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppAccessSpecifierWithNoDeclarations/@EntryIndexedValue" value="SUGGESTION" type="string" />[m
+[32m+[m[32m    <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppAssignedValueIsNeverUsed/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppAwaiterTypeIsNotClass/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppBooleanIncrementExpression/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppBoostFormatBadCode/@EntryIndexedValue" value="WARNING" type="string" />[m
+[36m@@ -121,6 +122,7 @@[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppIncompatiblePointerConversion/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppIncompleteSwitchStatement/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppInconsistentNaming/@EntryIndexedValue" value="DO_NOT_SHOW" type="string" />[m
+[32m+[m[32m    <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppInitializedValueIsAlwaysRewritten/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppIntegralToPointerConversion/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppInvalidLineContinuation/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppJoinDeclarationAndAssignment/@EntryIndexedValue" value="SUGGESTION" type="string" />[m
+[36m@@ -137,6 +139,7 @@[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppMissingKeywordThrow/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppModulePartitionWithSeveralPartitionUnits/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppMsExtAddressOfClassRValue/@EntryIndexedValue" value="WARNING" type="string" />[m
+[32m+[m[32m    <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppMsExtAddressOfParenthesizedMemberFunction/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppMsExtBindingRValueToLvalueReference/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppMsExtCopyElisionInCopyInitDeclarator/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppMsExtDoubleUserConversionInCopyInit/@EntryIndexedValue" value="WARNING" type="string" />[m
+[36m@@ -161,6 +164,7 @@[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppParameterMayBeConstPtrOrRef/@EntryIndexedValue" value="SUGGESTION" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppParameterNamesMismatch/@EntryIndexedValue" value="HINT" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppParameterNeverUsed/@EntryIndexedValue" value="HINT" type="string" />[m
+[32m+[m[32m    <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppParameterValueIsReassigned/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppPassValueParameterByConstReference/@EntryIndexedValue" value="SUGGESTION" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppPointerConversionDropsQualifiers/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppPointerToIntegralConversion/@EntryIndexedValue" value="WARNING" type="string" />[m
+[36m@@ -173,6 +177,7 @@[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppPrintfBadFormat/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppPrintfExtraArg/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppPrintfMissedArg/@EntryIndexedValue" value="ERROR" type="string" />[m
+[32m+[m[32m    <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppPrintfMixedArgs/@EntryIndexedValue" value="ERROR" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppPrintfRiskyFormat/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppPrivateSpecialMemberFunctionIsNotImplemented/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppRangeBasedForIncompatibleReference/@EntryIndexedValue" value="WARNING" type="string" />[m
+[36m@@ -237,6 +242,7 @@[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppUnmatchedPragmaRegionDirective/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppUnnamedNamespaceInHeaderFile/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppUnnecessaryWhitespace/@EntryIndexedValue" value="DO_NOT_SHOW" type="string" />[m
+[32m+[m[32m    <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppUnreachableCode/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppUnsignedZeroComparison/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppUnusedIncludeDirective/@EntryIndexedValue" value="WARNING" type="string" />[m
+     <option name="/Default/CodeInspection/Highlighting/InspectionSeverities/=CppUseAlgorithmWithCount/@EntryIndexedValue" value="SUGGESTION" type="string" />[m
+[1mdiff --git a/.idea/other.xml b/.idea/other.xml[m
+[1mindex 0e8c736..da7fb0e 100644[m
+[1m--- a/.idea/other.xml[m
+[1m+++ b/.idea/other.xml[m
+[36m@@ -3,7 +3,7 @@[m
+   <component name="AutoUploadManager">[m
+     <option name="hosts">[m
+       <list>[m
+[31m-        <option value="ec7edaac-c8f2-4f06-9bbe-2d292b8f05b9" />[m
+[32m+[m[32m        <option value="974de564-642f-4ff7-aba9-ba4094d3f3ca" />[m
+       </list>[m
+     </option>[m
+   </component>[m
+[1mdiff --git a/coleccionITF.hpp b/coleccionITF.hpp[m
+[1mindex cd7b98f..c2246ff 100644[m
+[1m--- a/coleccionITF.hpp[m
+[1m+++ b/coleccionITF.hpp[m
+[36m@@ -16,99 +16,99 @@[m [mtemplate<typename ITF> struct coleccionITF;[m
+ template<typename ITF> coleccionITF<ITF> crear(coleccionITF<ITF>& c);[m
+ [m
+ [m
+[31m-/*Si en c no hay ningún ítem con identificador igual al de i,[m
+[31m- devuelve una colección igual a la resultante de añadir el ítem i a la colección c.[m
+[32m+[m[32m/*Si en c no hay ningún item con identificador igual al de i,[m
+[32m+[m[32m devuelve una colección igual a la resultante de anyadir el item i a la colección c.[m
+  En caso contrario, devuelve una colección igual a c.[m
+ */[m
+[31m-template<typename ITF> coleccionITF<ITF> añadir(coleccionITF<ITF>& c, const ITF& i);[m
+[32m+[m[32mtemplate<typename ITF> coleccionITF<ITF> anyadir(coleccionITF<ITF>& c, const ITF& i);[m
+ [m
+ [m
+[31m-/*Si en c no hay ningún ítem con identificador igual al de i,[m
+[32m+[m[32m/*Si en c no hay ningún item con identificador igual al de i,[m
+  devuelve una colección igual a c. En caso contrario, devuelve una colección igual[m
+[31m- a la resultante de sustituir en c el ítem que tenía identificador igual al de i, por el ítem i.[m
+[32m+[m[32m a la resultante de sustituir en c el item que tenia identificador igual al de i, por el item i.[m
+ */[m
+ template<typename ITF> coleccionITF<ITF> actualizar(coleccionITF<ITF>& c, const ITF& i);[m
+      [m
+ [m
+ [m
+[31m-/*Si en c hay algún ítem con identificador igual a ident,[m
+[31m- devuelve una colección igual a la resultante de borrar ese el ítem de la colección c.[m
+[32m+[m[32m/*Si en c hay algún item con identificador igual a ident,[m
+[32m+[m[32m devuelve una colección igual a la resultante de borrar ese el item de la colección c.[m
+   En caso contrario, devuelve una colección igual a c.[m
+ */[m
+ template<typename ITF> coleccionITF<ITF> borrar(coleccionITF<ITF>& c, const ITF& ident);[m
+ [m
+ [m
+[31m-/* Devuelve verdad si y sólo si en c hay algún ítem con identificador igual a ident[m
+[31m- Parcial: operación no definida si en c no hay ningún ítem con identificador igual a ident[m
+[32m+[m[32m/* Devuelve verdad si y sólo si en c hay algún item con identificador igual a ident[m
+[32m+[m[32m Parcial: operación no definida si en c no hay ningún item con identificador igual a ident[m
+ */[m
+[31m-template<typename ITF> bool esta(coleccionITF<ITF>& c, const std::string& ident);[m
+[32m+[m[32mtemplate<typename ITF> bool esta(const coleccionITF<ITF>& c, const std::string& ident);[m
+ [m
+ [m
+[31m-/* Si en c hay algún ítem con identificador igual a ident, devuelve dicho ítem.[m
+[31m-     Parcial: operación no definida si en c no hay ningún ítem con identificador igual a ident[m
+[32m+[m[32m/* Si en c hay algún item con identificador igual a ident, devuelve dicho item.[m
+[32m+[m[32m     Parcial: operación no definida si en c no hay ningún item con identificador igual a ident[m
+ */[m
+ template<typename ITF> ITF obtenerITF(coleccionITF<ITF>& c, const std::string& ident);[m
+ [m
+ [m
+[31m-/* Devuelve la cadena resultante de concatenar los identificadores de todos los ítems que hay en c[m
+[31m- con fecha estrictamente anterior a f, y separados entre sí por la cadena separador[m
+[32m+[m[32m/* Devuelve la cadena resultante de concatenar los identificadores de todos los items que hay en c[m
+[32m+[m[32m con fecha estrictamente anterior a f, y separados entre si por la cadena separador[m
+ */[m
+ template<typename ITF> std::string obsoletos(coleccionITF<ITF>& c, const std::string& separador, const Fecha& f);[m
+ [m
+ [m
+ /* Devuelve una colección igual a la resultante de eliminar de c[m
+[31m- todos los ítems con fecha estrictamente anterior a f[m
+[32m+[m[32m todos los items con fecha estrictamente anterior a f[m
+ */[m
+ template<typename ITF> void purgar(coleccionITF<ITF>& c, const Fecha& f);[m
+ [m
+ [m
+[31m-/* Devuelve verdad si y sólo si en c hay algún ítem i con tema igual a t[m
+[32m+[m[32m/* Devuelve verdad si y sólo si en c hay algún item i con tema igual a t[m
+ */[m
+ template<typename ITF> bool existeTema(coleccionITF<ITF>& c, const std::string& t);[m
+ [m
+ [m
+[31m-/* Devuelve la cadena resultante de concatenar los identificadores de todos los ítems que hay en c[m
+[31m-   con tema igual a t, y separados entre sí por la cadena separador[m
+[32m+[m[32m/* Devuelve la cadena resultante de concatenar los identificadores de todos los items que hay en c[m
+[32m+[m[32m   con tema igual a t, y separados entre si por la cadena separador[m
+ */[m
+ template<typename ITF> std::string delTema(coleccionITF<ITF>& c, const std::string& t, const std::string& separador);[m
+ [m
+ [m
+[31m-/* Devuelve una colección igual a la resultante de eliminar de c todos los ítems i cuyo tema es igual a t[m
+[32m+[m[32m/* Devuelve una colección igual a la resultante de eliminar de c todos los items i cuyo tema es igual a t[m
+ */[m
+ template<typename ITF> void zanjarTema(coleccionITF<ITF>& c, const std::string& t);[m
+ [m
+ [m
+[31m-/* Devuelve verdad si y sólo si c no contiene ningún ítem[m
+[32m+[m[32m/* Devuelve verdad si y sólo si c no contiene ningún item[m
+ */[m
+[31m-template<typename ITF> bool esVacía(const coleccionITF<ITF>& c);[m
+[32m+[m[32mtemplate<typename ITF> bool esVacia(const coleccionITF<ITF>& c);[m
+ [m
+ [m
+[31m-/* Devuelve el número de ítems que hay en la colección c[m
+[32m+[m[32m/* Devuelve el número de items que hay en la colección c[m
+ */[m
+[31m-template<typename ITF> int tamaño(const coleccionITF<ITF>& c);[m
+[32m+[m[32mtemplate<typename ITF> int tamanyo(const coleccionITF<ITF>& c);[m
+ [m
+ [m
+[31m-/* Inicializa el iterador para recorrer los ítems de la colección c, de forma que el siguiente ítem [m
+[31m- a visitar sea el que tiene el identificador (lexicográficamente) menor (situación de no haber visitado ningún ítem).[m
+[32m+[m[32m/* Inicializa el iterador para recorrer los items de la colección c, de forma que el siguiente item[m[41m [m
+[32m+[m[32m a visitar sea el que tiene el identificador (lexicográficamente) menor (situación de no haber visitado ningún item).[m
+ */[m
+ template<typename ITF> void iniciarIterador(coleccionITF<ITF>& c);[m
+ [m
+ [m
+[31m-/* Devuelve verdad si queda algún ítem por visitar con el iterador de la colección c,[m
+[31m- devuelve falso si ya se ha visitado el último ítem[m
+[32m+[m[32m/* Devuelve verdad si queda algún item por visitar con el iterador de la colección c,[m
+[32m+[m[32m devuelve falso si ya se ha visitado el último item[m
+ */[m
+ template<typename ITF> bool existeSiguiente(coleccionITF<ITF>& c);[m
+ [m
+ [m
+[31m-/* Devuelve el siguiente ítem a visitar con el iterador de la colección c.[m
+[31m-     Parcial: la operación no está definida si no quedan ítems por visitar (no existeSiguiente?(c))[m
+[32m+[m[32m/* Devuelve el siguiente item a visitar con el iterador de la colección c.[m
+[32m+[m[32m     Parcial: la operación no está definida si no quedan items por visitar (no existeSiguiente?(c))[m
+ */[m
+ template<typename ITF> ITF siguiente(coleccionITF<ITF>& c); [m
+ [m
+ [m
+[31m-/* Prepara el iterador de la colección c para que se pueda visitar el siguiente ítem,[m
+[31m- entendiendo por siguiente aquel ítem con (lexicográficamente) menor identificador de los todavía no visitados.[m
+[31m-      Parcial: la operación no está definida si no quedan ítems por visitar (no existeSiguiente?(c))[m
+[32m+[m[32m/* Prepara el iterador de la colección c para que se pueda visitar el siguiente item,[m
+[32m+[m[32m entendiendo por siguiente aquel item con (lexicográficamente) menor identificador de los todavia no visitados.[m
+[32m+[m[32m      Parcial: la operación no está definida si no quedan items por visitar (no existeSiguiente?(c))[m
+ */[m
+ template<typename ITF> void avanza(coleccionITF<ITF>& c);[m
+ [m
+[36m@@ -118,7 +118,7 @@[m [mtemplate<typename ITF> void avanza(coleccionITF<ITF>& c);[m
+ //Estan unidos entre si mediante punteros.[m
+ template<typename ITF> struct coleccionITF {[m
+ friend coleccionITF<ITF> crear<ITF>(coleccionITF<ITF>& c);[m
+[31m-friend coleccionITF<ITF> añadir<ITF>(coleccionITF<ITF>& c, const ITF& i);[m
+[32m+[m[32mfriend coleccionITF<ITF> anyadir<ITF>(coleccionITF<ITF>& c, const ITF& i);[m
+ friend coleccionITF<ITF> actualizar<ITF>(coleccionITF<ITF>& c, const ITF& i);[m
+ friend coleccionITF<ITF> borrar<ITF>(coleccionITF<ITF>& c, const ITF& ident);[m
+ friend bool esta<ITF>(coleccionITF<ITF>& c, const std::string& ident);[m
+[36m@@ -128,8 +128,8 @@[m [mfriend void purgar<ITF>(coleccionITF<ITF>& c, const Fecha& f);[m
+ friend bool existeTema<ITF>(coleccionITF<ITF>& c, const std::string& t);[m
+ friend std::string delTema<ITF>(coleccionITF<ITF>& c, const std::string& t, const std::string& separador);[m
+ friend void zanjarTema<ITF>(coleccionITF<ITF>& c, const std::string& t);[m
+[31m-friend bool esVacía<ITF>(const coleccionITF<ITF>& c);[m
+[31m-friend int tamaño<ITF>(const coleccionITF<ITF>& c);[m
+[32m+[m[32mfriend bool esVacia<ITF>(const coleccionITF<ITF>& c);[m
+[32m+[m[32mfriend int tamanyo<ITF>(const coleccionITF<ITF>& c);[m
+ friend void iniciarIterador<ITF>(coleccionITF<ITF>& c);[m
+ friend bool existeSiguiente<ITF>(coleccionITF<ITF>& c);[m
+ friend ITF siguiente<ITF>(coleccionITF<ITF>& c); //Siguiente y avanza nos han dicho que se pueden combinar[m
+[36m@@ -161,13 +161,13 @@[m [mtemplate<typename ITF> coleccionITF<ITF> crear(coleccionITF<ITF>& c){[m
+ [m
+ // Zona de implementación de las operaciones de la colección de ITF[m
+ [m
+[31m-/*Si en c no hay ningún ítem con identificador igual al de i,[m
+[31m- devuelve una colección igual a la resultante de añadir el ítem i a la colección c.[m
+[32m+[m[32m/*Si en c no hay ningún item con identificador igual al de i,[m
+[32m+[m[32m devuelve una colección igual a la resultante de anyadir el item i a la colección c.[m
+  En caso contrario, devuelve una colección igual a c.[m
+ */[m
+[31m-template<typename ITF> coleccionITF<ITF> añadir(coleccionITF<ITF>& c, const ITF& i){[m
+[32m+[m[32mtemplate<typename ITF> coleccionITF<ITF> anyadir(coleccionITF<ITF>& c, const ITF& i){[m
+      if(!esta(c, identificador(i))){ [m
+[31m-          if(esVacía(c)){[m
+[32m+[m[32m          if(esVacia(c)){[m
+                c.inicial = new typename coleccionITF<ITF>::unITF; //creamos un ITF[m
+                c.inicial->dato = i; //escribimos los datos [m
+                c.inicial->siguiente = nullptr; //ponemos el puntero a null[m
+[36m@@ -210,9 +210,9 @@[m [mtemplate<typename ITF> coleccionITF<ITF> añadir(coleccionITF<ITF>& c, const ITF[m
+ }[m
+ [m
+ [m
+[31m-/*Si en c no hay ningún ítem con identificador igual al de i,[m
+[32m+[m[32m/*Si en c no hay ningún item con identificador igual al de i,[m
+  devuelve una colección igual a c. En caso contrario, devuelve una colección igual[m
+[31m- a la resultante de sustituir en c el ítem que tenía identificador igual al de i, por el ítem i.[m
+[32m+[m[32m a la resultante de sustituir en c el item que tenia identificador igual al de i, por el item i.[m
+ */[m
+ template<typename ITF> coleccionITF<ITF> actualizar(coleccionITF<ITF>& c, const ITF& i){[m
+     typename coleccionITF<ITF>::unITF* actual = c.inicial;[m
+[36m@@ -228,33 +228,47 @@[m [mtemplate<typename ITF> coleccionITF<ITF> actualizar(coleccionITF<ITF>& c, const[m
+ }[m
+ [m
+ [m
+[31m-/*Si en c hay algún ítem con identificador igual a ident,[m
+[31m- devuelve una colección igual a la resultante de borrar ese el ítem de la colección c.[m
+[32m+[m[32m/*Si en c hay algún item con identificador igual a ident,[m
+[32m+[m[32m devuelve una colección igual a la resultante de borrar ese el item de la colección c.[m
+   En caso contrario, devuelve una colección igual a c.[m
+ */[m
+ template<typename ITF> coleccionITF<ITF> borrar(coleccionITF<ITF>& c, const ITF& ident){}[m
+ [m
+ [m
+[31m-/* Devuelve verdad si y sólo si en c hay algún ítem con identificador igual a ident[m
+[31m- Parcial: operación no definida si en c no hay ningún ítem con identificador igual a ident[m
+[32m+[m[32m/* Devuelve verdad si y sólo si en c hay algún item con identificador igual a ident[m
+ */[m
+[31m-template<typename ITF> bool esta(coleccionITF<ITF>& c, const std::string& ident){}[m
+[32m+[m[32mtemplate<typename ITF> bool esta(const coleccionITF<ITF>& c, const string& ident) {[m
+[32m+[m[32m     typename coleccionITF<ITF>::unITF* ptr;[m
+[32m+[m
+[32m+[m[32m     if(esVacia(c)){[m
+[32m+[m[32m          return false;[m
+[32m+[m[32m     }[m
+[32m+[m
+[32m+[m[32m     ptr = c.inicial;[m
+[32m+[m[32m     while (ptr != nullptr) {[m
+[32m+[m[32m          if (identificador(ptr->dato) == ident) {[m
+[32m+[m[32m               return true;[m
+[32m+[m[32m          }[m
+[32m+[m[32m          ptr = ptr->siguiente;[m
+[32m+[m[32m     }[m
+[32m+[m[32m     return false;[m
+[32m+[m[32m}[m
+ [m
+ [m
+[31m-/* Si en c hay algún ítem con identificador igual a ident, devuelve dicho ítem.[m
+[31m-     Parcial: operación no definida si en c no hay ningún ítem con identificador igual a ident[m
+[32m+[m[32m/* Si en c hay algún item con identificador igual a ident, devuelve dicho item.[m
+[32m+[m[32m     Parcial: operación no definida si en c no hay ningún item con identificador igual a ident[m
+ */[m
+ template<typename ITF> ITF obtenerITF(coleccionITF<ITF>& c, const std::string& ident){} [m
+ [m
+ [m
+[31m-/* Devuelve la cadena resultante de concatenar los identificadores de todos los ítems que hay en c[m
+[31m- con fecha estrictamente anterior a f, y separados entre sí por la cadena separador[m
+[32m+[m[32m/* Devuelve la cadena resultante de concatenar los identificadores de todos los items que hay en c[m
+[32m+[m[32m con fecha estrictamente anterior a f, y separados entre si por la cadena separador[m
+ */[m
+ template<typename ITF> std::string obsoletos(coleccionITF<ITF>& c, const std::string& separador, const Fecha& f){}[m
+ [m
+ [m
+ /* Devuelve una colección igual a la resultante de eliminar de c[m
+[31m- todos los ítems con fecha estrictamente anterior a f[m
+[32m+[m[32m todos los items con fecha estrictamente anterior a f[m
+ */[m
+ template<typename ITF> void purgar(coleccionITF<ITF>& c, const Fecha& f){[m
+      typename coleccionITF<ITF>::unITF* actual = c.inicial;[m
+[36m@@ -281,7 +295,7 @@[m [mtemplate<typename ITF> void purgar(coleccionITF<ITF>& c, const Fecha& f){[m
+ }[m
+ [m
+ [m
+[31m-/* Devuelve verdad si y sólo si en c hay algún ítem i con tema igual a t[m
+[32m+[m[32m/* Devuelve verdad si y sólo si en c hay algún item i con tema igual a t[m
+ */[m
+ template<typename ITF> bool existeTema(coleccionITF<ITF>& c, const std::string& t){[m
+     typename coleccionITF<ITF>::unITF* actual = c.inicial;[m
+[36m@@ -294,8 +308,8 @@[m [mtemplate<typename ITF> bool existeTema(coleccionITF<ITF>& c, const std::string&[m
+     return false;[m
+ }[m
+ [m
+[31m-/* Devuelve la cadena resultante de concatenar los identificadores de todos los ítems que hay en c[m
+[31m-   con tema igual a t, y separados entre sí por la cadena separador[m
+[32m+[m[32m/* Devuelve la cadena resultante de concatenar los identificadores de todos los items que hay en c[m
+[32m+[m[32m   con tema igual a t, y separados entre si por la cadena separador[m
+ */[m
+ template<typename ITF> std::string delTema(coleccionITF<ITF>& c, const std::string& t, const std::string& separador){[m
+      std::string resultado;[m
+[36m@@ -317,10 +331,10 @@[m [mtemplate<typename ITF> std::string delTema(coleccionITF<ITF>& c, const std::stri[m
+ }[m
+ [m
+ [m
+[31m-/* Devuelve una colección igual a la resultante de eliminar de c todos los ítems i cuyo tema es igual a t[m
+[32m+[m[32m/* Devuelve una colección igual a la resultante de eliminar de c todos los items i cuyo tema es igual a t[m
+ */[m
+ template<typename ITF> void zanjarTema(coleccionITF<ITF>& c, const std::string& t){[m
+[31m-     if(!esVacía(c)){[m
+[32m+[m[32m     if(!esVacia(c)){[m
+           new typename coleccionITF<ITF>::unITF aux = c.inicial; [m
+           if(tema(aux->dato) == t){[m
+                c.inicial = c.inicial->siguiente[m
+[36m@@ -348,43 +362,43 @@[m [mtemplate<typename ITF> void zanjarTema(coleccionITF<ITF>& c, const std::string&[m
+ [m
+ [m
+ [m
+[31m-/* Devuelve verdad si y sólo si c no contiene ningún ítem[m
+[32m+[m[32m/* Devuelve verdad si y sólo si c no contiene ningún item[m
+      O(1)[m
+ */[m
+[31m-template<typename ITF> bool esVacía(const coleccionITF<ITF>& c){[m
+[32m+[m[32mtemplate<typename ITF> bool esVacia(const coleccionITF<ITF>& c){[m
+      return c.cardinal == 0; [m
+ }[m
+ [m
+ [m
+[31m-/* Devuelve el número de ítems que hay en la colección c [m
+[32m+[m[32m/* Devuelve el número de items que hay en la colección c[m[41m [m
+      O(n)[m
+ */ [m
+[31m-template<typename ITF> int tamaño(const coleccionITF<ITF>& c){[m
+[32m+[m[32mtemplate<typename ITF> int tamanyo(const coleccionITF<ITF>& c){[m
+      return cardinal; [m
+ }[m
+ [m
+ [m
+[31m-/* Inicializa el iterador para recorrer los ítems de la colección c, de forma que el siguiente ítem [m
+[31m- a visitar sea el que tiene el identificador (lexicográficamente) menor (situación de no haber visitado ningún ítem).[m
+[32m+[m[32m/* Inicializa el iterador para recorrer los items de la colección c, de forma que el siguiente item[m[41m [m
+[32m+[m[32m a visitar sea el que tiene el identificador (lexicográficamente) menor (situación de no haber visitado ningún item).[m
+ */[m
+ template<typename ITF> void iniciarIterador(coleccionITF<ITF>& c){}[m
+ [m
+ [m
+[31m-/* Devuelve verdad si queda algún ítem por visitar con el iterador de la colección c,[m
+[31m- devuelve falso si ya se ha visitado el último ítem[m
+[32m+[m[32m/* Devuelve verdad si queda algún item por visitar con el iterador de la colección c,[m
+[32m+[m[32m devuelve falso si ya se ha visitado el último item[m
+ */[m
+ template<typename ITF> bool existeSiguiente(coleccionITF<ITF>& c){}[m
+ [m
+ [m
+[31m-/* Devuelve el siguiente ítem a visitar con el iterador de la colección c.[m
+[31m-     Parcial: la operación no está definida si no quedan ítems por visitar (no existeSiguiente?(c))[m
+[32m+[m[32m/* Devuelve el siguiente item a visitar con el iterador de la colección c.[m
+[32m+[m[32m     Parcial: la operación no está definida si no quedan items por visitar (no existeSiguiente?(c))[m
+ */[m
+ template<typename ITF> ITF siguiente(coleccionITF<ITF>& c){}[m
+ [m
+ [m
+[31m-/* Prepara el iterador de la colección c para que se pueda visitar el siguiente ítem,[m
+[31m- entendiendo por siguiente aquel ítem con (lexicográficamente) menor identificador de los todavía no visitados.[m
+[31m-      Parcial: la operación no está definida si no quedan ítems por visitar (no existeSiguiente?(c))[m
+[32m+[m[32m/* Prepara el iterador de la colección c para que se pueda visitar el siguiente item,[m
+[32m+[m[32m entendiendo por siguiente aquel item con (lexicográficamente) menor identificador de los todavia no visitados.[m
+[32m+[m[32m      Parcial: la operación no está definida si no quedan items por visitar (no existeSiguiente?(c))[m
+ */[m
+ template<typename ITF> void avanza(coleccionITF<ITF>& c){}[m
+ [m
+[1mdiff --git a/main.cpp b/main.cpp[m
+[1mindex a175a0e..30806d7 100644[m
+[1m--- a/main.cpp[m
+[1m+++ b/main.cpp[m
+[36m@@ -2,13 +2,13 @@[m
+ #include "fecha.hpp"[m
+ #include "anuncio.hpp"[m
+ #include "coleccionITF.hpp"[m
+[31m-#include <string>   //importante para manejar cadenas de caracteres[m
+[31m-#include <fstream> //para abrir archivos[m
+[32m+[m[32m#include <string>[m
+[32m+[m[32m#include <fstream>[m
+ [m
+ using namespace std;[m
+ [m
+[31m-string RUTA_FICHERO_SALIDA = "./output.txt";[m
+[31m-string RUTA_FICHERO_ENTRADA = "../entrada.txt";[m
+[32m+[m[32mstring RUTA_FICHERO_SALIDA = "./salida.txt";[m
+[32m+[m[32mstring RUTA_FICHERO_ENTRADA = "./entrada.txt";[m
+ [m
+ string identificador(Anuncio a){[m
+     return suIdentificador(a);[m
+[36m@@ -22,8 +22,7 @@[m [mFecha fecha(Anuncio a){[m
+     return suPublicacion(a);;[m
+ }[m
+ [m
+[31m-void procesarEntrada(const std::string entrada, std::ifstream& archivo,[m
+[31m-    coleccionITF<Anuncio>& coleccionAnuncios);[m
+[32m+[m[32mvoid procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio>& coleccionAnuncios);[m
+ void obtener_datos_anuncio(string &id, string &titulo, string &descripcion,[m
+     string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo);[m
+ void anyadir_anuncio(ifstream& archivo);[m
+[36m@@ -31,29 +30,26 @@[m [mvoid anyadir_anuncio(ifstream& archivo);[m
+ int main() {[m
+     ifstream archivo(RUTA_FICHERO_ENTRADA);[m
+     string linea;[m
+[31m-    coleccionITF<Anuncio> coleccionAnuncios; //Concretamos el TAD generico[m
+[31m-    crear(coleccionAnuncios);//Inicializamos la coleccion[m
+[32m+[m[32m    coleccionITF<Anuncio> coleccionAnuncios;[m
+[32m+[m[32m    crear(coleccionAnuncios);[m
+ [m
+[31m-    // Abrimos el archivo de entrada para leer la entrada[m
+     if (archivo.is_open()) {[m
+[31m-        while(getline(archivo, linea)){ //leemos linea a linea, se consumira el delimitador (\n)[m
+[32m+[m[32m        while(getline(archivo, linea)){[m
+             procesarEntrada(linea, archivo, coleccionAnuncios);[m
+         }[m
+         archivo.close();[m
+     }else {[m
+         cout << "No se pudo abrir el archivo." << endl;[m
+[32m+[m[32m        exit(1);[m
+     }[m
+[32m+[m
+ }[m
+ [m
+ [m
+ // Función para procesar la entrada del archivo[m
+ void procesarEntrada(const string entrada, ifstream& archivo, coleccionITF<Anuncio>& coleccionAnuncios) {[m
+     if(entrada == "A"){[m
+[31m-        //las siguientes 6 líneas del fichero contendrán los datos para la información de un anuncio,[m
+[31m-        //en el orden: id, título, descripción, categoría, fecha de publicación y fecha de finalización[m
+[31m-[m
+         anyadir_anuncio(archivo);[m
+[31m-[m
+     }else if(entrada == "C"){[m
+         //las siguientes 6 líneas del fichero contendrán los datos para la información de un anuncio,[m
+         //en el orden: id, título, descripción, categoría, fecha de publicación y fecha de finalización[m
+[36m@@ -156,7 +152,7 @@[m [mvoid anyadir_anuncio(ifstream& archivo) {[m
+     crearAnuncio(id, titulo, descripcion, categoria, fecha_publicacion, fecha_finalizacion, anun);[m
+ }[m
+ [m
+[31m-void obtener_datos_anuncio(string &id, string &titulo, string &descripcion, string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo) {[m
+[32m+[m[32mvoid obtener_datos_anuncio(string &id, string &titulo, string &descripcion, string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo){[m
+     string fecha_publicacion_dia;[m
+     string fecha_publicacion_mes;[m
+     string fecha_publicacion_anyo;[m
+[36m@@ -179,9 +175,8 @@[m [mvoid obtener_datos_anuncio(string &id, string &titulo, string &descripcion, stri[m
+     crear(stoi(fecha_publicacion_dia), stoi(fecha_publicacion_mes),[m
+         stoi(fecha_publicacion_anyo), fecha_publicacion, error);[m
+ [m
+[32m+[m[32m    if (error) {return;}[m
+[32m+[m
+     crear(stoi(fecha_finalizacion_dia), stoi(fecha_finalizacion_mes),[m
+         stoi(fecha_finalizacion_anyo), fecha_finalizacion, error);[m
+[31m-[m
+[31m-    cout << "Fecha de publicación: " << dia(fecha_publicacion) << "/" << mes(fecha_publicacion) << "/" << anyo(fecha_publicacion) << endl;[m
+[31m-    cout << "Fecha de finalización: " << dia(fecha_finalizacion) << "/" << mes(fecha_finalizacion) << "/" << anyo(fecha_finalizacion) << endl;[m
+ }[m
+\ No newline at end of file[m
