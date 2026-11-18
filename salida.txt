@@ -1,18 +1,29 @@
 -----LISTADO: 0
 -----
 NO BORRADO: ID40
-ANTERIORES A: 2026-01-01 --- ---
+ANTERIORES A: 2026-01-01 ---  --- 
+NO LOCALIZADO: ID40
 INTRODUCIDO: ID40:::Maleta pequeña:::En venta:::Maleta con ruedas, pequeña, buen estado.:::2026-09-20:::2026-09-01
 INTRODUCIDO: ID10:::Maleta cabina:::Compra:::Compraria maleta cabina tamaño Ryanair:::2026-09-10:::2026-11-20
+NO INTRODUCIDO: ID10:::Maleta cabina:::Compra:::Compraria maleta cabina tamaño Ryanair:::2026-09-10:::2026-11-20
 INTRODUCIDO: ID01:::Pantalla PC:::Informatica:::Monitor curvo 24 pulgadas:::2026-10-01:::2026-12-31
 INTRODUCIDO: ID02:::Teclado mecanico:::Informatica:::Teclado RGB switch blue:::2026-10-05:::2026-12-31
 INTRODUCIDO: ID03:::Bicicleta paseo:::Deportes:::Bicicleta vintage de ciudad:::2026-09-15:::2026-11-30
+LOCALIZADO: ID01:::Pantalla PC:::Informatica:::Monitor curvo 24 pulgadas:::2026-10-01:::2026-12-31
+LOCALIZADO: ID40:::Maleta pequeña:::En venta:::Maleta con ruedas, pequeña, buen estado.:::2026-09-20:::2026-09-01
+LOCALIZADO: ID03:::Bicicleta paseo:::Deportes:::Bicicleta vintage de ciudad:::2026-09-15:::2026-11-30
+NO LOCALIZADO: id01
+NO LOCALIZADO: ID1
 CATEGORIA CONOCIDA: Informatica
 CATEGORIA DESCONOCIDA: Moda
-DE CATEGORIA: Informatica --- ID01:::ID02 ---
+DE CATEGORIA: Informatica --- ID01:::ID02 --- 
 CAMBIADO: ID01:::Pantalla PC Gaming:::Informatica:::Monitor curvo 24 pulgadas 144Hz:::2026-10-02:::2026-12-31
 NO CAMBIADO: ID99
+LOCALIZADO: ID01:::Pantalla PC Gaming:::Informatica:::Monitor curvo 24 pulgadas 144Hz:::2026-10-02:::2026-12-31
+NO LOCALIZADO: ID99
 PURGADOS: 2026-09-20
+NO LOCALIZADO: ID03
+LOCALIZADO: ID40:::Maleta pequeña:::En venta:::Maleta con ruedas, pequeña, buen estado.:::2026-09-20:::2026-09-01
 -----LISTADO: 3
 [ ID01 -de-> Informatica ;;; Pantalla PC Gaming ] (2026-10-02) --- Monitor curvo 24 pulgadas 144Hz --- (2026-12-31)
 [ ID02 -de-> Informatica ;;; Teclado mecanico ] (2026-10-05) --- Teclado RGB switch blue --- (2026-12-31)
@@ -27,28 +38,64 @@ INTRODUCIDO: ID50:::Sofa dos plazas:::Hogar:::Sofa gris desenfundable:::2026-11-
 [ ID40 -de-> En venta ;;; Maleta pequeña ] (2026-09-20) --- Maleta con ruedas, pequeña, buen estado. --- (2026-09-01)
 [ ID50 -de-> Hogar ;;; Sofa dos plazas ] (2026-11-01) --- Sofa gris desenfundable --- (2027-01-15)
 -----
-ANTERIORES A: 2026-09-20 --- ---
-ANTERIORES A: 2026-09-21 --- ID40 ---
-ANTERIORES A: 2026-10-05 --- ID01:::ID05:::ID40 ---
-ANTERIORES A: 2027-01-01 --- ID01:::ID02:::ID05:::ID40:::ID50 ---
+ANTERIORES A: 2026-09-20 ---  --- 
+ANTERIORES A: 2026-09-21 --- ID40 --- 
+ANTERIORES A: 2026-10-05 --- ID01:::ID05:::ID40 --- 
+ANTERIORES A: 2027-01-01 --- ID01:::ID02:::ID05:::ID40:::ID50 --- 
 BORRADO: ID01
 NO BORRADO: id02
 BORRADO: ID50
 BORRADO: ID05
 NO BORRADO: ID05
 NO BORRADO: ID99
+NO LOCALIZADO: ID01
+LOCALIZADO: ID02:::Teclado mecanico:::Informatica:::Teclado RGB switch blue:::2026-10-05:::2026-12-31
+NO LOCALIZADO: ID05
 -----LISTADO: 2
 [ ID02 -de-> Informatica ;;; Teclado mecanico ] (2026-10-05) --- Teclado RGB switch blue --- (2026-12-31)
 [ ID40 -de-> En venta ;;; Maleta pequeña ] (2026-09-20) --- Maleta con ruedas, pequeña, buen estado. --- (2026-09-01)
 -----
-ANTERIORES A: 2026-10-05 --- ID40 ---
+ANTERIORES A: 2026-10-05 --- ID40 --- 
 BORRADO: ID02
 BORRADO: ID40
 -----LISTADO: 0
 -----
-ANTERIORES A: 2026-12-31 --- ---
+NO LOCALIZADO: ID40
+ANTERIORES A: 2026-12-31 ---  --- 
 NO BORRADO: ID40
 INTRODUCIDO: ID40:::Maleta pequeña:::En venta:::Maleta con ruedas, pequeña, buen estado.:::2026-09-20:::2026-09-01
 -----LISTADO: 1
 [ ID40 -de-> En venta ;;; Maleta pequeña ] (2026-09-20) --- Maleta con ruedas, pequeña, buen estado. --- (2026-09-01)
 -----
+LOCALIZADO: ID40:::Maleta pequeña:::En venta:::Maleta con ruedas, pequeña, buen estado.:::2026-09-20:::2026-09-01
+INTRODUCIDO: ID100:::Bicicleta montaña:::Deportes:::Bicicleta de montaña talla M:::2026-11-18:::2026-12-18
+INTRODUCIDO: id40:::Silla oficina:::Hogar:::Silla ergonomica con ruedas:::2026-09-20:::2026-10-20
+-----LISTADO: 3
+[ ID100 -de-> Deportes ;;; Bicicleta montaña ] (2026-11-18) --- Bicicleta de montaña talla M --- (2026-12-18)
+[ ID40 -de-> En venta ;;; Maleta pequeña ] (2026-09-20) --- Maleta con ruedas, pequeña, buen estado. --- (2026-09-01)
+[ id40 -de-> Hogar ;;; Silla oficina ] (2026-09-20) --- Silla ergonomica con ruedas --- (2026-10-20)
+-----
+LOCALIZADO: id40:::Silla oficina:::Hogar:::Silla ergonomica con ruedas:::2026-09-20:::2026-10-20
+LOCALIZADO: ID40:::Maleta pequeña:::En venta:::Maleta con ruedas, pequeña, buen estado.:::2026-09-20:::2026-09-01
+LOCALIZADO: ID100:::Bicicleta montaña:::Deportes:::Bicicleta de montaña talla M:::2026-11-18:::2026-12-18
+ANTERIORES A: 2026-11-18 --- ID40:::id40 --- 
+BORRADO: id40
+BORRADO: ID100
+-----LISTADO: 1
+[ ID40 -de-> En venta ;;; Maleta pequeña ] (2026-09-20) --- Maleta con ruedas, pequeña, buen estado. --- (2026-09-01)
+-----
+NO LOCALIZADO: ID100
+LOCALIZADO: ID40:::Maleta pequeña:::En venta:::Maleta con ruedas, pequeña, buen estado.:::2026-09-20:::2026-09-01
+INTRODUCIDO: ID10:::Maleta cabina:::Compra:::Compraria maleta cabina tamaño Ryanair:::2026-09-10:::2026-11-20
+DESCONOCIDO: ID999
+DESCONOCIDO: iD10
+CATEGORIA DESCONOCIDA: ID10
+DE CATEGORIA: Categoria inexistente ---  --- 
+NO PURGADOS: 1900-01-01
+CATEGORIA DESCONOCIDA: informatica
+DE CATEGORIA: informatica ---  --- 
+INTRODUCIDO: ID01:::Pantalla de prueba:::Informatica:::Anuncio de prueba:::2026-09-01:::2026-12-31
+CAMBIADO: ID01:::Pantalla de prueba cambiada:::Deportes:::Anuncio de prueba cambiado:::2026-09-01:::2026-12-31
+CATEGORIA CONOCIDA: Deportes
+DE CATEGORIA: Deportes --- ID01 --- 
+PURGADOS: 2026-10-01
