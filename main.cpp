@@ -122,9 +122,9 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         bool encontrado = esta(existe_ident, coleccion_anuncios);
         if(archivo_salida.is_open()){
             if(encontrado){
-                archivo_salida << "EXISTENTE " << existe_ident << endl;
+                archivo_salida << "EXISTENTE: " << existe_ident << endl;
             }else{
-                archivo_salida << "DESCONOCIDO " << existe_ident << endl;
+                archivo_salida << "DESCONOCIDO: " << existe_ident << endl;
             }
         }else{
             cerr << "No se pudo abrir el archivo de salida" << endl;
