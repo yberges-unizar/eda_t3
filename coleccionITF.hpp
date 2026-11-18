@@ -410,28 +410,29 @@ template<typename ITF> std::string delTema(coleccionITF<ITF>& c, const std::stri
 /* Devuelve una colección igual a la resultante de eliminar de c todos los items i cuyo tema es igual a t
 */
 template<typename ITF> coleccionITF<ITF> zanjarTema(coleccionITF<ITF>& c, const string& t){
-     if(!esVacia(c)){
-          typename coleccionITF<ITF>::unITF* aux = c.inicial;
-          if(tema(aux->dato) == t){
-               c.inicial = c.inicial->siguiente;
-               c.cardinal--;
-          }
+     typename coleccionITF<ITF>::unITF* actual = c.inicial;
+     typename coleccionITF<ITF>::unITF* previo = nullptr;
 
-          while(aux->siguiente != nullptr){ //hasta que no alcancemos el final de la coleccion no pararemos
-               if(tema(aux->dato) == t){
-                    typename coleccionITF<ITF>::unITF* borrador = aux; 
-                    aux = aux->siguiente;
-                    c.cardinal--;
+     while(actual != nullptr){//minetras que no nos encontremos apuntando a nada
+          if (tema(actual->dato) == t){
+               typename coleccionITF<ITF>::unITF* eliminado = actual;
+               actual = actual->siguiente; //Avanzaremos una posicion, pues vamos a eliminar el elemento en el que estabamos
 
-               }else{
-                    aux= aux->siguiente;
+               if(previo == nullptr) { //Si el elemento anterior era el primero deberemos actualizarlo
+                    c.inicial = actual;
+               } else {
+                    previo->siguiente = actual; //Ajustamos el puntero para saltar el hueco
                }
-          }
 
-          return c;
-     }else{
-          return c; //la coleccion estaba vacia
+               delete eliminado;
+               c.cardinal--;
+
+          }else{ //Avanzaremos por la coleccion
+               previo = actual;
+               actual = actual->siguiente;
+          }
      }
+     return c; //devolvemos la coleccion actualizada
 }
 
 
