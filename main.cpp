@@ -24,16 +24,45 @@ const string SEPARADOR_DATOS = ":::";
 string identificador(const Anuncio& a);
 string tema(const Anuncio& a);
 Fecha fecha(const Anuncio& a);
+/* Ejecuta la instrucción entrada ("A", "C", "O", "E", "B", "EC", "BC", "LC", "P", "LO" o "LT")
+   sobre coleccion_anuncios: lee de archivo_entrada las líneas de datos que necesita la
+   instrucción y escribe su resultado en archivo_salida. Una instrucción desconocida se ignora. */
 void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, ofstream& archivo_salida,
     coleccionITF<Anuncio>& coleccion_anuncios);
+
+/* Lee de archivo las 6 líneas con los datos de un anuncio, en el orden del fichero de entrada:
+   identificador, título, descripción, categoría, fecha de publicación y fecha de finalización
+   (fechas en formato aaaa-mm-dd), y los devuelve en los parámetros correspondientes. */
 void obtener_datos_anuncio(string &id, string &titulo, string &descripcion,
     string &categoria, Fecha &fecha_publicacion, Fecha &fecha_finalizacion, ifstream& archivo);
 void anyadir_anuncio(coleccionITF<Anuncio>& coleccion_anuncios, ifstream& archivoEntrada, ofstream& archivoSalida);
+
+/* Escribe en archivo_salida una línea con los datos de anuncio separados por ":::", en el orden:
+   identificador, título, categoría, descripción, publicación y finalización (aaaa-mm-dd).
+   Es el formato común de las salidas de A, C y O. */
 void escribir_datos_anuncio(ofstream& archivo_salida , const Anuncio& anuncio);
+
+/* Instrucción LT: escribe en archivo_salida la línea "-----LISTADO: N", con N el número de anuncios,
+   después una línea por anuncio en orden creciente de identificador con el formato
+   "[ id -de-> categoria ;;; título ] (publicación) --- descripción --- (finalización)"
+   y por último la línea "-----". Recorre la colección con su iterador, que queda al final. */
 void listar_anuncios(ofstream& archivo_salida, coleccionITF<Anuncio>& coleccion);
+
+/* Instrucción O: lee de archivo_entrada una línea con un identificador. Si en coleccion_anuncios
+   hay un anuncio con ese identificador, escribe "LOCALIZADO: " seguido de sus datos (formato de
+   escribir_datos_anuncio); si no, escribe "NO LOCALIZADO: " seguido del identificador. */
 void obtener_anuncio(ifstream& archivo_entrada, ofstream& archivo_salida, const coleccionITF<Anuncio>& coleccion_anuncios);
+
+/* Lee de f una línea con una fecha en formato aaaa-mm-dd y la devuelve en fecha.
+   error es true si la fecha leída no es válida; en ese caso fecha no se modifica. */
+void leer_fecha(ifstream& f, Fecha& fecha, bool& error);
+
+/* Devuelve la fecha f como cadena en formato aaaa-mm-dd, con el mes y el día
+   rellenados con un cero a la izquierda si tienen una sola cifra (p. ej. 2026-09-01). */
 string fecha_string(const Fecha& f);
 
+/* Crea una colección de anuncios vacía, ejecuta en orden todas las instrucciones de
+   "entrada.txt" y escribe el resultado de cada una en "salida.txt". */
 int main() {
     ifstream archivo_entrada(RUTA_FICHERO_ENTRADA);
     ofstream archivo_salida(RUTA_FICHERO_SALIDA);
@@ -75,7 +104,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         crearAnuncio(id, titulo, descripcion, categoria,
             fecha_publicacion, fecha_finalizacion, anuncio);
 
-        if (esta(coleccion_anuncios, id)) {
+        if (esta(id, coleccion_anuncios)) {
             actualizar(coleccion_anuncios, anuncio);
             cout << "CAMBIADO: " << id << endl;
         } else {
@@ -90,7 +119,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         
         string existe_ident;
         getline(archivo_entrada, existe_ident);
-        bool encontrado = esta(coleccion_anuncios, existe_ident);
+        bool encontrado = esta(existe_ident, coleccion_anuncios);
         if(archivo_salida.is_open()){
             if(encontrado){
                 archivo_salida << "EXISTENTE " << existe_ident << endl;
@@ -103,7 +132,17 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
 
 
     }else if(entrada == "B"){
-        //la siguiente línea del fichero contendrá el identificador de anuncio 
+        string ident;
+        int tamanyo_previo_coleccion;
+
+        getline(archivo_entrada, ident);
+        tamanyo_previo_coleccion = tamanyo(coleccion_anuncios);
+        borrar(ident, coleccion_anuncios);
+        if (tamanyo(coleccion_anuncios) < tamanyo_previo_coleccion) {
+            archivo_salida << "BORRADO: " << ident << endl;
+        } else {
+            archivo_salida << "NO BORRADO: " << ident << endl;
+        }
 
     }else if(entrada == "EC"){
         //la siguiente línea del fichero contendrá la categoría de los anuncios
@@ -183,7 +222,21 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         }
 
     }else if(entrada == "LO"){
-        //la siguiente línea del fichero contendrá el valor de la fecha a utilizar
+        Fecha fecha_limite;
+        bool error;
+        string ident_obsoletos;
+
+        leer_fecha(archivo_entrada, fecha_limite, error);
+        ident_obsoletos = obsoletos(fecha_limite, SEPARADOR_DATOS, coleccion_anuncios);
+
+        archivo_salida << "ANTERIORES A: " << fecha_string(fecha_limite) << " --- "
+            << ident_obsoletos;
+
+        if (! ident_obsoletos.empty()) {
+            archivo_salida << " ";
+        }
+
+        archivo_salida << "---" << endl;
 
     }else if(entrada == "LT"){
         listar_anuncios(archivo_salida, coleccion_anuncios);
@@ -289,7 +342,7 @@ void obtener_anuncio(ifstream& archivo_entrada, ofstream& archivo_salida, const 
     bool error;
 
     getline(archivo_entrada, ident);
-    obtenerITF(coleccion_anuncios, ident, anuncio, error);
+    obtenerITF(ident, coleccion_anuncios, anuncio, error);
 
     if (!error) {
         archivo_salida << "LOCALIZADO: ";
@@ -315,6 +368,15 @@ void listar_anuncios(ofstream& archivo_salida, coleccionITF<Anuncio>& coleccion)
     }
 
     archivo_salida << "-----" << endl;
+}
+
+
+void leer_fecha(ifstream& f, Fecha& fecha, bool& error) {
+    string anyo_str, mes_str, dia_str;
+    getline(f, anyo_str, '-');
+    getline(f, mes_str, '-');
+    getline(f, dia_str);
+    crear(stoi(dia_str), stoi(mes_str), stoi(anyo_str), fecha, error);
 }
 
 string identificador(const Anuncio& a){
