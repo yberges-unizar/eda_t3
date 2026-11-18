@@ -172,6 +172,7 @@ private:
 template<typename ITF> coleccionITF<ITF> crear(coleccionITF<ITF>& c){
      c.cardinal = 0;
      c.inicial = nullptr;
+     c.iter_ptr = nullptr;
      return c;
 }
 
@@ -416,7 +417,7 @@ template<typename ITF> coleccionITF<ITF> zanjarTema(coleccionITF<ITF>& c, const 
      typename coleccionITF<ITF>::unITF* actual = c.inicial;
      typename coleccionITF<ITF>::unITF* previo = nullptr;
 
-     while(actual != nullptr){//minetras que no nos encontremos apuntando a nada
+     while(actual != nullptr){ //Minetras que no nos encontremos apuntando a nada
           if (tema(actual->dato) == t){
                typename coleccionITF<ITF>::unITF* eliminado = actual;
                actual = actual->siguiente; //Avanzaremos una posicion, pues vamos a eliminar el elemento en el que estabamos
@@ -435,7 +436,7 @@ template<typename ITF> coleccionITF<ITF> zanjarTema(coleccionITF<ITF>& c, const 
                actual = actual->siguiente;
           }
      }
-     return c; //devolvemos la coleccion actualizada
+     return c; //Devolvemos la coleccion actualizada
 }
 
 
@@ -449,7 +450,7 @@ template<typename ITF> bool esVacia(const coleccionITF<ITF>& c){
 
 
 /* Devuelve el número de items que hay en la colección c 
-     O(n)
+     O(1)
 */ 
 template<typename ITF> int tamanyo(const coleccionITF<ITF>& c){
      return c.cardinal; 

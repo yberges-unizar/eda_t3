@@ -115,7 +115,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         obtener_anuncio(archivo_entrada, archivo_salida, coleccion_anuncios);
 
     }else if(entrada == "E"){
-        //la siguiente línea del fichero contendrá el identificador de anunci
+        //la siguiente línea del fichero contendrá el identificador de anuncio
         
         string existe_ident;
         getline(archivo_entrada, existe_ident);
@@ -163,7 +163,7 @@ void gestionar_entrada_salida(const string entrada, ifstream& archivo_entrada, o
         getline(archivo_entrada, tema);
         zanjarTema(coleccion_anuncios, tema);
 
-        if(tamanyo_previo < tamanyo(coleccion_anuncios)){ //Para saber si se ha anyadido con exito compararemos la cantidad de anuncios
+        if(tamanyo_previo > tamanyo(coleccion_anuncios)){ //Para saber si se ha anyadido con exito compararemos la cantidad de anuncios
             archivo_salida << "ELIMINADOS: " << tema << endl;
         } else {
             archivo_salida << "NO ELIMINADOS: " << tema << endl;
@@ -247,10 +247,7 @@ void anyadir_anuncio(coleccionITF<Anuncio>& coleccion_anuncios, ifstream& archiv
         }
     }
 
-    bool error = false;
-    escribir_datos_anuncio(archivoSalida, anun);
-    if(error){ cerr << "Error al escribir el anuncio en el archivo de salida" << endl;}
-    
+    escribir_datos_anuncio(archivoSalida, anun);    
 }
 
 void obtener_datos_anuncio(string &id, string &titulo, string &descripcion, string &categoria,
